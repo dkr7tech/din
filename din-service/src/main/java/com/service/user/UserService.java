@@ -1,0 +1,21 @@
+package com.service.user;
+
+import java.util.List;
+
+import com.model.user.User;
+
+/**
+ * @author dsharma
+ *
+ */
+
+public interface UserService {
+	
+	public User createUser(User user);
+	public boolean validateUser(User user);
+
+	public User getUser(int id);
+
+	public User getUser(User user);
+	public List<User> getUserList();
+}

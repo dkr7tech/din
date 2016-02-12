@@ -1,0 +1,80 @@
+package com.db;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.model.user.User;
+
+@Repository
+public class UserDAOImpl implements UserDAO {
+    @PersistenceContext
+    private EntityManager entityManager;
+
+	public UserDAOImpl() {
+		
+	}
+	
+	/*public UserDAOImpl(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}*/
+
+	
+	@Transactional
+	public List<User> list() {
+		return entityManager.createQuery("select u from User u")
+				.getResultList();
+	}
+
+	
+	@Transactional
+	public void saveOrUpdate(User user) {
+		entityManager.merge(user);
+	}
+
+	/*
+	@Transactional
+	public void saveOrUpdateRole(TtRole role) {
+		entityManager.merge(role);
+	}*/
+
+	
+	@Transactional
+	public void delete(int id) {
+		User userToDelete = new User();
+		//userToDelete.setUserId(id);
+		entityManager.remove(userToDelete);
+	}
+
+	
+	@Transactional
+	public User get(int id) {
+		String hql = "from User where id=" + id;
+		return entityManager.find(User.class, id);
+			
+		
+		//return null;
+	}
+
+	
+	public User getUser(String login, String password) {
+		String hql="SELECT u FROM User u WHERE u.login = :login AND u.password = :password ";
+		User user=null;
+		List<User> userList =entityManager.createQuery(hql, User.class)
+		.setParameter("login", login)
+		.setParameter("password", password)
+		.getResultList();
+		if(userList!=null && !userList.isEmpty()){
+			user=userList.get(0);	
+		}else{
+			System.out.println("UserDAOImpl getUser() no record for user "+login);
+		}
+		
+		return user;
+		
+	}
+}
