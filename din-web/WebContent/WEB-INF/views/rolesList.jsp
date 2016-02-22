@@ -37,13 +37,21 @@ $.ajax({
     	$('#externalName').val(json.rolePerm.role.externalName);
     	$('#description').val(json.rolePerm.role.description);
     	json.availablePerm
-    	var $el = $("#avselect");
+    	var $el = $("#avpermselect");
     	$el.empty(); // remove old options
     	$.each(json.availablePerm, function(value,key) {
     	  $el.append($("<option></option>")
     	     .attr("value", value).text(key));
     	});
     	
+    	
+    	
+    	var $el = $("#selectedroleperm");
+    	$el.empty(); // remove old options
+    	$.each(json.selectedPerm, function(value,key) {
+    	  $el.append($("<option></option>")
+    	     .attr("value", value).text(key));
+    	});
         //$( "<h1>" ).text( json.title ).appendTo( "body" );
         //$( "<div class=\"content\">").html( json.html ).appendTo( "body" );
     },
@@ -63,6 +71,25 @@ $.ajax({
 });
 }
 </script>
+<script>   
+    /*
+		@param1 - sourceid - This is the id of the multiple select box whose item has to be moved.
+		@param2 - destinationid - This is the id of the multiple select box to where the iterms should be moved.
+	*/
+	
+	//this will move selected items from source list to destination list			
+	function move_list_items(sourceid, destinationid)
+	{
+		$("#"+sourceid+"  option:selected").appendTo("#"+destinationid);
+	}
+
+	//this will move all selected items from source list to destination list
+	function move_list_items_all(sourceid, destinationid)
+	{
+		$("#"+sourceid+" option").appendTo("#"+destinationid);
+	}
+</script>
+
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <body>
 <table>
@@ -93,20 +120,28 @@ $.ajax({
 			<tr>
 				<td align="left">type</td>
 				<td><form:input path="role.type"/></td>
-			</tr>
-			<tr><td>
-			<form:select  path="permission" multiple="true"	items="${availablePerm}" id="avselect" /></td>
-			</tr>
+			<tr  align="center">
+			<td >
+			<form:select  path="permission" multiple="true"	items="${availablePerm}" id="avpermselect" style="height: 201px; width: 200px;" /></td>
+			<td valign="middle" align="center">
+			<input id="moveright" type="button" value="Move Right" onclick="move_list_items('avpermselect','selectedroleperm');" /><br></br> 
+			<input id="moveleft" type="button" value="Move Left" onclick="move_list_items('selectedroleperm','avpermselect');" /></td>
+			<td ><form:select path="role" multiple="true" items="${selectedPerm}"  id="selectedroleperm" style="height: 201px; width: 200px;"/></td>
+		</tr>	
 			<tr>
 				<td colspan="2" align="center">
 					<input type="submit" value="Save">
 				</td>
-			</tr>			
+			</tr>		
+			
+			
+			
+			
+			
+			
 		</form:form>
 	</table>
-	 <div id = "stage" style = "background-color:cc0;">
-         STAGE
-      </div>
+	
 		
 </body>
 </html>

@@ -64,7 +64,9 @@ public class RolePermController {
 		view.setBeanName("role");
 		ModelAndView model = new ModelAndView(view);
 		Map<Integer, String> permMap = PermissionEnum.getPermIdWithNameMap();
+		Map<Integer, String> rolemap =roleEnum.getRolesIdWithNameMap();
 		model.addObject("availablePerm", permMap);
+		model.addObject("selectedPerm", rolemap);
 		model.addObject("rolePerm", rolePerm);
 		
 		return model;

@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,8 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.common.utils.StringUtility;
 import com.db.UserDAO;
 import com.model.common.LoginSessionBean;
+import com.model.common.RoleEnum;
 import com.model.common.constant.CommonConstant;
 import com.model.user.User;
+import com.model.user.UserRole;
 import com.service.user.UserService;
 
 /**
@@ -42,7 +45,7 @@ public class HomeController {
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public ModelAndView newUser() {
 		ModelAndView model = new ModelAndView("UserForm");
-		model.addObject("user", new User());
+		model.addObject("userrole", new UserRole());
 		return model;
 	}
 
@@ -50,8 +53,14 @@ public class HomeController {
 	public ModelAndView editUser(HttpServletRequest request) {
 		int userId = Integer.parseInt(request.getParameter("id"));
 		User user = userDao.get(userId);
+		UserRole userrole=new UserRole();
+		userrole.setUser(user);
+		
 		ModelAndView model = new ModelAndView("UserForm");
-		model.addObject("user", user);
+		Map<Integer, String> rolemap =RoleEnum.getRolesIdWithNameMap();
+		model.addObject("availableRoles", rolemap);
+		model.addObject("selectedRoles", rolemap);
+		model.addObject("userrole", userrole);
 		return model;
 	}
 
