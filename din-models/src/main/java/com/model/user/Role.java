@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -62,9 +64,15 @@ public class Role implements Serializable {
 	
 
 
-	//bi-directional many-to-one association to UserRole
+	/*//bi-directional many-to-one association to UserRole
 	@OneToMany(mappedBy="role")
 	private List<UserRole> userRoles;
+	*/
+	  @OneToOne(cascade=CascadeType.ALL)  
+	    @JoinTable(name="tl_user_role",  
+	    joinColumns={@JoinColumn(name="role_id", referencedColumnName="role_id")},  
+	    inverseJoinColumns={@JoinColumn(name="user_id", referencedColumnName="user_id")}) 
+	private User user;
 
 	public Role() {
 	}
@@ -133,7 +141,7 @@ public class Role implements Serializable {
 	public void setPermissionList(List<Permission> permissionList) {
 		this.permissionList = permissionList;
 	}
-
+/*
 	public List<UserRole> getUserRoles() {
 		return this.userRoles;
 	}
@@ -154,6 +162,17 @@ public class Role implements Serializable {
 		userRole.setRole(null);
 
 		return userRole;
+	}*/
+
+	public User getUser() {
+		return user;
 	}
 
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	
+	
+	
 }

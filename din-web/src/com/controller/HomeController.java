@@ -20,6 +20,7 @@ import com.model.common.RoleEnum;
 import com.model.common.constant.CommonConstant;
 import com.model.user.User;
 import com.model.user.UserRole;
+import com.service.auth.RolePermManager;
 import com.service.user.UserService;
 
 /**
@@ -45,6 +46,8 @@ public class HomeController {
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public ModelAndView newUser() {
 		ModelAndView model = new ModelAndView("UserForm");
+		RolePermManager roleManager= new RolePermManager();
+		model.addObject("availableRoles", roleManager.getAllRoles());
 		model.addObject("userrole", new UserRole());
 		return model;
 	}
@@ -76,8 +79,8 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView saveUser(@ModelAttribute User user) {
-		User newUser = userService.createUser(user);
+	public ModelAndView saveUser(@ModelAttribute UserRole UserRole) {
+		User newUser = userService.createUser(UserRole.getUser());
 		/*
 		 * if(newUser.getUserId()>0){
 		 * 

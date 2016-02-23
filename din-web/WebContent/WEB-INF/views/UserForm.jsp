@@ -73,7 +73,7 @@
 			<td valign="middle" align="center">
 			<input id="moveright" type="button" value="Move Right" onclick="move_list_items('avpermselect','selectedroleperm');" /><br></br> 
 			<input id="moveleft" type="button" value="Move Left" onclick="move_list_items('selectedroleperm','avpermselect');" /></td>
-			<td ><form:select path="user" multiple="true" items="${selectedRoles}"  id="selectedroleperm" style="height: 201px; width: 200px;"/></td>
+			<td ><form:select path="user.userRoles" multiple="true" items="${selectedRoles}"  id="selectedroleperm" style="height: 201px; width: 200px;"/></td>
 		</tr>	
 			<%-- <tr><td align="left">Assign Roles</td>
 			<%@ include file="userdata.jsp" %>
