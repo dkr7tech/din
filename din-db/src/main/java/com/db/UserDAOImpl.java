@@ -32,8 +32,8 @@ public class UserDAOImpl implements UserDAO {
 
 	
 	@Transactional
-	public void saveOrUpdate(User user) {
-		entityManager.merge(user);
+	public User saveOrUpdate(User user) {
+		return entityManager.merge(user);
 	}
 
 	/*

@@ -19,7 +19,7 @@ public interface RolePermService {
 
 	public List<Role> getRoles();
 
-	public int createPermission(Permission perm);
+	public Permission createPermission(Permission perm);
 
 	public int addPermission(Permission perm);
 

@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -76,7 +75,7 @@ public class User implements Serializable {
 	    joinColumns={@JoinColumn(name="user_id", referencedColumnName="user_id")},  
 	    inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="role_id")})
 	//@OneToMany(mappedBy="user")
-	private List<UserRole> userRoles;
+	private List<Role> roleList;
 
 	public User() {
 	}
@@ -201,26 +200,14 @@ public class User implements Serializable {
 		this.status = status;
 	}
 
-	public List<UserRole> getUserRoles() {
-		return this.userRoles;
+	public List<Role> getRoleList() {
+		return roleList;
 	}
 
-	public void setUserRoles(List<UserRole> userRoles) {
-		this.userRoles = userRoles;
+	public void setRoleList(List<Role> roleList) {
+		this.roleList = roleList;
 	}
 
-	public UserRole addUserRole(UserRole userRole) {
-		getUserRoles().add(userRole);
-		userRole.setUser(this);
-
-		return userRole;
-	}
-
-	public UserRole removeUserRole(UserRole userRole) {
-		getUserRoles().remove(userRole);
-		userRole.setUser(null);
-
-		return userRole;
-	}
+	
 
 }

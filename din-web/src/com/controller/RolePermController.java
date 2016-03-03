@@ -29,8 +29,11 @@ public class RolePermController {
 		RolePerm rolePerm = new RolePerm();
 		ModelAndView modelAndView = new ModelAndView("rolesList");
 		Map<Integer, String> rolesMap = RoleEnum.getRolesIdWithNameMap();
+		Map<Integer, String> permMap = PermissionEnum.getPermIdWithNameMap();
 		modelAndView.addObject("rolePerm", rolePerm);
 		modelAndView.addObject("rolesMap", rolesMap);
+		//modelAndView.addObject("rolesMap", permMap);
+		
 		return modelAndView;
 	}
 
@@ -65,6 +68,7 @@ public class RolePermController {
 		ModelAndView model = new ModelAndView(view);
 		Map<Integer, String> permMap = PermissionEnum.getPermIdWithNameMap();
 		Map<Integer, String> rolemap =roleEnum.getRolesIdWithNameMap();
+		getRolePermService().getRoles();
 		model.addObject("availablePerm", permMap);
 		model.addObject("selectedPerm", rolemap);
 		model.addObject("rolePerm", rolePerm);
@@ -97,7 +101,7 @@ public class RolePermController {
 
 	@RequestMapping(value = "/saveperm", method = RequestMethod.POST)
 	public ModelAndView saveRole(@ModelAttribute Permission permission) {
-		int i = getRolePermService().createPermission(permission);
+		getRolePermService().createPermission(permission);
 		return new ModelAndView("redirect:/");
 	}
 

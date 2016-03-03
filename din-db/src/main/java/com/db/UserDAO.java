@@ -10,7 +10,7 @@ public interface UserDAO {
 	public User get(int id);
 	public User getUser(String login,String password);
 	
-	public void saveOrUpdate(User user);
+	public User saveOrUpdate(User user);
 	//public void saveOrUpdateRole(TtRole role);
 	
 	public void delete(int id);

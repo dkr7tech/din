@@ -34,14 +34,9 @@ public class UserServiceImpl implements UserService {
 	
 	public User createUser(User user) {
 		Date currDate=new Date();
-		Role role=new Role();
-		
-		//user.setCreatetime(currDate);
+		user.setCreatetime(currDate);
 		user.setModtime(currDate);
-		//currDateuser.addUserRole(role);
-		getUserDao().saveOrUpdate(user);
-		
-		return null;
+		return getUserDao().saveOrUpdate(user);
 	}
 
 	

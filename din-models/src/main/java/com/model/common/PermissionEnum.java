@@ -5,9 +5,12 @@ import java.util.Map;
 
 public enum PermissionEnum {
 
-	PermissionEnum_1(1, 1, "BASIC_USER Perission", "Basic Functionality", " "), 
-	PermissionEnum_2(2, 1, "USER_ADMIN Permission", " User CRUD OPRATIONS"," "), 
-	PermissionEnum_3(3, 1, "", " ab permission", "dd ");
+	PermissionEnum_1(1, 1, "BASIC USER ", "User can Login in system", " "), 
+	PermissionEnum_2(2, 1, "Create User", " User Create"," "), 
+	PermissionEnum_3(3, 1, "Delete User", " User Delet"," "), 
+	PermissionEnum_5(4, 1, "Modify User", " User Modify/Activate/Deactivate"," "), 
+	PermissionEnum_6(5, 1, "RolePerm Admistrator", " Create/Delete/Modify  Roles And Permission", " "),
+	PermissionEnum_7(5, 1, "RolePerm Assigner", " Assign Roles And Permission", " ");
 	private int id;
 	private int isActive;
 	private String name;

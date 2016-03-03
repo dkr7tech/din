@@ -173,6 +173,8 @@ public class Role implements Serializable {
 	}
 
 	
-	
+	public String getIdAsString(){
+		return String.valueOf(roleId);
+		}
 	
 }

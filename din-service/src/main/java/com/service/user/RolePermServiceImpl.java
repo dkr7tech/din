@@ -61,12 +61,12 @@ public class RolePermServiceImpl implements RolePermService {
 	}
 
 	
-	public int createPermission(Permission perm) {
+	public Permission createPermission(Permission perm) {
 		Date date = new Date();
 		perm.setCreatetime(date);		
 		perm.setModtime(date);
-		int i = getRolePermDAO().createPermission(perm);
-		return i;
+		return  getRolePermDAO().createPermission(perm);
+		
 	
 		
 	}

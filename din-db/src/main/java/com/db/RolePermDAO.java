@@ -20,9 +20,11 @@ public interface RolePermDAO {
 
 	public List<Role> getRoles();
 
-	public int createPermission(Permission perm);
+	public Permission createPermission(Permission perm);
 
-	public int addPermission(Permission perm);
+	public Role addPermToRole(Role role);
+
+	public List<Permission> getRolePermissions(Role role);
 
 	public List<Permission> getPermissions();
 

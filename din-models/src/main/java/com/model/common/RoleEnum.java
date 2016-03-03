@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum RoleEnum {
-	RoleEnum_1(1, 1, "BASIC_USER", "Basic Functionality", " "), RoleEnum_2(2, 1, "USER_ADMIN", " User CRUD OPRATIONS",
-			" "), RoleEnum_3(3, 1, "xdcccc", " dd", "dd ");
+	RoleEnum_1(1, 1, "BASIC USER", "Basic Login Functionality", " "),
+	RoleEnum_2(2, 1, "USER ADMIN", " User CRUD OPRATIONS"," "),
+	RoleEnum_3(3, 1, "Role Perm Administraor", " Create/Modify/Assign Roles", " "),
+	RoleEnum_4(4, 1, "USER Sub ADMIN", "User Activate/Deactivate User,Assign roles"," ");
+	
 
 	private int id;
 	private int isActive;

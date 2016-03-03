@@ -1,9 +1,11 @@
 package com.db;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -22,7 +24,6 @@ public class RolePermDAOImpl implements RolePermDAO {
 		return entityManager;
 	}
 
-	
 	@Transactional
 	public int createRole(Role role) {
 		getEntityManager().merge(role);
@@ -31,54 +32,48 @@ public class RolePermDAOImpl implements RolePermDAO {
 		return 0;
 	}
 
-	
 	public int updateRole(Role role) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	
 	public int addPermToRole(RolePerm roleperm) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	
 	public int removePermFromRole(RolePerm roleperm) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	
 	public int deleteRole(Role role) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	
 	public List<Role> getRoles() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	
 	@Transactional
-	public int createPermission(Permission perm) {
-
-		getEntityManager().merge(perm);
-		
-		return 0;
+	public Permission createPermission(Permission perm) {
+		return getEntityManager().merge(perm);
 	}
 
-	
-	public int addPermission(Permission perm) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	
 	public List<Permission> getPermissions() {
-		// TODO Auto-generated method stub
-		return null;
+		 Query query = getEntityManager().createQuery("SELECT e FROM Permission e");
+		    return (List<Permission>) query.getResultList();
+		
+	}
+
+	public Role addPermToRole(Role role) {
+		return getEntityManager().merge(role);
+	}
+
+	public List<Permission> getRolePermissions(Role role) {
+		Role roleObject = getEntityManager().find(Role.class, role.getRoleId());
+		return roleObject.getPermissionList();
 	}
 }
