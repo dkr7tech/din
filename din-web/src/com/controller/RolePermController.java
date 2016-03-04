@@ -1,9 +1,15 @@
 package com.controller;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +28,26 @@ import com.service.user.RolePermService;
 public class RolePermController {
 	@Autowired
 	private RolePermService rolePermService;
+	
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) throws Exception {
+	binder.registerCustomEditor(List.class, "role.permissionList", new CustomCollectionEditor(List.class) {
+
+		@Override
+		protected Object convertElement(Object element) {
+			String value = String.valueOf(element);
+			List<Permission> permList = new ArrayList<Permission>();
+			Permission perm = new Permission();
+			perm.setPermId(Integer.valueOf(value).intValue());
+			permList.add(perm);
+			return permList;
+		}
+
+	});
+
+	
+
+}
 
 	@RequestMapping(value = "/rolesList", method = RequestMethod.GET)
 	public ModelAndView findRoles() {
@@ -31,8 +57,8 @@ public class RolePermController {
 		Map<Integer, String> rolesMap = RoleEnum.getRolesIdWithNameMap();
 		Map<Integer, String> permMap = PermissionEnum.getPermIdWithNameMap();
 		modelAndView.addObject("rolePerm", rolePerm);
-		modelAndView.addObject("rolesMap", rolesMap);
-		//modelAndView.addObject("rolesMap", permMap);
+		modelAndView.addObject("rolesMap", getRolls());
+		modelAndView.addObject("availablePerm", permMap);
 		
 		return modelAndView;
 	}
@@ -48,6 +74,74 @@ public class RolePermController {
 		Map<Integer, String> rolesMap = RoleEnum.getRolesIdWithNameMap();
 		modelAndView.addObject("selectpermMap", rolesMap);
 		return modelAndView;
+	}
+	
+	
+	private Role populateRole(int id){
+		RoleEnum roleEnum=RoleEnum.getRoleEnumById(id);
+		Role role=new Role();
+		role.setName(roleEnum.getName().trim());
+		role.setRoleId(roleEnum.getId());
+		role.setDescription(roleEnum.getDesc().trim());
+		role.setExternalName(roleEnum.getExternalName().trim());
+		role.setStatus(roleEnum.getIsActive());
+		return role;
+	}
+	private List<Role> getRolls(){
+		List<Role> roles=new LinkedList<Role>();
+	
+		List<Role>  roleList=getRolePermService().getRoles();
+		/*if(roleList!=null && roleList.size()>0){
+			if(roleList.size()<RoleEnum.values().length){
+				int num=RoleEnum.values().length-roleList.size();
+				for(int i=RoleEnum.values().length; i>roleList.size(); i--){
+					roles.add(populateRole(i));
+				}
+			}
+		} else*/{
+			for(RoleEnum roleEnum:RoleEnum.values()){
+				if(roleEnum.getIsActive()==1){
+				roles.add(populateRole(roleEnum.getId()));
+				}
+			}
+		}
+		
+		return roles;
+	}
+	
+	
+	private Permission populatePerm(int id){
+		PermissionEnum permEnum=PermissionEnum.getPermEnumById(id);
+		Permission perm=new Permission();
+		perm.setName(permEnum.getName().trim());
+		perm.setPermId(permEnum.getId());
+		perm.setDescription(permEnum.getDesc().trim());
+		
+		perm.setStatus(permEnum.getIsActive());
+		return perm;
+	}
+	private List<Permission> getPermissons(){
+		List<Permission> permissons=new LinkedList<Permission>();
+		Map<Integer, String> permMap = PermissionEnum.getPermIdWithNameMap();
+	
+		
+		List<Permission>  permList=getRolePermService().getPermissions();
+		/*if(permList!=null && permList.size()>0){
+			if(permList.size()<PermissionEnum.values().length){
+				int num=PermissionEnum.values().length-permList.size();
+				for(int i=PermissionEnum.values().length; i>permList.size(); i--){
+					permissons.add(populatePerm(i));
+				}
+			}
+		} else*/{
+			for(PermissionEnum permEnum:PermissionEnum.values()){
+				if(permEnum.getIsActive()==1){
+					permissons.add(populatePerm(permEnum.getId()));
+				}
+			}
+		}
+		
+		return permissons;
 	}
 	//@JsonView(View.Summary.class)
 	@RequestMapping(value = "/roledata", method = RequestMethod.GET)
@@ -67,12 +161,31 @@ public class RolePermController {
 		view.setBeanName("role");
 		ModelAndView model = new ModelAndView(view);
 		Map<Integer, String> permMap = PermissionEnum.getPermIdWithNameMap();
+		Role r=new Role();
+		r.setRoleId(roleId);
+		Role roleData=getRolePermService().getRole(r);
 		Map<Integer, String> rolemap =roleEnum.getRolesIdWithNameMap();
 		getRolePermService().getRoles();
 		model.addObject("availablePerm", permMap);
-		model.addObject("selectedPerm", rolemap);
+		model.addObject("selectedroleperm", getPermissons());
 		model.addObject("rolePerm", rolePerm);
 		
+		return model;
+	}
+	
+	@RequestMapping(value = "/permdata", method = RequestMethod.GET)
+	public ModelAndView getPermData(@RequestParam("permId")  int permId) {
+		MappingJackson2JsonView view=new MappingJackson2JsonView();
+		ModelAndView model = new ModelAndView(view);
+		getRolePermService().getPermissions();
+		PermissionEnum permEnum=PermissionEnum.getPermEnumById(permId);
+		Permission permission=new Permission();
+		permission.setPermId(permEnum.getId());
+		permission.setName(permEnum.getName());
+		permission.setStatus(permEnum.getIsActive());
+		
+		permission.setDescription(permEnum.getDesc());
+		model.addObject("permission",permission );
 		return model;
 	}
 
@@ -87,21 +200,25 @@ public class RolePermController {
 	}
 
 	@RequestMapping(value = "/saverole", method = RequestMethod.POST)
-	public ModelAndView saveRole(@ModelAttribute Role role) {
-		int i = getRolePermService().createRole(role);
+	public ModelAndView saveRole(@ModelAttribute RolePerm rolePerm) {
+		int i = getRolePermService().createRole(rolePerm.getRole());
 		return new ModelAndView("redirect:/");
 	}
 
 	@RequestMapping(value = "/createPerm", method = RequestMethod.GET)
 	public ModelAndView createPermission() {
 		ModelAndView model = new ModelAndView("permission");
-		model.addObject("permission", new Permission());
+		RolePerm rolePerm=new RolePerm();
+		Map<Integer,String> permMap=PermissionEnum.getPermIdWithNameMap();
+		model.addObject("permMap", permMap);
+		model.addObject("rolePerm", rolePerm);
+		
 		return model;
 	}
 
 	@RequestMapping(value = "/saveperm", method = RequestMethod.POST)
-	public ModelAndView saveRole(@ModelAttribute Permission permission) {
-		getRolePermService().createPermission(permission);
+	public ModelAndView savePerm(@ModelAttribute RolePerm rolePerm) {
+		getRolePermService().createPermission(rolePerm.getPermission());
 		return new ModelAndView("redirect:/");
 	}
 

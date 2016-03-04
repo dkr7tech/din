@@ -33,7 +33,7 @@ public class Role implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="role_id")
 	private int roleId;
 
@@ -51,8 +51,10 @@ public class Role implements Serializable {
 	private String name;
 
 	private String type;
+	
+	private int status;
 
-	 @ManyToMany(fetch=FetchType.EAGER)
+	@OneToMany(fetch=FetchType.EAGER)
      @JoinTable(name="tl_role_perm",
              joinColumns=
              @JoinColumn(name="role_id", referencedColumnName="role_id"),
@@ -176,5 +178,15 @@ public class Role implements Serializable {
 	public String getIdAsString(){
 		return String.valueOf(roleId);
 		}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	
+	
 	
 }

@@ -27,7 +27,7 @@ public class Permission implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "perm_id")
 	private int permId;
 
@@ -40,6 +40,8 @@ public class Permission implements Serializable {
 	private Date modtime;
 
 	private String name;
+	
+	private int status;
 
 	@ManyToMany(mappedBy="permissionList",fetch=FetchType.EAGER)
 	private List<Role> roleList;
@@ -95,4 +97,13 @@ public class Permission implements Serializable {
 		this.roleList = roleList;
 	}
 
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	
 }

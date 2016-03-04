@@ -27,8 +27,8 @@ public class RolePermDAOImpl implements RolePermDAO {
 	@Transactional
 	public int createRole(Role role) {
 		getEntityManager().merge(role);
-		Permission permission = new Permission();
-		// permission.
+		
+		
 		return 0;
 	}
 
@@ -53,8 +53,8 @@ public class RolePermDAOImpl implements RolePermDAO {
 	}
 
 	public List<Role> getRoles() {
-		// TODO Auto-generated method stub
-		return null;
+		 Query query = getEntityManager().createQuery("SELECT e FROM Role e");
+		return (List<Role>) query.getResultList();
 	}
 
 	@Transactional
@@ -76,4 +76,10 @@ public class RolePermDAOImpl implements RolePermDAO {
 		Role roleObject = getEntityManager().find(Role.class, role.getRoleId());
 		return roleObject.getPermissionList();
 	}
+
+	public Role getRole(Role role) {
+		Role roleObject = getEntityManager().find(Role.class, role.getRoleId());
+		return roleObject;
+	}
+	
 }

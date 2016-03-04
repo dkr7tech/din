@@ -10,14 +10,16 @@ public interface RolePermService {
 	public int createRole(Role role);
 
 	public int editRole(Role role);
+	
+	public int deleteRole(Role role);
+
+	public List<Role> getRoles();
+	
+	public Role getRole(Role role);
 
 	public int addPermToRole(RolePerm roleperm);
 
 	public int removePermFromRole(RolePerm roleperm);
-
-	public int deleteRole(Role role);
-
-	public List<Role> getRoles();
 
 	public Permission createPermission(Permission perm);
 

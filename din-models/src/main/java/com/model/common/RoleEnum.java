@@ -4,10 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum RoleEnum {
-	RoleEnum_1(1, 1, "BASIC USER", "Basic Login Functionality", " "),
-	RoleEnum_2(2, 1, "USER ADMIN", " User CRUD OPRATIONS"," "),
-	RoleEnum_3(3, 1, "Role Perm Administraor", " Create/Modify/Assign Roles", " "),
-	RoleEnum_4(4, 1, "USER Sub ADMIN", "User Activate/Deactivate User,Assign roles"," ");
+	//Remove spaces from name ,description and external name
+	RoleEnum_1(1, 1, "Basic User", "Basic Login Functionality", " "),
+	RoleEnum_2(2, 1, "User Administrator", "User CRUD OPRATIONS"," "),
+	RoleEnum_3(3, 1, "Role Perm Administraor", "Create/Modify/Assign Roles", " "),
+	RoleEnum_4(4, 1, "User Sub Administrator", "User Activate/Deactivate User,Assign roles"," ");
 	
 
 	private int id;
@@ -31,6 +32,11 @@ public enum RoleEnum {
 
 	public String getExternalName() {
 		return externalName;
+	}
+
+	
+	public int getIsActive() {
+		return isActive;
 	}
 
 	private RoleEnum(int id, int isActive, String name, String desc, String externalName) {

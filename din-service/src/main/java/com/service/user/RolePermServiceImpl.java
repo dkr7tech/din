@@ -33,7 +33,7 @@ public class RolePermServiceImpl implements RolePermService {
 	
 	public int editRole(Role role) {
 		// TODO Auto-generated method stub
-		return 0;
+		return getRolePermDAO().updateRole(role);
 	}
 
 	
@@ -56,8 +56,8 @@ public class RolePermServiceImpl implements RolePermService {
 
 	
 	public List<Role> getRoles() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return getRolePermDAO().getRoles();
 	}
 
 	
@@ -80,7 +80,14 @@ public class RolePermServiceImpl implements RolePermService {
 	
 	public List<Permission> getPermissions() {
 		// TODO Auto-generated method stub
-		return null;
+		return getRolePermDAO().getPermissions();
 	}
+
+
+	public Role getRole(Role role) {
+		// TODO Auto-generated method stub
+		return getRolePermDAO().getRole(role);
+	}
+	
 	
 }

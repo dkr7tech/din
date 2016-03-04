@@ -12,13 +12,15 @@ public interface RolePermDAO {
 
 	public int updateRole(Role role);
 
-	public int addPermToRole(RolePerm roleperm);
-
-	public int removePermFromRole(RolePerm roleperm);
-
 	public int deleteRole(Role role);
 
 	public List<Role> getRoles();
+
+	public Role getRole(Role role);
+
+	public int addPermToRole(RolePerm roleperm);
+
+	public int removePermFromRole(RolePerm roleperm);
 
 	public Permission createPermission(Permission perm);
 
