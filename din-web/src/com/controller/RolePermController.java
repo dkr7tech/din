@@ -125,7 +125,7 @@ public class RolePermController {
 		Map<Integer, String> permMap = PermissionEnum.getPermIdWithNameMap();
 	
 		
-		List<Permission>  permList=getRolePermService().getPermissions();
+		List<Permission>  permList=getRolePermService().getAllSysPermissions();
 		/*if(permList!=null && permList.size()>0){
 			if(permList.size()<PermissionEnum.values().length){
 				int num=PermissionEnum.values().length-permList.size();
@@ -147,27 +147,19 @@ public class RolePermController {
 	@RequestMapping(value = "/roledata", method = RequestMethod.GET)
 	public ModelAndView getRoleData(@RequestParam("roleId")  int roleId) {
 		MappingJackson2JsonView view=new MappingJackson2JsonView();
-		RoleEnum roleEnum = RoleEnum.getRoleEnumById(roleId);
-		
 		RolePerm rolePerm = new RolePerm();
-		Role role = new Role();
-		
-		role.setName(roleEnum.getName());
-		role.setRoleId(roleEnum.getId());
-		role.setDescription(roleEnum.getDesc());
-		role.setExternalName(roleEnum.getExternalName());
-		role.setType("pub");
-		rolePerm.setRole(role);
-		view.setBeanName("role");
 		ModelAndView model = new ModelAndView(view);
-		Map<Integer, String> permMap = PermissionEnum.getPermIdWithNameMap();
-		Role r=new Role();
-		r.setRoleId(roleId);
-		Role roleData=getRolePermService().getRole(r);
-		Map<Integer, String> rolemap =roleEnum.getRolesIdWithNameMap();
-		getRolePermService().getRoles();
-		model.addObject("availablePerm", permMap);
-		model.addObject("selectedroleperm", getPermissons());
+		Role role=new Role();
+		role.setRoleId(roleId);
+		Role roleData=getRolePermService().getRole(new Role(roleId,null));
+		rolePerm.setRole(roleData);
+		view.setBeanName("role");
+		
+		List<List<Permission>> permList=getRolePermService().getRolePermAndAvailPerm(roleData);
+		if(permList!=null && !permList.isEmpty()){
+			model.addObject("availablePerm", permList.get(0));
+			model.addObject("selectedperm", permList.get(1));
+		}
 		model.addObject("rolePerm", rolePerm);
 		
 		return model;
@@ -177,7 +169,7 @@ public class RolePermController {
 	public ModelAndView getPermData(@RequestParam("permId")  int permId) {
 		MappingJackson2JsonView view=new MappingJackson2JsonView();
 		ModelAndView model = new ModelAndView(view);
-		getRolePermService().getPermissions();
+		getRolePermService().getAllSysPermissions();
 		PermissionEnum permEnum=PermissionEnum.getPermEnumById(permId);
 		Permission permission=new Permission();
 		permission.setPermId(permEnum.getId());

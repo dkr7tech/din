@@ -26,8 +26,12 @@ public class RolePermDAOImpl implements RolePermDAO {
 
 	@Transactional
 	public int createRole(Role role) {
+		Role role1=getEntityManager().find(Role.class, role.getRoleId());
+		if(role1!=null){
 		getEntityManager().merge(role);
-		
+		}
+		getEntityManager().merge(role);
+	
 		
 		return 0;
 	}

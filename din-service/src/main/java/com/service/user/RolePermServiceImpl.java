@@ -1,5 +1,6 @@
 package com.service.user;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -78,7 +79,7 @@ public class RolePermServiceImpl implements RolePermService {
 	}
 
 	
-	public List<Permission> getPermissions() {
+	public List<Permission> getAllSysPermissions() {
 		// TODO Auto-generated method stub
 		return getRolePermDAO().getPermissions();
 	}
@@ -88,6 +89,24 @@ public class RolePermServiceImpl implements RolePermService {
 		// TODO Auto-generated method stub
 		return getRolePermDAO().getRole(role);
 	}
-	
+
+	// RolePermissions and remaining permissions available in the system
+	public List<List<Permission>> getRolePermAndAvailPerm(Role role) {
+		List<List<Permission>> list = new ArrayList<List<Permission>>();
+		List<Permission> permissionList = getRolePermDAO().getPermissions();
+		if (permissionList != null) {
+			if (role != null && role.getPermissionList() != null && !role.getPermissionList().isEmpty()) {
+				permissionList.removeAll(role.getPermissionList());
+				list.add(permissionList);
+				list.add(role.getPermissionList());
+			} else {
+				list.add(permissionList);
+				List<Permission> emptyPermissionList =new ArrayList<Permission>();
+				emptyPermissionList.add(new Permission(0,""));
+				list.add(emptyPermissionList);
+			}
+		}
+		return list;
+	}
 	
 }

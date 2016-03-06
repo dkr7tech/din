@@ -36,21 +36,23 @@ $.ajax({
     	$('#name').val(json.rolePerm.role.name);
     	$('#externalName').val(json.rolePerm.role.externalName);
     	$('#description').val(json.rolePerm.role.description);
-    	json.availablePerm
+    	
     	var $el = $("#avpermselect");
     	$el.empty(); // remove old options
     	$.each(json.availablePerm, function(value,key) {
     	  $el.append($("<option></option>")
-    	     .attr("value", value).text(key));
+    	     .attr("value", key.permId).text(key.name));
     	});
     	
     	
+    	//var parArray=$.parseJSON(json.selectedperm);
     	
     	var $el = $("#selectedroleperm");
     	$el.empty(); // remove old options
-    	$.each(json.selectedPerm, function(value,key) {
+    	$.each(json.selectedperm, function(index,value) {
+    		console.log( index+"JSON Data: " + value.name );
     	  $el.append($("<option></option>")
-    	     .attr("value", value).text(key));
+    	     .attr("value", value.permId).text(value.name));
     	});
         //$( "<h1>" ).text( json.title ).appendTo( "body" );
         //$( "<div class=\"content\">").html( json.html ).appendTo( "body" );

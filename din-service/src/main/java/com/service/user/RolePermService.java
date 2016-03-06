@@ -25,6 +25,9 @@ public interface RolePermService {
 
 	public int addPermission(Permission perm);
 
-	public List<Permission> getPermissions();
+	public List<Permission> getAllSysPermissions();
+	
+	//RolePermissions and remaining permissions available in the system
+    public List<List<Permission>> getRolePermAndAvailPerm(Role role);
 
 }
