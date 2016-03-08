@@ -8,7 +8,15 @@
 <script type="text/javascript" src="resources/js/aa.js"></script>
 <title>Insert title here</title>
 </head>
-<script>   
+<script>
+function allSelected()
+{
+	alert('d');
+    $("#selectedroleperm").find("option").each(function() {
+    $(this).attr('selected', 'selected');
+    }); 
+}
+
 function select(){
 var idValue = $( "#roleList" ).val();
 populateValues(idValue);
@@ -83,12 +91,14 @@ $.ajax({
 	//this will move selected items from source list to destination list			
 	function move_list_items(sourceid, destinationid)
 	{
+		
 		$("#"+sourceid+"  option:selected").appendTo("#"+destinationid);
 	}
 
 	//this will move all selected items from source list to destination list
 	function move_list_items_all(sourceid, destinationid)
 	{
+		
 		$("#"+sourceid+" option").appendTo("#"+destinationid);
 	}
 </script>
@@ -99,7 +109,11 @@ $.ajax({
 		<form:form action="saverole" modelAttribute="role">
 			<tr>
 				<td align="left">roles list</td>
-				<td><form:select id="roleList" itemValue="IdAsString" itemLabel="Name" path="roleId" items="${rolesMap}" onchange="select()"/></td>
+				<td><form:select id="roleList" path="roleId"  onchange="select()">
+				<form:option value="0" label="--Please Select" selected="selected"/>
+			<form:options items="${rolesMap}" itemValue="IdAsString" itemLabel="Name"  />
+			</form:select>
+				</td>
 			</tr>
 			<td align="left">id:</td>
 				<td><form:input readonly="true" path="roleId" id="roleId"/></td>
@@ -132,11 +146,11 @@ $.ajax({
 			<td valign="middle" align="center">
 			<input id="moveright" type="button" value="Move Right" onclick="move_list_items('avpermselect','selectedroleperm');" /><br></br> 
 			<input id="moveleft" type="button" value="Move Left" onclick="move_list_items('selectedroleperm','avpermselect');" /></td>
-			<td ><form:select path="permissionList" multiple="true" items="${selectedPerm}"  id="selectedroleperm" style="height: 201px; width: 200px;"/></td>
+			<td ><form:select path="permissionList" multiple="true" items="${selectedPerm}"  id="selectedroleperm" style="height: 201px; width: 200px;" /></td>
 		</tr>	
 			<tr>
 				<td colspan="2" align="center">
-					<input type="submit" value="Save">
+					<input type="submit" value="Save" onclick="allSelected()">
 				</td>
 			</tr>		
 			
