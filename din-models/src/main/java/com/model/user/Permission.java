@@ -7,8 +7,6 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
@@ -43,8 +41,8 @@ public class Permission implements Serializable {
 	
 	private int status;
 
-	/*@ManyToMany(mappedBy="permissionList",fetch=FetchType.EAGER)
-	private List<Role> roleList;*/
+	@ManyToMany(mappedBy="permissionList",fetch=FetchType.EAGER)
+	private List<Role> roleList;
 
 	public Permission() {
 	}

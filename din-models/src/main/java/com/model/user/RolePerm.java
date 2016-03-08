@@ -19,14 +19,10 @@ public class RolePerm implements Serializable {
 	@Column(name="role_perm_id")
 	private int rolePermId;
 
-	//bi-directional many-to-one association to Permission
-	@ManyToOne(cascade={CascadeType.ALL})
-	@JoinColumn(name="perm_id")
+
 	private Permission permission;
 
-	//bi-directional many-to-one association to Role
-	@ManyToOne
-	@JoinColumn(name="role_id")
+
 	private Role role;
 
 	public RolePerm() {

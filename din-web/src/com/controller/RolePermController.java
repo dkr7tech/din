@@ -31,7 +31,7 @@ public class RolePermController {
 	
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) throws Exception {
-	binder.registerCustomEditor(List.class, "role.permissionList", new CustomCollectionEditor(List.class) {
+	binder.registerCustomEditor(List.class, "permissionList", new CustomCollectionEditor(List.class) {
 
 		@Override
 		protected Object convertElement(Object element) {
@@ -52,11 +52,11 @@ public class RolePermController {
 	@RequestMapping(value = "/rolesList", method = RequestMethod.GET)
 	public ModelAndView findRoles() {
 		Role role = new Role();
-		RolePerm rolePerm = new RolePerm();
+		
 		ModelAndView modelAndView = new ModelAndView("rolesList");
 		Map<Integer, String> rolesMap = RoleEnum.getRolesIdWithNameMap();
 		Map<Integer, String> permMap = PermissionEnum.getPermIdWithNameMap();
-		modelAndView.addObject("rolePerm", rolePerm);
+		modelAndView.addObject("role", role);
 		modelAndView.addObject("rolesMap", getRolls());
 		modelAndView.addObject("availablePerm", permMap);
 		
@@ -192,8 +192,8 @@ public class RolePermController {
 	}
 
 	@RequestMapping(value = "/saverole", method = RequestMethod.POST)
-	public ModelAndView saveRole(@ModelAttribute RolePerm rolePerm) {
-		int i = getRolePermService().createRole(rolePerm.getRole());
+	public ModelAndView saveRole(@ModelAttribute Role role) {
+		int i = getRolePermService().createRole(role);
 		return new ModelAndView("redirect:/");
 	}
 
