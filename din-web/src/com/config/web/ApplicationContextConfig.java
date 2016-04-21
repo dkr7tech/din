@@ -1,4 +1,4 @@
-package com.config;
+package com.config.web;
 /*package spring.config;
 
 import java.util.Properties;

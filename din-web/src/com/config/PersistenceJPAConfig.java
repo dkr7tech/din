@@ -28,7 +28,7 @@ import com.google.common.base.Preconditions;
 //@EnableAspectJAutoProxy
 @EnableTransactionManagement
 @PropertySource({ "classpath:/com/config/prop/persistence-mysql.properties" })
-@ComponentScan({"com.config","com.db","com.service","com.controller"})
+@ComponentScan({"com.db"})
 public class PersistenceJPAConfig {
 
     @Autowired
