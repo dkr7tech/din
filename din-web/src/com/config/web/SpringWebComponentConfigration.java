@@ -22,13 +22,14 @@ import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 @ComponentScan({ "com.controller"})
 public class SpringWebComponentConfigration extends WebMvcConfigurerAdapter{
 
-	/*  @Bean(name = "viewResolver")
+	 @Bean(name = "viewResolver")
 	    public InternalResourceViewResolver getViewResolver() {
 	        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
 	        viewResolver.setPrefix("/WEB-INF/views/");
 	        viewResolver.setSuffix(".jsp");
+	        viewResolver.setOrder(1);
 	        return viewResolver;
-	    }*/
+	    }
 	  
 	  @Bean
 	  public TilesConfigurer tilesConfigurer() {
@@ -42,7 +43,9 @@ public class SpringWebComponentConfigration extends WebMvcConfigurerAdapter{
 	  
 	  @Bean
 	  public ViewResolver viewResolver() {
-	  return new TilesViewResolver();
+		  TilesViewResolver tilesViewResolver=	  new TilesViewResolver();
+		  tilesViewResolver.setOrder(0);
+	  return tilesViewResolver;
 	  }
 	     
 	  /* @Autowired

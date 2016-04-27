@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.common.utils.EncryptionUtil;
 import com.common.utils.StringUtility;
 import com.db.UserDAO;
 import com.model.common.LoginSessionBean;
@@ -152,6 +153,10 @@ public class HomeController {
 		 */
 		String target = "/";
 		if (!StringUtility.isEmpty(user.getLogin()) && !StringUtility.isEmpty(user.getPassword())) {
+			System.out.println("password"+user.getPassword());
+			System.out.println("salt"+EncryptionUtil.generateSalt(user.getPassword()));
+			System.out.println("salt validate"+EncryptionUtil.isValidPassword(user.getPassword(),"$2a$10$UrgZ3wKuC71jjKRc.r0PyOlItAvwhYN1nrBE02PZ7wiyKV.wHRfQ."));
+			System.out.println("salt validate"+EncryptionUtil.generateWithGivenSalt(user.getPassword(),"$2a$10$UrgZ3wKuC71jjKRc.r0PyOlItAvwhYN1nrBE02PZ7wiyKV.wHRfQ."));
 			User loggedInUser = userService.getUser(user);
 			boolean bool = userService.validateUser(user);
 			LoginSessionBean loginSessionBean = new LoginSessionBean();
