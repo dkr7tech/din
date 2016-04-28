@@ -1,19 +1,38 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>din</groupId>
-  <artifactId>din</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>pom</packaging>
-  <name>din</name>
-  <description>parent</description>
-  <modules>
-  	<module>din-common</module>
-  	<module>din-db</module>
-  	<module>din-models</module>
-  	<module>din-service</module>
-  	<module>din-web</module>
-  </modules>
-  <dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>din</groupId>
+	<artifactId>din</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>din</name>
+	<description>parent</description>
+	<modules>
+		<module>din-common</module>
+		<module>din-db</module>
+		<module>din-models</module>
+		<module>din-service</module>
+		<module>din-web</module>
+	</modules>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>2.8.0-beta1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>generateAsync</goal>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -138,10 +157,36 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.14</version>
 		</dependency>
+
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 			<version>2.9.2</version>
 		</dependency>
-		</dependencies>
+		<!-- apache spark -->
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-core_2.10</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<!-- infinispan -->
+		<dependency>
+			<groupId>org.infinispan</groupId>
+			<artifactId>infinispan-embedded</artifactId>
+			<version>8.2.1.Final</version>
+		</dependency>
+		<!-- gwt depedency -->
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>2.8.0-beta1</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>2.8.0-beta1</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
 </project>
