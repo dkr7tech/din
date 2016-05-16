@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.common.utils.EncryptionUtil;
+import com.common.utils.ObjectUtility;
 import com.common.utils.StringUtility;
 import com.db.UserDAO;
 import com.model.common.LoginSessionBean;
@@ -30,6 +30,7 @@ import com.model.user.User;
 import com.model.user.UserRole;
 import com.service.auth.RolePermManager;
 import com.service.user.UserService;
+import com.web.utils.WebManagar;
 
 /**
  * Handles requests for the application home page.
@@ -147,24 +148,18 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/home", method = RequestMethod.POST)
-	public ModelAndView login(@ModelAttribute User user, HttpSession session) {
-		/*
-		 * RoleEnum re=RoleEnum.valueOf("RoleEnum"); re.RoleEnum_1.name();
-		 */
-		String target = "/";
+	public ModelAndView login(@ModelAttribute User user, HttpServletRequest request) {
+		String target = "redirect:/";
 		if (!StringUtility.isEmpty(user.getLogin()) && !StringUtility.isEmpty(user.getPassword())) {
-			System.out.println("password"+user.getPassword());
-			System.out.println("salt"+EncryptionUtil.generateSalt(user.getPassword()));
-			System.out.println("salt validate"+EncryptionUtil.isValidPassword(user.getPassword(),"$2a$10$UrgZ3wKuC71jjKRc.r0PyOlItAvwhYN1nrBE02PZ7wiyKV.wHRfQ."));
-			System.out.println("salt validate"+EncryptionUtil.generateWithGivenSalt(user.getPassword(),"$2a$10$UrgZ3wKuC71jjKRc.r0PyOlItAvwhYN1nrBE02PZ7wiyKV.wHRfQ."));
 			User loggedInUser = userService.getUser(user);
-			boolean bool = userService.validateUser(user);
-			LoginSessionBean loginSessionBean = new LoginSessionBean();
-			loginSessionBean.setUser(loggedInUser);
-			session.setAttribute(CommonConstant.USER_SESSION, loginSessionBean);
-			target = "redirect:/userlist";
+			if (ObjectUtility.isNotNull(loggedInUser)) {
+				HttpSession session = WebManagar.generateNewSessionId(request);
+				LoginSessionBean loginSessionBean = new LoginSessionBean();
+				loginSessionBean.setUser(loggedInUser);
+				session.setAttribute(CommonConstant.USER_SESSION, loginSessionBean);
+				target = "redirect:/userlist";
+			}
 		}
-
 		return new ModelAndView(target);
 	}
 

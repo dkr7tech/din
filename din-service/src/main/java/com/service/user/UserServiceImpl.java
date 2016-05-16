@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.common.utils.EncryptionUtil;
 import com.db.UserDAO;
 import com.model.user.Role;
 import com.model.user.User;
@@ -19,6 +20,7 @@ import com.model.user.User;
  */
 @Service
 public class UserServiceImpl implements UserService {
+	private static String salt="$2a$10$J9x1IVEdhzDZHumEeSVlJO6UXg/h.1ruZAGBMMloJC1n9OnLDo1um";
 	 @Autowired
 	private UserDAO userDao;
      
@@ -52,9 +54,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	
-	public boolean validateUser(User user) {
+	public boolean validateUser(User user,User loggedInUser) {
 		boolean isValid=false;
-		if(user!=null){
+		/*System.out.println("password :> "+user.getPassword());
+		System.out.println("Generated salt > "+EncryptionUtil.generateSalt(user.getPassword()));
+		System.out.println("salt validate > "+EncryptionUtil.isValidPassword(user.getPassword(),"$2a$10$UrgZ3wKuC71jjKRc.r0PyOlItAvwhYN1nrBE02PZ7wiyKV.wHRfQ."));*/
+		System.out.println("Generated salt from salt > "+EncryptionUtil.generateWithGivenSalt(user.getPassword(),salt));
+		if(loggedInUser!=null && EncryptionUtil.isValidPassword(user.getPassword(), loggedInUser.getPassword())){
 			isValid=true;
 		}
 		
@@ -63,7 +69,10 @@ public class UserServiceImpl implements UserService {
 
 	
 	public User getUser(User user) {
-		User loggedInUser=getUserDao().getUser(user.getLogin(), user.getPassword());
+		User loggedInUser=getUserDao().getUser(user.getLogin(),EncryptionUtil.generateWithGivenSalt(user.getPassword(),salt));
+		if(!validateUser(user,loggedInUser)){
+			loggedInUser=null;
+		}
 		return loggedInUser;
 	}
 

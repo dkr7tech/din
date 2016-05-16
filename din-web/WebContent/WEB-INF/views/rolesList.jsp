@@ -6,6 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script type="text/javascript" src="resources/js/jquery-2.1.3.min.js"></script>
 <script type="text/javascript" src="resources/js/aa.js"></script>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="t" %>
 <title>Insert title here</title>
 </head>
 <script>
@@ -105,6 +107,7 @@ $.ajax({
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <body>
+<t:insertAttribute name="header" />
 <table>
 		<form:form action="saverole" modelAttribute="role">
 			<tr>

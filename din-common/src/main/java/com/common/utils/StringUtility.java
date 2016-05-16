@@ -1,7 +1,5 @@
 package com.common.utils;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
 import java.text.MessageFormat;
@@ -17,7 +15,6 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.DataFormatException;
-import java.util.zip.Inflater;
 
 import org.springframework.util.StringUtils;
 

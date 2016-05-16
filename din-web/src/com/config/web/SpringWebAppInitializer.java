@@ -10,6 +10,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 import com.config.PersistenceJPAConfig;
 import com.config.SpringAppComponentConfig;
+import com.web.servlet.AppConfigServlet;
 
 public class SpringWebAppInitializer implements WebApplicationInitializer {
 
@@ -21,8 +22,12 @@ public class SpringWebAppInitializer implements WebApplicationInitializer {
         
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet(
                 "SpringDispatcher", new DispatcherServlet(appContext));
+        
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
+        ServletRegistration.Dynamic appconfigServlet=servletContext.addServlet("AppConfigServlet", new AppConfigServlet());
+        appconfigServlet.addMapping("/AppConfigServlet");
+        dispatcher.setLoadOnStartup(2);
         
 	}
 	
