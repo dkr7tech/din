@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.javers.spring.annotation.JaversAuditable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +31,7 @@ public class UserDAOImpl implements UserDAO {
 				.getResultList();
 	}
 
-	
+	 @JaversAuditable
 	@Transactional
 	public User saveOrUpdate(User user) {
 		return entityManager.merge(user);

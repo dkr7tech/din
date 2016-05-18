@@ -6,9 +6,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 <title>New Page 1</title>
 </head>
-
+<%@ page import="com.audit.JaversTest"%>
 <body>
-
+ <% JaversTest test=new JaversTest();
+test.listPrperties();
+%> 
 <table border="0" width="641" height="339">
 <form:form action="home" method="post" modelAttribute="user">
 	<tr>

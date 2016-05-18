@@ -6,6 +6,17 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
+import org.javers.core.Javers;
+import org.javers.hibernate.integration.HibernateUnproxyObjectAccessHook;
+import org.javers.repository.sql.ConnectionProvider;
+import org.javers.repository.sql.DialectName;
+import org.javers.repository.sql.JaversSqlRepository;
+import org.javers.repository.sql.SqlRepositoryBuilder;
+import org.javers.spring.auditable.AuthorProvider;
+import org.javers.spring.auditable.SpringSecurityAuthorProvider;
+import org.javers.spring.auditable.aspect.JaversAuditableRepositoryAspect;
+import org.javers.spring.jpa.JpaHibernateConnectionProvider;
+import org.javers.spring.jpa.TransactionalJaversBuilder;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -99,6 +110,47 @@ public class PersistenceJPAConfig {
         return hibernateProperties;
     }
 
+  //.. JaVers setup ..
+
+    /**
+     * Creates JaVers instance with {@link JaversSqlRepository}
+     */
+    @Bean
+    public Javers javers() {
+        JaversSqlRepository sqlRepository = SqlRepositoryBuilder
+                .sqlRepository()
+                .withConnectionProvider(jpaConnectionProvider())
+                .withDialect(DialectName.MYSQL)
+                .build();
+
+        return TransactionalJaversBuilder
+                .javers()
+                .withObjectAccessHook(new HibernateUnproxyObjectAccessHook())
+                .registerJaversRepository(sqlRepository)
+                .build();
+    }
+    
+    @Bean
+    public ConnectionProvider jpaConnectionProvider() {
+        return new JpaHibernateConnectionProvider();
+    }
+    
+    /**
+     * Enables Repository auto-audit aspect. <br/>
+     *
+     * Use {@link org.javers.spring.annotation.JaversSpringDataAuditable}
+     * to annotate Spring Data Repositories
+     * or {@link org.javers.spring.annotation.JaversAuditable} for ordinary Repositories.
+     */
+    @Bean
+    public JaversAuditableRepositoryAspect javersAuditableRepositoryAspect() {
+        return new JaversAuditableRepositoryAspect(javers(), authorProvider());
+    }
+    
+    @Bean
+    public AuthorProvider authorProvider() {
+        return new SpringSecurityAuthorProvider();
+    }
    /* @Autowired
     @Bean(name = "userDao")
     public UserDAO getUserDao() {
