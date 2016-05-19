@@ -17,7 +17,7 @@
 		<intercept-url pattern="/login-denied/**" access="isAnonymous()" />
 
 		<intercept-url pattern="/**" access="permitAll" />
-
+<intercept-url pattern="/din-web**" access="ROLE_USER" />
 		<form-login login-page='/login.html' default-target-url="/" always-use-default-target="false" authentication-failure-url="/login.html?error=true" />
 
 		<logout />
@@ -29,8 +29,15 @@
 		</session-management>
 	</http>
 
-	<authentication-manager alias="authenticationManager" erase-credentials="false">
+	<!-- <authentication-manager alias="authenticationManager" erase-credentials="false">
 		<authentication-provider ref="restAuthenticationProvider" />
+	</authentication-manager> -->
+	<authentication-manager>
+	  <authentication-provider>
+	    <user-service>
+		<user name="din" password="123" authorities="ROLE_USER" />
+	    </user-service>
+	  </authentication-provider>
 	</authentication-manager>
 
 </beans:beans>

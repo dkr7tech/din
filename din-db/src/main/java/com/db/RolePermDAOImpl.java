@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
+import org.javers.spring.annotation.JaversAuditable;
 import org.springframework.stereotype.Repository;
 
 import com.model.user.Permission;
@@ -23,7 +24,7 @@ public class RolePermDAOImpl implements RolePermDAO {
 	public EntityManager getEntityManager() {
 		return entityManager;
 	}
-
+	 @JaversAuditable
 	@Transactional
 	public int createRole(Role role) {
 		Role role1=getEntityManager().find(Role.class, role.getRoleId());
@@ -60,7 +61,7 @@ public class RolePermDAOImpl implements RolePermDAO {
 		 Query query = getEntityManager().createQuery("SELECT e FROM Role e");
 		return (List<Role>) query.getResultList();
 	}
-
+	 @JaversAuditable
 	@Transactional
 	public Permission createPermission(Permission perm) {
 		return getEntityManager().merge(perm);

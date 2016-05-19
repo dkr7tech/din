@@ -9,6 +9,7 @@
 <%@ page import="com.audit.JaversTest"%>
 <body>
  <% JaversTest test=new JaversTest();
+test.compare();
 test.listPrperties();
 %> 
 <table border="0" width="641" height="339">
