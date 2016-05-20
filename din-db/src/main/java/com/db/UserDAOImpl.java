@@ -78,4 +78,22 @@ public class UserDAOImpl implements UserDAO {
 		return user;
 		
 	}
+
+	public User getUser(String userName) {
+
+		String hql="SELECT u FROM User u WHERE u.login = :login ";
+		User user=null;
+		List<User> userList =entityManager.createQuery(hql, User.class)
+		.setParameter("login", userName)
+		
+		.getResultList();
+		if(userList!=null && !userList.isEmpty()){
+			user=userList.get(0);	
+		}else{
+			System.out.println("UserDAOImpl getUser() no record for user "+userName);
+		}
+		
+		return user;
+		
+	}
 }

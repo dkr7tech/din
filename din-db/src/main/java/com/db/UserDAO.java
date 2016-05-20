@@ -11,6 +11,8 @@ public interface UserDAO {
 	public User getUser(String login,String password);
 	
 	public User saveOrUpdate(User user);
+	
+	public User getUser(String userName);
 	//public void saveOrUpdateRole(TtRole role);
 	
 	public void delete(int id);
