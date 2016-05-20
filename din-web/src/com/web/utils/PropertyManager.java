@@ -3,7 +3,7 @@ package com.web.utils;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Collections;
+import java.io.InputStream;
 import java.util.Map;
 import java.util.Properties;
 
@@ -13,14 +13,34 @@ public class PropertyManager {
 		System.out.println("map"+map);
 		
 	}
-	public static Map<String, String> readPropertiefiles(String fileName) {
+
+    public static Map<String, String> readPropertiefiles(String fileName) {
+        Properties properties = new Properties();
+        Map<String, String> proMap = null;
+        try {
+System.out.println("Context+++++++++++++++++"+WebUtil.getServletContext());      	
+        	
+            InputStream inputStream =WebUtil.getServletContext().getResourceAsStream(WebUtil.getConfigPath()+fileName);
+            //InputStream inputStream = utility.getClass().getResourceAsStream(fileName);
+            if (inputStream == null) {
+                System.out.println("file not found");
+            } else {
+                properties.load(inputStream);
+            }
+            proMap = (Map) properties;
+        } catch (IOException e) {
+            System.out.println("Exception " + e);
+        }
+        return proMap;
+    }
+	
+	public static Map<String, String> readPropertiefiles2(String fileName) {
 		Properties properties = new Properties();
 		Map<String, String> proMap = null;
 		try {
-	
-			FileInputStream fileInputStream=new FileInputStream("c:/a/a.properties");
-		System.out.println("readddd");
-		properties.load(fileInputStream);
+			FileInputStream fileInputStream = new FileInputStream("c:/a/a.properties");
+			System.out.println("readddd");
+			properties.load(fileInputStream);
 			proMap = (Map) properties;
 		} catch (IOException e) {
 			System.out.println("Exception " + e);
