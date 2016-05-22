@@ -38,6 +38,7 @@ public class UserServiceImpl implements UserService {
 		Date currDate=new Date();
 		user.setCreatetime(currDate);
 		user.setModtime(currDate);
+		user.setPassword(EncryptionUtil.generateWithGivenSalt(user.getPassword(),salt));
 		return getUserDao().saveOrUpdate(user);
 	}
 

@@ -4,12 +4,14 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
 import com.common.utils.ObjectUtility;
+import com.config.web.WebConstants;
 
 public class WebManagar {
 	static final org.apache.log4j.Logger log = Logger.getLogger(WebManagar.class);
@@ -62,5 +64,24 @@ public class WebManagar {
      }
 	return session;	
 	}
+	public static void setApplicationProperties(ServletContext servletContext) {
+		System.out.println("set appliation properties called");
+		WebUtil util = new WebUtil(servletContext);
+		Map<String, String> propertiesMap = PropertyManager.readPropertiefiles(WebConstants.RESOURCE_PROP_FILE);
+		String contextPath = servletContext.getContextPath();
+		ContextData contextData = new ContextData();
+		contextData.setExtJSPath(contextPath + propertiesMap.get(WebConstants.EXT_JS_PATH).trim());
+		contextData.setOpenLayerJsPath(contextPath + propertiesMap.get(WebConstants.OPENLAYER_JS_PATH).trim());
+		contextData.setContextPath(contextPath);
+		contextData.setCustomJsPath(contextPath + propertiesMap.get(WebConstants.CUSTOM_JS_PATH).trim());
+		contextData.setImagesPath(contextPath + propertiesMap.get(WebConstants.IMAGES_PATH).trim());
+		contextData.setCssPath(contextPath + propertiesMap.get(WebConstants.CSS_PATH).trim());
+		contextData.setJqueryJsPath(contextPath + propertiesMap.get(WebConstants.JQUERY_PATH).trim());
+		contextData.setProductionEnv(Boolean.parseBoolean(propertiesMap.get(WebConstants.DEVELOPMENT_ENV).trim()));
+		contextData.setSpringLibJspPath(propertiesMap.get(WebConstants.SPRING_LIB_JSP_PATH).trim());
+		contextData.setJstlJspPath(propertiesMap.get(WebConstants.JSTL_LIB_JSP_PATH).trim());
+		contextData.setScriptJspPath(propertiesMap.get(WebConstants.SCRIPT_JSP_PATH).trim());
+		servletContext.setAttribute(WebConstants.APP_CONTEXT_DATA, contextData);
 
+	}
 }

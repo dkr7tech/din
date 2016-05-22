@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -106,25 +107,36 @@ public class HomeController {
 		}
 		return roleList;
 	}
+	public Map<Integer, String> getUserRole(List<Role> roleList,Map<Integer, String> allRolesMap){
+		Map<Integer, String> map=new HashMap<Integer,String>();
+		for(Role role:roleList){
+			map.put(role.getRoleId(), RoleEnum.getRoleEnumById(role.getRoleId()).getName());
+			allRolesMap.remove(role.getRoleId());
+		}
+		return map;
+		
+	}
+	
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView editUser(HttpServletRequest request) {
 		int userId = Integer.parseInt(request.getParameter("id"));
 		User user = userDao.get(userId);
+		Map<Integer, String> allRolesMap =RoleEnum.getRolesIdWithNameMap();
+		Map<Integer, String> userRoleMap=getUserRole(user.getRoleList(),allRolesMap);
 		UserRole userrole = new UserRole();
 		userrole.setUser(user);
-
 		ModelAndView model = new ModelAndView("UserForm");
-		List<Role> roleList = getRoleList(RoleEnum.getRolesIdWithNameMap());
-		model.addObject("availableRoles", roleList);
-		model.addObject("selectedRoles", roleList);
+		model.addObject("availableRoles", allRolesMap);
+		model.addObject("selectedRoles", userRoleMap);
 		model.addObject("userrole", userrole);
 		return model;
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView userLoginPage() {
+	public ModelAndView userLoginPage(HttpServletRequest request) {
 		ModelAndView model = new ModelAndView("logon");
+		WebManagar.setApplicationProperties(request.getServletContext());
 		model.addObject("user", new User());
 		return model;
 		/*

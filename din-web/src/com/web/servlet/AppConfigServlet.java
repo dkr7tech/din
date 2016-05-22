@@ -2,31 +2,29 @@ package com.web.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.config.web.WebConstants;
-import com.web.utils.ContextData;
-import com.web.utils.PropertyManager;
-import com.web.utils.WebUtil;
+import com.web.utils.WebManagar;
 
 /**
  * Servlet implementation class for Servlet: AppConfigServlet
  *
  */
+@WebServlet("/AppConfigServlet")
 public class AppConfigServlet extends javax.servlet.http.HttpServlet {
 	static final long serialVersionUID = 1L;
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		String initial = getInitParameter("initial");
-		System.out.println("initialdddd " + initial);
-		// setApplicationProperties(getServletContext());
+		System.out.println("########### AppConfigServlet Servlet initialized  #######################" + initial);
+		WebManagar.setApplicationProperties(this.getServletContext());
 
 	}
 
@@ -44,26 +42,11 @@ public class AppConfigServlet extends javax.servlet.http.HttpServlet {
 		out.println("</body>");
 		out.println("</html>");
 		out.close();
-		setApplicationProperties(servletContext);
+		WebManagar.setApplicationProperties(servletContext);
 
 	}
 
-	private void setApplicationProperties(ServletContext servletContext) {
-		System.out.println("set appliation properties called");
-		WebUtil util = new WebUtil(servletContext);
-		Map<String, String> propertiesMap = PropertyManager.readPropertiefiles(WebConstants.RESOURCE_PROP_FILE);
-		String contextPath = servletContext.getContextPath();
-		ContextData contextData = new ContextData();
-		contextData.setExtJSPath(contextPath + propertiesMap.get(WebConstants.EXT_JS_PATH).trim());
-		contextData.setOpenLayerJsPath(contextPath + propertiesMap.get(WebConstants.OPENLAYER_JS_PATH).trim());
-		contextData.setContextPath(contextPath);
-		contextData.setCustomJsPath(contextPath + propertiesMap.get(WebConstants.CUSTOM_JS_PATH).trim());
-		contextData.setImagesPath(contextPath + propertiesMap.get(WebConstants.IMAGES_PATH).trim());
-		contextData.setCssPath(contextPath + propertiesMap.get(WebConstants.CSS_PATH).trim());
-		contextData.setJqueryJsPath(contextPath + propertiesMap.get(WebConstants.JQUERY_PATH).trim());
-		servletContext.setAttribute(WebConstants.APP_CONTEXT_BEAN, contextData);
-
-	}
+	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

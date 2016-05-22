@@ -29,7 +29,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <body>
 <table>
-		<form:form action="rolesList" modelAttribute="role">
+		<form:form action="rolepermadmin" modelAttribute="role">
 			<tr>
 				<td align="left">roles list</td>
 				<td><form:select path="roleId" items="${rolesMap}" /></td>

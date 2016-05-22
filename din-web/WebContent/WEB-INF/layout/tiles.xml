@@ -9,10 +9,8 @@
     <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />
   </definition>
 
-  <definition name="rolesList" template="/WEB-INF/views/rolesList.jsp">
-  <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
-   
-  </definition>
+  <definition name="rolepermadmin" template="/WEB-INF/views/rolepermadmin.jsp"/>
+  
 
   <definition name="registerForm" extends="base">
     <put-attribute name="body" value="/WEB-INF/views/registerForm.jsp" />

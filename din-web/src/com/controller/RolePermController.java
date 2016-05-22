@@ -49,11 +49,11 @@ public class RolePermController {
 
 }
 
-	@RequestMapping(value = "/rolesList", method = RequestMethod.GET)
+	@RequestMapping(value = "/rolepermadmin", method = RequestMethod.GET)
 	public ModelAndView findRoles() {
 		Role role = new Role();
 		
-		ModelAndView modelAndView = new ModelAndView("rolesList");
+		ModelAndView modelAndView = new ModelAndView("rolepermadmin");
 		Map<Integer, String> rolesMap = RoleEnum.getRolesIdWithNameMap();
 		Map<Integer, String> permMap = PermissionEnum.getPermIdWithNameMap();
 		modelAndView.addObject("role", role);

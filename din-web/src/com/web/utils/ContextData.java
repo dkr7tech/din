@@ -15,6 +15,11 @@ public class ContextData implements Serializable{
 	private String configFilesPath;
 	private String imagesPath;
 	private String jqueryJsPath;
+	private boolean isProductionEnv=false;
+	private String jstlJspPath; 
+	private String springLibJspPath;
+	private String scriptJspPath;
+	
 	
 	public String getExtJSPath() {
 		return extJSPath;
@@ -67,6 +72,31 @@ public class ContextData implements Serializable{
 	public void setJqueryJsPath(String jqueryJsPath) {
 		this.jqueryJsPath = jqueryJsPath;
 	}
+	public boolean isProductionEnv() {
+		return isProductionEnv;
+	}
+	public void setProductionEnv(boolean isProductionEnv) {
+		this.isProductionEnv = isProductionEnv;
+	}
+	public String getJstlJspPath() {
+		return jstlJspPath;
+	}
+	public void setJstlJspPath(String jstlJspPath) {
+		this.jstlJspPath = jstlJspPath;
+	}
+	public String getSpringLibJspPath() {
+		return springLibJspPath;
+	}
+	public void setSpringLibJspPath(String springLibJspPath) {
+		this.springLibJspPath = springLibJspPath;
+	}
+	public String getScriptJspPath() {
+		return scriptJspPath;
+	}
+	public void setScriptJspPath(String scriptJspPath) {
+		this.scriptJspPath = scriptJspPath;
+	}
+
 	
 	
 }
