@@ -10,6 +10,9 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.javers.core.Javers;
+import org.javers.core.metamodel.object.CdoSnapshot;
+import org.javers.repository.jql.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.stereotype.Controller;
@@ -26,6 +29,7 @@ import com.db.UserDAO;
 import com.model.common.LoginSessionBean;
 import com.model.common.RoleEnum;
 import com.model.common.constant.CommonConstant;
+import com.model.user.Permission;
 import com.model.user.Role;
 import com.model.user.User;
 import com.model.user.UserRole;
@@ -39,6 +43,18 @@ import com.web.utils.WebManagar;
 @Controller
 public class HomeController {
 
+	
+	@Autowired
+	Javers javers;
+	
+	
+	public void listPrperties(){
+		List<CdoSnapshot> snapshots = javers.findSnapshots(
+			    QueryBuilder.byClass(User.class).build());
+		for(CdoSnapshot snapshot:snapshots){
+			System.out.println("ddddddddd "+snapshot.getPropertyValue("firstName"));	
+		}
+	}
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) throws Exception {
 
@@ -148,7 +164,7 @@ public class HomeController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public ModelAndView saveUser(@ModelAttribute UserRole UserRole) {
 
-		System.out.println("dd" + UserRole.getUser().getRoleList().size());
+		System.out.println("dd" + UserRole.getUser());
 		User newUser = userService.createUser(UserRole.getUser());
 		System.out.println("user :" + newUser.getUserId());
 		/*
@@ -162,6 +178,7 @@ public class HomeController {
 	@RequestMapping(value = "/home", method = RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute User user, HttpServletRequest request) {
 		String target = "redirect:/";
+		listPrperties();
 		if (!StringUtility.isEmpty(user.getLogin()) && !StringUtility.isEmpty(user.getPassword())) {
 			User loggedInUser = userService.getUser(user);
 			if (ObjectUtility.isNotNull(loggedInUser)) {

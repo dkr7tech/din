@@ -20,7 +20,7 @@
 <body>
  <% JaversTest test=new JaversTest();
 test.compare();
-test.listPrperties();
+//test.listPrperties();
 %> 
   <body>
     <div class="logmod">

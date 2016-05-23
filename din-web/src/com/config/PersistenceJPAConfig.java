@@ -22,9 +22,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -36,10 +38,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.google.common.base.Preconditions;
 
 @Configuration
-//@EnableAspectJAutoProxy
+@EnableAspectJAutoProxy
 @EnableTransactionManagement
 @PropertySource({ "classpath:/com/config/prop/persistence-mysql.properties" })
 @ComponentScan({"com.db"})
+@EnableJpaRepositories(basePackages = "org.model")
 public class PersistenceJPAConfig {
 
     @Autowired
@@ -106,6 +109,7 @@ public class PersistenceJPAConfig {
         final Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
         hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
+        hibernateProperties.setProperty("hibernate.connection.autocommit", "false");
         // hibernateProperties.setProperty("hibernate.globally_quoted_identifiers", "true");
         return hibernateProperties;
     }
