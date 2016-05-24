@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.audit.login.AuditManagar;
 import com.common.utils.ObjectUtility;
 import com.common.utils.StringUtility;
 import com.db.UserDAO;
@@ -43,18 +44,12 @@ import com.web.utils.WebManagar;
 @Controller
 public class HomeController {
 
-	
 	@Autowired
 	Javers javers;
 	
 	
-	public void listPrperties(){
-		List<CdoSnapshot> snapshots = javers.findSnapshots(
-			    QueryBuilder.byClass(User.class).build());
-		for(CdoSnapshot snapshot:snapshots){
-			System.out.println("ddddddddd "+snapshot.getPropertyValue("firstName"));	
-		}
-	}
+	
+
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) throws Exception {
 
@@ -178,7 +173,8 @@ public class HomeController {
 	@RequestMapping(value = "/home", method = RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute User user, HttpServletRequest request) {
 		String target = "redirect:/";
-		listPrperties();
+	AuditManagar audit=new AuditManagar(javers);
+		audit.listPrperties();
 		if (!StringUtility.isEmpty(user.getLogin()) && !StringUtility.isEmpty(user.getPassword())) {
 			User loggedInUser = userService.getUser(user);
 			if (ObjectUtility.isNotNull(loggedInUser)) {
