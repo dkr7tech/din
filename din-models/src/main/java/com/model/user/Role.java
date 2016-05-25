@@ -67,7 +67,7 @@ public class Role implements Serializable {
 	@OneToMany(mappedBy="role")
 	private List<UserRole> userRoles;
 	*/
-	  @OneToOne(cascade=CascadeType.ALL)  
+	  @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)  
 	    @JoinTable(name="tl_user_role",  
 	    joinColumns={@JoinColumn(name="role_id", referencedColumnName="role_id")},  
 	    inverseJoinColumns={@JoinColumn(name="user_id", referencedColumnName="user_id")}) 

@@ -30,7 +30,13 @@ public class AuditManagar {
 		int size=snapshots.size();
 		int count=0;
 		for(CdoSnapshot snapshot:snapshots){
-			System.out.println("SNAPSHOT PROPERTY "+snapshot.getPropertyValue("firstName"));	
+			List<String> changedList=snapshot.getChanged();
+			for(String changedProperty:changedList)
+					{
+				System.out.println("changed properties name :"+changedProperty +" value :> "+snapshot.getPropertyValue(changedProperty));;
+				
+					}
+			//System.out.println("SNAPSHOT PROPERTY "+snapshot.getPropertyValue("firstName"));	
 		}
 		printChangeValues(snapshots.get(0),snapshots.get(1));
 	}

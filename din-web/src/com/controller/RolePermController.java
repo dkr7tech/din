@@ -151,14 +151,20 @@ public class RolePermController {
 		ModelAndView model = new ModelAndView(view);
 		Role role=new Role();
 		role.setRoleId(roleId);
-		Role roleData=getRolePermService().getRole(new Role(roleId,null));
+		Role roleData=getRolePermService().getRole(role);
+		if(roleData==null){
+			roleData =populateRole(roleId);
+		}
 		rolePerm.setRole(roleData);
 		view.setBeanName("role");
+		
 		
 		List<List<Permission>> permList=getRolePermService().getRolePermAndAvailPerm(roleData);
 		if(permList!=null && !permList.isEmpty()){
 			model.addObject("availablePerm", permList.get(0));
+			if(permList.size()>1){
 			model.addObject("selectedperm", permList.get(1));
+			}
 		}
 		model.addObject("rolePerm", rolePerm);
 		

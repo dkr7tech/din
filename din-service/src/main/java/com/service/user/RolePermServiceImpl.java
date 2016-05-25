@@ -47,9 +47,8 @@ public class RolePermServiceImpl implements RolePermService {
 	public int removePermFromRole(RolePerm roleperm) {
 		// TODO Auto-generated method stub
 		return 0;
-	}
 
-	
+	}
 	public int deleteRole(Role role) {
 		// TODO Auto-generated method stub
 		return 0;
@@ -101,10 +100,7 @@ public class RolePermServiceImpl implements RolePermService {
 				list.add(role.getPermissionList());
 			} else {
 				list.add(permissionList);
-				List<Permission> emptyPermissionList =new ArrayList<Permission>();
-				emptyPermissionList.add(new Permission(0,""));
-				list.add(emptyPermissionList);
-			}
+				}
 		}
 		return list;
 	}
