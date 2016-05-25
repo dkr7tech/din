@@ -50,6 +50,7 @@
 			<td valign="middle" align="center">
 			<input id="moveright" type="button" value="Move Right" onclick="move_list_items('avpermselect','selectedroleperm');" /><br></br> 
 			<input id="moveleft" type="button" value="Move Left" onclick="move_list_items('selectedroleperm','avpermselect');" /></td>
+			<!--if you change path properties then change in initBinder -->
 			<td ><form:select path="permissionList" multiple="true" items="${selectedPerm}"  id="selectedroleperm" style="height: 201px; width: 200px;" /></td>
 		</tr>	
 			<tr>

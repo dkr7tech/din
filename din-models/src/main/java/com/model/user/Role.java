@@ -63,15 +63,8 @@ public class Role implements Serializable {
 	
 
 
-	/*//bi-directional many-to-one association to UserRole
-	@OneToMany(mappedBy="role")
-	private List<UserRole> userRoles;
-	*/
-	  @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)  
-	    @JoinTable(name="tl_user_role",  
-	    joinColumns={@JoinColumn(name="role_id", referencedColumnName="role_id")},  
-	    inverseJoinColumns={@JoinColumn(name="user_id", referencedColumnName="user_id")}) 
-	private User user;
+	@ManyToMany(mappedBy="roleList") 
+	private List<User> userList;
 
 	public Role() {
 	}
@@ -148,41 +141,21 @@ public class Role implements Serializable {
 	public void setPermissionList(List<Permission> permissionList) {
 		this.permissionList = permissionList;
 	}
-/*
-	public List<UserRole> getUserRoles() {
-		return this.userRoles;
-	}
-
-	public void setUserRoles(List<UserRole> userRoles) {
-		this.userRoles = userRoles;
-	}
-
-	public UserRole addUserRole(UserRole userRole) {
-		getUserRoles().add(userRole);
-		userRole.setRole(this);
-
-		return userRole;
-	}
-
-	public UserRole removeUserRole(UserRole userRole) {
-		getUserRoles().remove(userRole);
-		userRole.setRole(null);
-
-		return userRole;
-	}*/
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 
 	
 	public String getIdAsString(){
 		return String.valueOf(roleId);
 		}
+
+	public List<User> getUserList() {
+		return userList;
+	}
+
+
+	public void setUserList(List<User> userList) {
+		this.userList = userList;
+	}
+
 
 	public int getStatus() {
 		return status;

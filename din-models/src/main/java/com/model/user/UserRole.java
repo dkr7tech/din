@@ -8,7 +8,7 @@ import javax.persistence.*;
  * The persistent class for the tl_user_role database table.
  * 
  */
-@Entity
+
 @Table(name="tl_user_role")
 @NamedQuery(name="UserRole.findAll", query="SELECT u FROM UserRole u")
 public class UserRole implements Serializable {

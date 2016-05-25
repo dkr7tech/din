@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.common.utils.EncryptionUtil;
 import com.db.UserDAO;
-import com.model.user.Role;
 import com.model.user.User;
 
 /**

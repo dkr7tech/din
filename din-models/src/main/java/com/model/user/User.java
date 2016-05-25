@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -71,12 +72,19 @@ public class User implements Serializable {
 	private int status;
 
 	//bi-directional many-to-one association to UserRole
-	  @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)  
+	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)  
 	    @JoinTable(name="tl_user_role",  
 	    joinColumns={@JoinColumn(name="user_id", referencedColumnName="user_id")},  
 	    inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="role_id")})
 	//@OneToMany(mappedBy="user")
 	private List<Role> roleList;
+
+	
+	public User(int userId, String login) {
+		super();
+		this.userId = userId;
+		this.login = login;
+	}
 
 	public User() {
 	}

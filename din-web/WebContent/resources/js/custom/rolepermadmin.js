@@ -30,10 +30,10 @@ $.ajax({
     // the response is passed to the function
     success: function( json ) {
     	
-    	$('#roleId').val(json.rolePerm.role.roleId);
-    	$('#name').val(json.rolePerm.role.name);
-    	$('#externalName').val(json.rolePerm.role.externalName);
-    	$('#description').val(json.rolePerm.role.description);
+    	$('#roleId').val(json.roleData.roleId);
+    	$('#name').val(json.roleData.name);
+    	$('#externalName').val(json.role.externalName);
+    	$('#description').val(json.roleData.description);
     	
     	var $el = $("#avpermselect");
     	$el.empty(); // remove old options

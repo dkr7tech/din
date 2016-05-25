@@ -25,22 +25,22 @@ select {
 }
 </style>
 <table>
-	<form:form action="roleperm" modelAttribute="rolePerm">
+	<form:form action="roleperm" modelAttribute="role">
 	<tr>
 				<td align="left">id:</td>
-				<td><form:input readonly="true" path="role.roleId"/></td>
+				<td><form:input readonly="true" path="roleId"/></td>
 			</tr>
 			<tr>
 				<td align="left">Role Name:</td>
-				<td><form:input path="role.name"/></td>
+				<td><form:input path="name"/></td>
 			</tr>
 			<tr>
 				<td align="left">External Name:</td>
-				<td><form:input path="role.externalName"/></td>
+				<td><form:input path="externalName"/></td>
 			</tr>
 			<tr>
 				<td align="left">description</td>
-				<td><form:input path="role.description"/></td>
+				<td><form:input path="description"/></td>
 			</tr>
 			<tr>
 				<td align="left">public</td>
@@ -48,7 +48,7 @@ select {
 			</tr>
 			<tr>
 				<td align="left">type</td>
-				<td><form:input path="role.type"/></td>
+				<td><form:input path="type"/></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">

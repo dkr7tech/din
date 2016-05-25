@@ -8,7 +8,7 @@ import javax.persistence.*;
  * The persistent class for the tl_role_perm database table.
  * 
  */
-@Entity
+
 @Table(name="tl_role_perm")
 @NamedQuery(name="RolePerm.findAll", query="SELECT r FROM RolePerm r")
 public class RolePerm implements Serializable {

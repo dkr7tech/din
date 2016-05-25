@@ -1,6 +1,7 @@
 package com.service.user;
 
 import java.util.List;
+import java.util.Map;
 
 import com.model.user.Permission;
 import com.model.user.Role;
@@ -30,4 +31,6 @@ public interface RolePermService {
 	//RolePermissions and remaining permissions available in the system
     public List<List<Permission>> getRolePermAndAvailPerm(Role role);
 
+	//RolePermissions and remaining permissions available in the system
+	public List<Map<Integer, String>> getRolePermAndAvailPerm(List<Permission> listPerm);
 }

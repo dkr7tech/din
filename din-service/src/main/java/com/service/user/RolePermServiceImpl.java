@@ -2,12 +2,15 @@ package com.service.user;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.db.RolePermDAO;
+import com.model.common.PermissionEnum;
 import com.model.user.Permission;
 import com.model.user.Role;
 import com.model.user.RolePerm;
@@ -89,6 +92,7 @@ public class RolePermServiceImpl implements RolePermService {
 		return getRolePermDAO().getRole(role);
 	}
 
+	
 	// RolePermissions and remaining permissions available in the system
 	public List<List<Permission>> getRolePermAndAvailPerm(Role role) {
 		List<List<Permission>> list = new ArrayList<List<Permission>>();
@@ -105,4 +109,21 @@ public class RolePermServiceImpl implements RolePermService {
 		return list;
 	}
 	
+	
+	// RolePermissions and remaining permissions available in the system
+	public List<Map<Integer, String>> getRolePermAndAvailPerm(List<Permission> listPerm) {
+		Map<Integer, String> map = new HashMap<Integer, String>();
+		List<Map<Integer, String>> mapList = new ArrayList<Map<Integer, String>>();
+		Map<Integer, String> allPermMap = PermissionEnum.getPermIdWithNameMap();
+		if (listPerm != null) {
+			for (Permission perm : listPerm) {
+				map.put(perm.getPermId(), PermissionEnum.getPermEnumById(perm.getPermId()).getName());
+				allPermMap.remove(perm.getPermId());
+			}
+		}
+		mapList.add(allPermMap);
+		mapList.add(map);
+		return mapList;
+	}
+
 }

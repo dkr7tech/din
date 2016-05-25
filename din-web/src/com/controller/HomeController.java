@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.javers.core.Javers;
-import org.javers.core.metamodel.object.CdoSnapshot;
-import org.javers.repository.jql.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.stereotype.Controller;
@@ -30,10 +28,8 @@ import com.db.UserDAO;
 import com.model.common.LoginSessionBean;
 import com.model.common.RoleEnum;
 import com.model.common.constant.CommonConstant;
-import com.model.user.Permission;
 import com.model.user.Role;
 import com.model.user.User;
-import com.model.user.UserRole;
 import com.service.auth.RolePermManager;
 import com.service.user.UserService;
 import com.web.utils.WebManagar;
@@ -53,7 +49,7 @@ public class HomeController {
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) throws Exception {
 
-		binder.registerCustomEditor(List.class, "user.roleList", new CustomCollectionEditor(List.class) {
+		binder.registerCustomEditor(List.class, "roleList", new CustomCollectionEditor(List.class) {
 
 			@Override
 			protected Object convertElement(Object element) {
@@ -103,7 +99,7 @@ public class HomeController {
 		ModelAndView model = new ModelAndView("UserForm");
 		RolePermManager roleManager = new RolePermManager();
 		model.addObject("availableRoles", roleManager.getAllRoles());
-		model.addObject("userrole", new UserRole());
+		model.addObject("user", new User());
 		return model;
 	}
 
@@ -134,13 +130,10 @@ public class HomeController {
 		int userId = Integer.parseInt(request.getParameter("id"));
 		User user = userDao.get(userId);
 		Map<Integer, String> allRolesMap =RoleEnum.getRolesIdWithNameMap();
-		Map<Integer, String> userRoleMap=getUserRole(user.getRoleList(),allRolesMap);
-		UserRole userrole = new UserRole();
-		userrole.setUser(user);
 		ModelAndView model = new ModelAndView("UserForm");
 		model.addObject("availableRoles", allRolesMap);
-		model.addObject("selectedRoles", userRoleMap);
-		model.addObject("userrole", userrole);
+		model.addObject("selectedRoles", getUserRole(user.getRoleList(),allRolesMap));
+		model.addObject("user", user);
 		return model;
 	}
 
@@ -157,10 +150,10 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView saveUser(@ModelAttribute UserRole UserRole) {
+	public ModelAndView saveUser(@ModelAttribute User User) {
 
-		System.out.println("dd" + UserRole.getUser());
-		User newUser = userService.createUser(UserRole.getUser());
+		System.out.println("Inside save user first name" + User.getFirstName());
+		User newUser = userService.createUser(User);
 		System.out.println("user :" + newUser.getUserId());
 		/*
 		 * if(newUser.getUserId()>0){
@@ -174,7 +167,7 @@ public class HomeController {
 	public ModelAndView login(@ModelAttribute User user, HttpServletRequest request) {
 		String target = "redirect:/";
 	AuditManagar audit=new AuditManagar(javers);
-		audit.listPrperties();
+		//audit.listPrperties();
 		if (!StringUtility.isEmpty(user.getLogin()) && !StringUtility.isEmpty(user.getPassword())) {
 			User loggedInUser = userService.getUser(user);
 			if (ObjectUtility.isNotNull(loggedInUser)) {
