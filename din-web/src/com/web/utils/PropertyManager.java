@@ -18,8 +18,6 @@ public class PropertyManager {
         Properties properties = new Properties();
         Map<String, String> proMap = null;
         try {
-System.out.println("Context+++++++++++++++++"+WebUtil.getServletContext());      	
-        	
             InputStream inputStream =WebUtil.getServletContext().getResourceAsStream(WebUtil.getConfigPath()+fileName);
             //InputStream inputStream = utility.getClass().getResourceAsStream(fileName);
             if (inputStream == null) {

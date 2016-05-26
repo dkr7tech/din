@@ -45,10 +45,8 @@ public class UserDAOImpl implements UserDAO {
 
 	
 	@Transactional
-	public void delete(int id) {
-		User userToDelete = new User(id,"");
-		//userToDelete.setUserId(id);
-		entityManager.remove(userToDelete);
+	public void delete(User user) {
+		entityManager.remove(user);
 	}
 
 	

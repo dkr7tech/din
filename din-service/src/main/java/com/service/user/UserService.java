@@ -12,6 +12,7 @@ import com.model.user.User;
 public interface UserService {
 	
 	public User createUser(User user);
+	public User deleteUser(User user);
 	public boolean validateUser(User user,User loggedInUser);
 
 	public User getUser(int id);

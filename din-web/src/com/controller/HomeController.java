@@ -38,6 +38,7 @@ import com.web.utils.WebManagar;
  * Handles requests for the application home page.
  */
 @Controller
+//@RequestMapping("/")
 public class HomeController {
 
 	@Autowired
@@ -86,7 +87,7 @@ public class HomeController {
 	private UserService userService;
 
 	// @Audit("welcome")
-	@RequestMapping("/userlist")
+	@RequestMapping("/userlist.htm")
 	public ModelAndView handleRequest() throws Exception {
 		List<User> listUsers = userDao.list();
 		ModelAndView model = new ModelAndView("UserList");
@@ -94,7 +95,7 @@ public class HomeController {
 		return model;
 	}
 
-	@RequestMapping(value = "/new", method = RequestMethod.GET)
+	@RequestMapping(value = "/new.htm", method = RequestMethod.GET)
 	public ModelAndView newUser() {
 		ModelAndView model = new ModelAndView("UserForm");
 		RolePermManager roleManager = new RolePermManager();
@@ -125,7 +126,7 @@ public class HomeController {
 	}
 	
 
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "/edit.htm", method = RequestMethod.GET)
 	public ModelAndView editUser(HttpServletRequest request) {
 		int userId = Integer.parseInt(request.getParameter("id"));
 		User user = userDao.get(userId);
@@ -137,10 +138,10 @@ public class HomeController {
 		return model;
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/logon.htm", method = RequestMethod.GET)
 	public ModelAndView userLoginPage(HttpServletRequest request) {
 		ModelAndView model = new ModelAndView("logon");
-		WebManagar.setApplicationProperties(request.getServletContext());
+		//WebManagar.setApplicationProperties(request.getServletContext());
 		model.addObject("user", new User());
 		return model;
 		/*
@@ -148,8 +149,22 @@ public class HomeController {
 		 * userDao.delete(userId); return new ModelAndView("redirect:/");
 		 */
 	}
+	
+	@RequestMapping(value = "/delete.htm", method = RequestMethod.POST)
+	public ModelAndView delete(@ModelAttribute User User) {
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
+		System.out.println("Inside save user first name" + User.getFirstName());
+		User newUser = userService.deleteUser(User);
+		System.out.println("user :" + newUser.getUserId());
+		/*
+		 * if(newUser.getUserId()>0){
+		 * 
+		 * }
+		 */
+		return new ModelAndView("redirect:/");
+	}
+
+	@RequestMapping(value = "/save.htm", method = RequestMethod.POST)
 	public ModelAndView saveUser(@ModelAttribute User User) {
 
 		System.out.println("Inside save user first name" + User.getFirstName());
@@ -163,7 +178,7 @@ public class HomeController {
 		return new ModelAndView("redirect:/");
 	}
 
-	@RequestMapping(value = "/home", method = RequestMethod.POST)
+	@RequestMapping(value = "/home.htm", method = RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute User user, HttpServletRequest request) {
 		String target = "redirect:/";
 	AuditManagar audit=new AuditManagar(javers);
@@ -175,7 +190,7 @@ public class HomeController {
 				LoginSessionBean loginSessionBean = new LoginSessionBean();
 				loginSessionBean.setUser(loggedInUser);
 				session.setAttribute(CommonConstant.USER_SESSION, loginSessionBean);
-				target = "redirect:/userlist";
+				target = "redirect:/userlist.htm";
 			}
 		}
 		return new ModelAndView(target);

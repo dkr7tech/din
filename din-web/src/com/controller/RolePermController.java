@@ -49,7 +49,7 @@ public class RolePermController {
 
 }
 
-	@RequestMapping(value = "/rolepermadmin", method = RequestMethod.GET)
+	@RequestMapping(value = "/rolepermadmin.htm", method = RequestMethod.GET)
 	public ModelAndView findRoles() {
 		Role role = new Role();
 		
@@ -144,7 +144,7 @@ public class RolePermController {
 		return permissons;
 	}
 	//@JsonView(View.Summary.class)
-	@RequestMapping(value = "/roledata", method = RequestMethod.GET)
+	@RequestMapping(value = "/roledata.htm", method = RequestMethod.GET)
 	public ModelAndView getRoleData(@RequestParam("roleId")  int roleId) {
 		MappingJackson2JsonView view=new MappingJackson2JsonView();
 		ModelAndView model = new ModelAndView(view);
@@ -166,7 +166,7 @@ public class RolePermController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/permdata", method = RequestMethod.GET)
+	@RequestMapping(value = "/permdata.htm", method = RequestMethod.GET)
 	public ModelAndView getPermData(@RequestParam("permId")  int permId) {
 		MappingJackson2JsonView view=new MappingJackson2JsonView();
 		ModelAndView model = new ModelAndView(view);
@@ -182,7 +182,7 @@ public class RolePermController {
 		return model;
 	}
 
-	@RequestMapping(value = "/createrole", method = RequestMethod.GET)
+	@RequestMapping(value = "/createrole.htm", method = RequestMethod.GET)
 	public ModelAndView createRole() {
 		ModelAndView model = new ModelAndView("rolesadmin");
 		Map<Integer, RoleEnum> rolesMap = RoleEnum.getRolesEnumMap();
@@ -192,7 +192,7 @@ public class RolePermController {
 		return model;
 	}
 
-	@RequestMapping(value = "/saverole", method = RequestMethod.POST)
+	@RequestMapping(value = "/saverole.htm", method = RequestMethod.POST)
 	public ModelAndView saveRole(@ModelAttribute Role role) {
 		int i = getRolePermService().createRole(role);
 		return new ModelAndView("redirect:/");
@@ -209,7 +209,7 @@ public class RolePermController {
 		return model;
 	}
 
-	@RequestMapping(value = "/saveperm", method = RequestMethod.POST)
+	@RequestMapping(value = "/saveperm.htm", method = RequestMethod.POST)
 	public ModelAndView savePerm(@ModelAttribute Permission Permission) {
 		getRolePermService().createPermission(Permission);
 		return new ModelAndView("redirect:/");

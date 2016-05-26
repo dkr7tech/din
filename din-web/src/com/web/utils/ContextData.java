@@ -19,6 +19,7 @@ public class ContextData implements Serializable{
 	private String jstlJspPath; 
 	private String springLibJspPath;
 	private String scriptJspPath;
+	private String loginURL;
 	
 	
 	public String getExtJSPath() {
@@ -95,6 +96,12 @@ public class ContextData implements Serializable{
 	}
 	public void setScriptJspPath(String scriptJspPath) {
 		this.scriptJspPath = scriptJspPath;
+	}
+	public String getLoginURL() {
+		return loginURL;
+	}
+	public void setLoginURL(String loginURL) {
+		this.loginURL = loginURL;
 	}
 
 	

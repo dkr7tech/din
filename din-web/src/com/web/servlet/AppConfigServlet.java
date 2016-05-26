@@ -16,7 +16,11 @@ import com.web.utils.WebManagar;
  * Servlet implementation class for Servlet: AppConfigServlet
  *
  */
-@WebServlet("/AppConfigServlet")
+
+//http://www.codejava.net/java-ee/servlet/webservlet-annotation-examples
+@WebServlet(urlPatterns = "/AppConfigServlet",
+		loadOnStartup = 1,
+        asyncSupported = false)
 public class AppConfigServlet extends javax.servlet.http.HttpServlet {
 	static final long serialVersionUID = 1L;
 
@@ -27,10 +31,21 @@ public class AppConfigServlet extends javax.servlet.http.HttpServlet {
 		WebManagar.setApplicationProperties(this.getServletContext());
 
 	}
+	
+
+	/*@Override
+	protected void service(HttpServletRequest arg0, HttpServletResponse arg1) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		super.service(arg0, arg1);
+		System.out.println("########### AppConfigServlet Servlet service #######################" );
+	}*/
+
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ServletContext servletContext = this.getServletContext();
+		System.out.println(request.getContextPath()+"/logon.htm"+"########### AppConfigServlet Servlet doGet #######################" );
+		//response.sendRedirect(request.getContextPath()+"/logon.htm");
 		PrintWriter out = response.getWriter();
 		out.println("<html>");
 		out.println("<head>");
@@ -43,6 +58,7 @@ public class AppConfigServlet extends javax.servlet.http.HttpServlet {
 		out.println("</html>");
 		out.close();
 		WebManagar.setApplicationProperties(servletContext);
+		
 
 	}
 

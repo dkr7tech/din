@@ -15,6 +15,7 @@ public class WebConstants {
 	public static final String SCRIPT_JSP_PATH="scriptJspPath";
 	public static final String SPRING_LIB_JSP_PATH="springLibJspPath";
 	public static final String JSTL_LIB_JSP_PATH="jstlLibJspPath";
+	public static final String LOGIN_URL="loginurl";
 	
 
 }

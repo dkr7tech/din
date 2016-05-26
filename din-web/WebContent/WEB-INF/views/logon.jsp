@@ -7,8 +7,9 @@
     
     
     <link rel="stylesheet" href="resources/css/login/normalize.css">
+  <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'> 
 
-    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+     <!-- <link rel='stylesheet prefetch' href='resources/css/login/font-awesome.min.css'> -->
 
         <link rel="stylesheet" href="resources/css/login/style.css">
 
@@ -87,7 +88,7 @@ test.compare();
           <span class="logmod__heading-subtitle">Enter your email and password <strong>to sign in</strong></span>
         </div> 
         <div class="logmod__form">
-          <form:form action="home" method="post" modelAttribute="user">
+          <form:form action="home.htm" method="post" modelAttribute="user">
             <div class="sminputs">
               <div class="input full">
                 <label class="string optional" for="user-name">User Name*</label>

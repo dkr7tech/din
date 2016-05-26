@@ -34,7 +34,7 @@
 		<form:form action="save" method="post" modelAttribute="user">
 		<table>
 			
-			<%-- <form:hidden path="id"/> --%>
+			 <form:hidden path="id"/> 
 			<tr>
 				<td align="left">Gender:</td>
 				<td><form:input path="gender"/></td>

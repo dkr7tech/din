@@ -15,5 +15,5 @@ public interface UserDAO {
 	public User getUser(String userName);
 	//public void saveOrUpdateRole(TtRole role);
 	
-	public void delete(int id);
+	public void delete(User user);
 }

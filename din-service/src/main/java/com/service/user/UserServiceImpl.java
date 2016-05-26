@@ -76,4 +76,9 @@ public class UserServiceImpl implements UserService {
 		return loggedInUser;
 	}
 
+	public User deleteUser(User user) {
+		getUserDao().delete(user);
+		return null;
+	}
+
 }

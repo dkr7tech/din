@@ -81,6 +81,7 @@ public class WebManagar {
 		contextData.setSpringLibJspPath(propertiesMap.get(WebConstants.SPRING_LIB_JSP_PATH).trim());
 		contextData.setJstlJspPath(propertiesMap.get(WebConstants.JSTL_LIB_JSP_PATH).trim());
 		contextData.setScriptJspPath(propertiesMap.get(WebConstants.SCRIPT_JSP_PATH).trim());
+		contextData.setLoginURL(propertiesMap.get(WebConstants.LOGIN_URL).trim());
 		servletContext.setAttribute(WebConstants.APP_CONTEXT_DATA, contextData);
 
 	}
