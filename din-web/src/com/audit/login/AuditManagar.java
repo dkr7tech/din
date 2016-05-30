@@ -9,7 +9,7 @@ import org.javers.core.diff.changetype.ValueChange;
 import org.javers.core.metamodel.object.CdoSnapshot;
 import org.javers.repository.jql.QueryBuilder;
 
-import com.model.user.User;
+import com.model.user.Role;
 
 public class AuditManagar {
 	
@@ -26,7 +26,7 @@ public class AuditManagar {
 
 	public void listPrperties(){
 		List<CdoSnapshot> snapshots = javers.findSnapshots(
-			    QueryBuilder.byClass(User.class).build());
+			    QueryBuilder.byClass(Role.class).build());
 		int size=snapshots.size();
 		int count=0;
 		for(CdoSnapshot snapshot:snapshots){
@@ -48,18 +48,22 @@ public class AuditManagar {
 		    //then
 		    //there should be one change of type {@link ValueChange}
 		 List<ValueChange> listChanges = diff.getChangesByType(ValueChange.class);
+		 System.out.println("Propety name      ->   Old Value       ->       New Vallue");
 		 for(ValueChange valueChange:listChanges)
 		 {
-			 System.out.println(valueChange.getPropertyName()+" oldValue "+valueChange.getLeft() +" new Value "+valueChange.getRight());
+			 
+			 System.out.println(valueChange.getPropertyName()+"  ->  "+valueChange.getRight() +"  ->    "+valueChange.getLeft());
 		 }
 		    ValueChange change = diff.getChangesByType(ValueChange.class).get(0);
 		    if(diff.hasChanges()){
 		    	List<Change> list =diff.getChanges();
-		    	for(Change ch:list){
+		    	for(Change ch:list){ch.
 		    		
 		    		System.out.println("changes"+ch.getAffectedObject().get().toString());
 		    	}
 		    
+		    	
+		    	List<Change> =diff.getObjectsByChangeType(type)
 		    System.out.println("Summery :> "+diff.changesSummary());
 		  //  System.out.println(change.getPropertyName()+" oldValue "+change.getLeft() +" new Value "+change.getRight());
 		    }

@@ -141,6 +141,8 @@ public class HomeController {
 	@RequestMapping(value = "/logon.htm", method = RequestMethod.GET)
 	public ModelAndView userLoginPage(HttpServletRequest request) {
 		ModelAndView model = new ModelAndView("logon");
+		AuditManagar audit=new AuditManagar(javers);
+		audit.listPrperties();
 		//WebManagar.setApplicationProperties(request.getServletContext());
 		model.addObject("user", new User());
 		return model;		
@@ -177,8 +179,8 @@ public class HomeController {
 	@RequestMapping(value = "/home.htm", method = RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute User user, HttpServletRequest request) {
 		String target = "redirect:/";
-	AuditManagar audit=new AuditManagar(javers);
-		//audit.listPrperties();
+	
+		
 		if (!StringUtility.isEmpty(user.getLogin()) && !StringUtility.isEmpty(user.getPassword())) {
 			User loggedInUser = userService.getUser(user);
 			if (ObjectUtility.isNotNull(loggedInUser)) {
