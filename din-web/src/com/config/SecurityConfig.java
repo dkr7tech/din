@@ -47,15 +47,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	*/
 	
-	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/din-web/**").permitAll();
-		//and().formLogin();
+
+	    http.authorizeRequests().antMatchers("/din-web/**")
+		.access("hasRole('UserAdministrator')").and().formLogin()
+		.loginPage("/logon.htm")
+		.usernameParameter("login")
+		.passwordParameter("password")
+		//.and().logout().logoutSuccessUrl("/login?logout")
+		.and().csrf()
+		.and().exceptionHandling().accessDeniedPage("/403");
+	   // System.out.println("configure"+authenticationService.loadUserByUsername("din"));
 	}
+/*	
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth)
+	throws Exception {
+	auth
+	.userDetailsService(authenticationService);
+	}*/
+/*	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers("/din-web/**").access("hasRole('ROLE_ADMIN')").
+		and().formLogin();
+		System.out.println("configure");
+	}*/
 	   @Autowired
 		public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 	            
 	            auth.userDetailsService(authenticationService).passwordEncoder(new BCryptPasswordEncoder());
+	            System.out.println("configureGlobal"+authenticationService);
 		}
 }

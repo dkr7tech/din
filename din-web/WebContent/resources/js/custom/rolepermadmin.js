@@ -17,7 +17,7 @@ function populateValues(idValue){
 //Using the core $.ajax() method
 $.ajax({
     // The URL for the request
-    url: "roledata",
+    url: "roledata.htm",
     // The data to send (will be converted to a query string)
     data: {
     	roleId: idValue

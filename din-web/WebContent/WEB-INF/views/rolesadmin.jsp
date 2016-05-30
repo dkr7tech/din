@@ -11,7 +11,7 @@
 <div align="center">
 		<h1>New/Edit User</h1>
 		<table>
-			<form:form action="saverole" method="post" modelAttribute="role">
+			<form:form action="saverole.htm" method="post" modelAttribute="role">
 			<%-- <form:hidden path="id"/> --%>
 		
 			<tr>

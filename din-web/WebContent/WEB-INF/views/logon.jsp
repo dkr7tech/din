@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html >
   <head>
@@ -7,9 +7,9 @@
     
     
     <link rel="stylesheet" href="resources/css/login/normalize.css">
-  <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'> 
-
-     <!-- <link rel='stylesheet prefetch' href='resources/css/login/font-awesome.min.css'> -->
+  <!-- <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'> --> 
+<link rel='stylesheet prefetch' href='resources/css/login/font-awesome.min.css'>
+    
 
         <link rel="stylesheet" href="resources/css/login/style.css">
 
@@ -19,11 +19,11 @@
   </head>
   <%@ page import="com.audit.JaversTest"%>
 <body>
- <% JaversTest test=new JaversTest();
-test.compare();
+ <% /* JaversTest test=new JaversTest();
+test.compare(); */
 //test.listPrperties();
 %> 
-  <body>
+ 
     <div class="logmod">
   <div class="logmod__wrapper">
     <span class="logmod__close">Close</span>

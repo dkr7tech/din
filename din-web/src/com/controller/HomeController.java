@@ -143,11 +143,7 @@ public class HomeController {
 		ModelAndView model = new ModelAndView("logon");
 		//WebManagar.setApplicationProperties(request.getServletContext());
 		model.addObject("user", new User());
-		return model;
-		/*
-		 * int userId = Integer.parseInt(request.getParameter("id"));
-		 * userDao.delete(userId); return new ModelAndView("redirect:/");
-		 */
+		return model;		
 	}
 	
 	@RequestMapping(value = "/delete.htm", method = RequestMethod.POST)
@@ -155,7 +151,7 @@ public class HomeController {
 
 		System.out.println("Inside save user first name" + User.getFirstName());
 		User newUser = userService.deleteUser(User);
-		System.out.println("user :" + newUser.getUserId());
+		
 		/*
 		 * if(newUser.getUserId()>0){
 		 * 

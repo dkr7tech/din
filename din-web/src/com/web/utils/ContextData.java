@@ -15,11 +15,14 @@ public class ContextData implements Serializable{
 	private String configFilesPath;
 	private String imagesPath;
 	private String jqueryJsPath;
+	private String angularJsPath;
 	private boolean isProductionEnv=false;
 	private String jstlJspPath; 
 	private String springLibJspPath;
 	private String scriptJspPath;
-	private String loginURL;
+	private String loginPageURL;
+	private String loginReqURL;/*first req afte entring user pass to create session*/
+	private String homePageURL;
 	
 	
 	public String getExtJSPath() {
@@ -97,12 +100,32 @@ public class ContextData implements Serializable{
 	public void setScriptJspPath(String scriptJspPath) {
 		this.scriptJspPath = scriptJspPath;
 	}
-	public String getLoginURL() {
-		return loginURL;
+	public String getLoginPageURL() {
+		return loginPageURL;
 	}
-	public void setLoginURL(String loginURL) {
-		this.loginURL = loginURL;
+	public void setLoginPageURL(String loginPageURL) {
+		this.loginPageURL = loginPageURL;
 	}
+	
+	public String getLoginReqURL() {
+		return loginReqURL;
+	}
+	public void setLoginReqURL(String loginReqURL) {
+		this.loginReqURL = loginReqURL;
+	}
+	public String getHomePageURL() {
+		return homePageURL;
+	}
+	public void setHomePageURL(String homePageURL) {
+		this.homePageURL = homePageURL;
+	}
+	public String getAngularJsPath() {
+		return angularJsPath;
+	}
+	public void setAngularJsPath(String angularJsPath) {
+		this.angularJsPath = angularJsPath;
+	}
+	
 
 	
 	

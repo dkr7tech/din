@@ -10,7 +10,7 @@
 </head>
 <body>
 <table>
-		<form:form action="saverole" modelAttribute="role">
+		<form:form action="saverole.htm" modelAttribute="role">
 			<tr>
 				<td align="left">roles list</td>
 				<td><form:select id="roleList" path="roleId"  onchange="select()">

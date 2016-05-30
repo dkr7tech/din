@@ -11,10 +11,10 @@
     <body>
         <div align="center">
 	        <h1>Users List</h1>
-	        <h2><a href="new">New User</a></h2>
-	        <h2><a href="createrole">New Role</a></h2>
-	        <h2><a href="createPerm">New Permission</a></h2>
-	        <h2><a href="rolepermadmin">RoleList222</a></h2>
+	        <h2><a href="new.htm">New User</a></h2>
+	        <h2><a href="createrole.htm">New Role</a></h2>
+	        <h2><a href="createPerm.htm">New Permission</a></h2>
+	        <h2><a href="rolepermadmin.htm">RoleList222</a></h2>
 	        
         	<table border="1">
 	        	<th>No</th>
@@ -28,9 +28,9 @@
 					<td>${user.login}</td>
 					<td>${user.email}</td>
 					<td>
-						<a href="edit?id=${user.userId}">Edit</a>
+						<a href="edit.htm?id=${user.userId}">Edit</a>
 						&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="delete?id=${user.userId}">Delete</a>
+						<a href="delete.htm?id=${user.userId}">Delete</a>
 					</td>
 	        	</tr>
 				</c:forEach>	        	

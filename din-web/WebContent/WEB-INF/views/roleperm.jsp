@@ -25,7 +25,7 @@ select {
 }
 </style>
 <table>
-	<form:form action="roleperm" modelAttribute="role">
+	<form:form action="roleperm.htm" modelAttribute="role">
 	<tr>
 				<td align="left">id:</td>
 				<td><form:input readonly="true" path="roleId"/></td>

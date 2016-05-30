@@ -14,12 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.config.web.WebConstants;
 import com.model.common.constant.CommonConstant;
+import com.web.utils.ContextData;
 
 /**
  * Servlet Filter implementation class SessionAuthenticationFilter
  */
-@WebFilter("/*")
+@WebFilter("*.htm")
 public class SessionAuthenticationFilter implements Filter {
 
     /**
@@ -44,14 +46,16 @@ public class SessionAuthenticationFilter implements Filter {
 	        HttpSession session = request.getSession(false);
 	        //String loginURI = request.getContextPath() + "/login";
 	        ServletContext context= request.getServletContext();
-	       /* ContextData contextData=null;
-	        if(context.getAttribute(CommonConstant.USER_SESSION)!=null){
+	        ContextData contextData=null;
+	        if(context.getAttribute(WebConstants.APP_CONTEXT_DATA)!=null){
 	        	contextData=(ContextData)context.getAttribute(WebConstants.APP_CONTEXT_DATA);
-	        }*/
-	        String loginURI = request.getContextPath() + "/logon.htm";
+	        }
+	        String loginURI = request.getContextPath() + contextData.getLoginPageURL();
+	        String homeURI = request.getContextPath() + contextData.getLoginReqURL(); /* request make for validation and befor session creation from login page action url*/
+
 	        System.out.println("filter request uri"+request.getRequestURI());
 	        boolean loggedIn = session != null && session.getAttribute(CommonConstant.USER_SESSION) != null;
-	        boolean loginRequest = request.getRequestURI().equals(loginURI);
+	        boolean loginRequest = request.getRequestURI().equals(loginURI) ||request.getRequestURI().equals(homeURI);
 	       // loggedIn=true;
 	        if (loggedIn || loginRequest) {
 	            chain.doFilter(request, response);

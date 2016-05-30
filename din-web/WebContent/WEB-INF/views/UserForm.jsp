@@ -31,10 +31,10 @@
 <body>
 	<div align="center">
 		<h1>New/Edit User</h1>
-		<form:form action="save" method="post" modelAttribute="user">
+		<form:form action="save.htm" method="post" modelAttribute="user">
 		<table>
 			
-			 <form:hidden path="id"/> 
+			 <form:hidden path="userId"/> 
 			<tr>
 				<td align="left">Gender:</td>
 				<td><form:input path="gender"/></td>

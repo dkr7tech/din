@@ -77,11 +77,14 @@ public class WebManagar {
 		contextData.setImagesPath(contextPath + propertiesMap.get(WebConstants.IMAGES_PATH).trim());
 		contextData.setCssPath(contextPath + propertiesMap.get(WebConstants.CSS_PATH).trim());
 		contextData.setJqueryJsPath(contextPath + propertiesMap.get(WebConstants.JQUERY_PATH).trim());
+		contextData.setAngularJsPath(contextPath + propertiesMap.get(WebConstants.ANGULARJS_PATH).trim());
 		contextData.setProductionEnv(Boolean.parseBoolean(propertiesMap.get(WebConstants.DEVELOPMENT_ENV).trim()));
 		contextData.setSpringLibJspPath(propertiesMap.get(WebConstants.SPRING_LIB_JSP_PATH).trim());
 		contextData.setJstlJspPath(propertiesMap.get(WebConstants.JSTL_LIB_JSP_PATH).trim());
 		contextData.setScriptJspPath(propertiesMap.get(WebConstants.SCRIPT_JSP_PATH).trim());
-		contextData.setLoginURL(propertiesMap.get(WebConstants.LOGIN_URL).trim());
+		contextData.setLoginPageURL(propertiesMap.get(WebConstants.LOGIN_URL).trim());
+		contextData.setLoginReqURL(propertiesMap.get(WebConstants.LOGIN_REQ_URL).trim());
+		contextData.setHomePageURL(propertiesMap.get(WebConstants.HOME_URL).trim());
 		servletContext.setAttribute(WebConstants.APP_CONTEXT_DATA, contextData);
 
 	}

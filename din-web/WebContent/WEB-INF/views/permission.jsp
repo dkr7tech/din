@@ -12,7 +12,7 @@
 <div align="center">
 		<h1>Permission</h1>
 		<table>
-			<form:form action="saveperm" method="post" modelAttribute="permission">
+			<form:form action="saveperm.htm" method="post" modelAttribute="permission">
 			<%-- <form:hidden path="id"/> --%>
 				<tr>
 				<td align="left">Select Permission</td>
