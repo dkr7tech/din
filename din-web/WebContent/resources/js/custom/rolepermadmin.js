@@ -29,17 +29,17 @@ $.ajax({
     // Code to run if the request succeeds;
     // the response is passed to the function
     success: function( json ) {
-    	
+    	debugger;
     	$('#roleId').val(json.roleData.roleId);
     	$('#name').val(json.roleData.name);
-    	$('#externalName').val(json.role.externalName);
+    	$('#externalName').val(json.roleData.externalName);
     	$('#description').val(json.roleData.description);
     	
     	var $el = $("#avpermselect");
     	$el.empty(); // remove old options
     	$.each(json.availablePerm, function(value,key) {
     	  $el.append($("<option></option>")
-    	     .attr("value", key.permId).text(key.name));
+    	     .attr("value", value).text(key));
     	});
     	
     	
@@ -48,9 +48,9 @@ $.ajax({
     	var $el = $("#selectedroleperm");
     	$el.empty(); // remove old options
     	$.each(json.selectedperm, function(index,value) {
-    		console.log( index+"JSON Data: " + value.name );
+    		console.log( index+"JSON Data: " + value );
     	  $el.append($("<option></option>")
-    	     .attr("value", value.permId).text(value.name));
+    	     .attr("value", index).text(value));
     	});
         //$( "<h1>" ).text( json.title ).appendTo( "body" );
         //$( "<div class=\"content\">").html( json.html ).appendTo( "body" );
