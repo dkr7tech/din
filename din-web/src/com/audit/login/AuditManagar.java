@@ -57,13 +57,13 @@ public class AuditManagar {
 		    ValueChange change = diff.getChangesByType(ValueChange.class).get(0);
 		    if(diff.hasChanges()){
 		    	List<Change> list =diff.getChanges();
-		    	for(Change ch:list){ch.
+		    	for(Change ch:list){
 		    		
 		    		System.out.println("changes"+ch.getAffectedObject().get().toString());
 		    	}
 		    
 		    	
-		    	List<Change> =diff.getObjectsByChangeType(type)
+		    	//List<Change> =diff.getObjectsByChangeType(type)
 		    System.out.println("Summery :> "+diff.changesSummary());
 		  //  System.out.println(change.getPropertyName()+" oldValue "+change.getLeft() +" new Value "+change.getRight());
 		    }
