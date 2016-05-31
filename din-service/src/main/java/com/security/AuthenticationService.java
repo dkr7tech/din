@@ -68,7 +68,7 @@ public class AuthenticationService implements UserDetailsService {
 		Set<Map.Entry<Integer, String>> entrySet = roleMap.entrySet();
 		for (Entry<Integer, String> entry : entrySet) {
 		// Build user's authorities
-			setAuths.add(new SimpleGrantedAuthority(entry.getValue()));
+			setAuths.add(new SimpleGrantedAuthority("ROLE_"+entry.getValue()));
 		}
 
 		List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(setAuths);

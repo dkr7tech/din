@@ -51,22 +51,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 	    http.authorizeRequests().antMatchers("/din-web/**")
-		.access("hasRole('UserAdministrator')").and().formLogin()
+		.access("hasRole('User Administrator')").and().formLogin()
 		.loginPage("/logon.htm")
 		.usernameParameter("login")
 		.passwordParameter("password")
 		//.and().logout().logoutSuccessUrl("/login?logout")
 		.and().csrf()
 		.and().exceptionHandling().accessDeniedPage("/403");
-	   // System.out.println("configure"+authenticationService.loadUserByUsername("din"));
+	   System.out.println("configure"+authenticationService.loadUserByUsername("din"));
 	}
-/*	
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth)
 	throws Exception {
 	auth
 	.userDetailsService(authenticationService);
-	}*/
+	}
 /*	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/din-web/**").access("hasRole('ROLE_ADMIN')").
