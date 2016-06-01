@@ -1,13 +1,14 @@
 
-<%-- <link rel='stylesheet prefetch' href="${contextData.cssPath}/template.css"> --%>
+ <link rel='stylesheet prefetch' href="${contextData.cssPath}/template.css"> 
 <%@ include file="../include/script/script.jsp" %>
 <%@ include file="../include/jsplib/springlib.jsp" %>
-<div id="header">
-<h1>Welcome</h1>
-</div>
+
+<link href="${contextData.cssPath}/menu/googleapis.css" rel="stylesheet"> 
+ <link href="${contextData.cssPath}/menu/font-awesome.css" rel="stylesheet"> 
 <link href="${contextData.cssPath}/menu/menu.css" rel="stylesheet">
-<script src=/din-web/resources/js/menu/custom.js></script>
-<div style="background:#999; font-size:22px; text-align:center; line-height:160px; color:#FFF; font-weight:bold;">Creating 3-Level Responsive Drop Down Navigation Menu with jQuery CSS3
+
+
+<div style="background:#795867; font-size:22px; text-align:center; line-height:160px; color:#FFF; font-weight:bold;">Creating 3-Level Responsive Drop Down Navigation Menu with jQuery CSS3
     </div>
 	<!-- start header -->
 	<header>	
@@ -79,5 +80,5 @@
 			</div>
 		</div>
 	</header>	
-		
+		<script src=/din-web/resources/js/menu/custom.js></script>
 		
