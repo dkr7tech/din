@@ -3,8 +3,8 @@
 
 <html>
 <head>
-<%@ include file="../include/script/script.jsp" %>
-<%@ include file="../include/jsplib/springlib.jsp" %>
+
+<%@ include file="../include/header.jsp" %>
 <script type="text/javascript" src="${contextData.customJsPath}/rolepermadmin.js"></script>
 <title>Role Permission Administration</title>
 </head>
@@ -67,6 +67,7 @@
 		</form:form>
 	</table>
 	
+	<%@ include file="../include/footer.jsp" %>
 		
 </body>
 </html>
