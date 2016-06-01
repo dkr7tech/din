@@ -4,11 +4,12 @@
 <html>
 <head>
 
-<%@ include file="../include/header.jsp" %>
+
 <script type="text/javascript" src="${contextData.customJsPath}/rolepermadmin.js"></script>
 <title>Role Permission Administration</title>
 </head>
 <body>
+<%@ include file="../include/header.jsp" %>
 <table>
 		<form:form action="saverole.htm" modelAttribute="role">
 			<tr>
