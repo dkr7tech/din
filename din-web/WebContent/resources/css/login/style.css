@@ -35,7 +35,8 @@ html {
   display: block;
   position: absolute;
   right: 50%;
-  background: url("http://imgh.us/close_white.svg") no-repeat scroll 0% 0% transparent;
+  /* background: url("http://imgh.us/close_white.svg") no-repeat scroll 0% 0% transparent; */
+  background: url("close_white.svg") no-repeat scroll 0% 0% transparent;
   text-indent: 100%;
   white-space: nowrap;
   overflow: hidden;
@@ -603,5 +604,6 @@ html {
   width: 100%;
   height: 100%;
   z-index: 999999;
-  background-image: url(http://basehold.it/i/24);
+  /* background-image: url(http://basehold.it/i/24); */
+  background-image: url(../../img/24.png);
 }

@@ -8,8 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+    <%@ include file="../include/header.jsp" %>
 <div align="center">
-		<h1>New/Edit User</h1>
+		<h1>Create Role</h1>
 		<table>
 			<form:form action="saverole.htm" method="post" modelAttribute="role">
 			<%-- <form:hidden path="id"/> --%>
@@ -46,5 +47,6 @@
 			</form:form>
 		</table>
 	</div>
+	<%@ include file="../include/footer.jsp" %>
 </body>
 </html>

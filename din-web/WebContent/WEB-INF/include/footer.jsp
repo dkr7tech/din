@@ -1,5 +1,5 @@
 
 <div id="footer">
-Copyright © W3Schools.com
+Copyright © din-web 2016
 </div>
 

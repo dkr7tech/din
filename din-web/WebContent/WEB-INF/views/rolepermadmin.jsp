@@ -10,6 +10,7 @@
 </head>
 <body>
 <%@ include file="../include/header.jsp" %>
+<div align="center">
 <table>
 		<form:form action="saverole.htm" modelAttribute="role">
 			<tr>
@@ -67,7 +68,7 @@
 			
 		</form:form>
 	</table>
-	
+	</div>
 	<%@ include file="../include/footer.jsp" %>
 		
 </body>

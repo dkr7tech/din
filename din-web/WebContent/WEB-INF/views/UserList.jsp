@@ -9,14 +9,10 @@
         <title>Home</title>
     </head>
     <body>
+    <%@ include file="../include/header.jsp" %>
         <div align="center">
 	        <h1>Users List</h1>
-	        <h2><a href="new.htm">New User</a></h2>
-	        <h2><a href="createrole.htm">New Role</a></h2>
-	        <h2><a href="createPerm.htm">New Permission</a></h2>
-	        <h2><a href="rolepermadmin.htm">RoleList222</a></h2>
-	        
-        	<table border="1">
+	        <table border="1">
 	        	<th>No</th>
 	        	<th>Username</th>
 	        	<th>Email</th>

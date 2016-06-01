@@ -8,7 +8,7 @@
 <link href="${contextData.cssPath}/menu/menu.css" rel="stylesheet">
 
 
-<div style="background:#795867; font-size:22px; text-align:center; line-height:160px; color:#FFF; font-weight:bold;">Creating 3-Level Responsive Drop Down Navigation Menu with jQuery CSS3
+<div style="background:#795867; font-size:22px; text-align:center; line-height:160px; color:#FFF; font-weight:bold;">Welcome
     </div>
 	<!-- start header -->
 	<header>	
@@ -18,7 +18,7 @@
 						<nav>
 						<ul class="nav topnav bold">
 							<li class="dropdown active">
-							<a href="http://www.freshdesignweb.com/3-level-responsive-drop-down-navigation-menu-jquery-css3.html">Home <i class="icon-angle-down"></i></a>
+							<a href="userlist.htm">Home <i class="icon-angle-down"></i></a>
 							<ul class="dropdown-menu bold">
 								<li><a href="http://www.freshdesignweb.com/3-level-responsive-drop-down-navigation-menu-jquery-css3.html">Homepage 2</a></li>
 								<li><a href="http://www.freshdesignweb.com/3-level-responsive-drop-down-navigation-menu-jquery-css3.html">Homepage 3</a></li>
@@ -60,12 +60,20 @@
 							</ul>
 							</li>
 							<li class="dropdown">
-							<a href="#">Blog <i class="icon-angle-down"></i></a>
+							<a href="#">Admin <i class="icon-angle-down"></i></a>
 							<ul class="dropdown-menu bold">
-								<li><a href="http://www.freshdesignweb.com/3-level-responsive-drop-down-navigation-menu-jquery-css3.html">Blog left sidebar</a></li>
-								<li><a href="http://www.freshdesignweb.com/3-level-responsive-drop-down-navigation-menu-jquery-css3.html">Blog right sidebar</a></li>
-								<li><a href="http://www.freshdesignweb.com/3-level-responsive-drop-down-navigation-menu-jquery-css3.html">Post left sidebar</a></li>
-								<li><a href="http://www.freshdesignweb.com/3-level-responsive-drop-down-navigation-menu-jquery-css3.html">Post right sidebar</a></li>
+							<li class="dropdown"><a href="#">Role Perm Admin<i class="icon-angle-right"></i></a>
+							<ul style="display: none;" class="dropdown-menu sub-menu-level1 bold">
+								<li><a href="createrole.htm">Create Role</a></li>
+								<li><a href="createPerm.htm">Create Permissions</a></li>
+								<li><a href="rolepermadmin.htm">RolePerm Admin</a></li>
+								</ul>
+								<li class="dropdown"><a href="#">User Admin<i class="icon-angle-right"></i></a>
+								<ul style="display: none;" class="dropdown-menu sub-menu-level1 bold">
+								<li><a href="new.htm">New User</a></li>
+								<li><a href="userlist.htm">User List</a></li>
+								</ul>
+								
 							</ul>
 							</li>
 							<li>

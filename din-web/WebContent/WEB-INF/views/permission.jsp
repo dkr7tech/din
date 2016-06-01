@@ -9,6 +9,7 @@
 
 </head>
 <body>
+<%@ include file="../include/header.jsp" %>
 <div align="center">
 		<h1>Permission</h1>
 		<table>
@@ -43,5 +44,6 @@
 			</form:form>
 		</table>
 	</div>
+	<%@ include file="../include/footer.jsp" %>
 </body>
 </html>

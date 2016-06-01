@@ -24,7 +24,7 @@ body {
 header{
 	background: url(../../img/header-pattern-150.png) repeat;
 	margin:0;
-	padding:0 0 20px;
+	padding:0 0 7px; /* default value 20px */
 	position:relative;
 	z-index:2000;
 }
@@ -46,7 +46,7 @@ header ul.nav li a {
 }
 header ul.nav li ul {
 	z-index:1000;
-	margin-top:20px;
+	margin-top:7px; /* default value 20px */
 }
 header ul.nav li ul li ul {
 	margin:1px 0 0 1px;

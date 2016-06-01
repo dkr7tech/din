@@ -29,6 +29,7 @@
 	}
 </script>
 <body>
+<%@ include file="../include/header.jsp" %>
 	<div align="center">
 		<h1>New/Edit User</h1>
 		<form:form action="save.htm" method="post" modelAttribute="user">
@@ -88,6 +89,6 @@
 		</table>
 		</form:form>
 	</div>
-	
+	<%@ include file="../include/footer.jsp" %>
 </body>
 </html>
