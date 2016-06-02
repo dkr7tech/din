@@ -8,13 +8,14 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.common.utils.ObjectUtility;
 import com.config.web.WebConstants;
 
 public class WebManagar {
-	static final org.apache.log4j.Logger log = Logger.getLogger(WebManagar.class);
+	static final Logger log = LoggerFactory.getLogger(WebManagar.class);
 	
 	public static HttpSession  generateNewSessionId(HttpServletRequest request) {
 		if (log.isDebugEnabled()) {
@@ -22,6 +23,7 @@ public class WebManagar {
 		}
 		HttpSession httpSession=null;
 		HashMap<String, Object> attributes = new HashMap<String, Object>();
+		
 		// copy all attributes
 		httpSession = request.getSession(false);
 		String name="";
@@ -65,6 +67,8 @@ public class WebManagar {
 	return session;	
 	}
 	public static void setApplicationProperties(ServletContext servletContext) {
+		log.debug(" ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^INSIDE  METHOD:generateNewSessionId ");
+		log.info(" INSIDE  METHOD:generateNewSessionId %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 		System.out.println("set appliation properties called");
 		WebUtil util = new WebUtil(servletContext);
 		Map<String, String> propertiesMap = PropertyManager.readPropertiefiles(WebConstants.RESOURCE_PROP_FILE);
