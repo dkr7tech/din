@@ -1,2 +1,21 @@
 target
 
+din-common/.classpath
+din-common/.settings/org.eclipse.core.resources.prefs
+din-common/.settings/org.eclipse.wst.common.component
+din-common/.settings/org.eclipse.wst.common.project.facet.core.xml
+din-db/.classpath
+din-db/.settings/org.eclipse.core.resources.prefs
+din-db/.settings/org.eclipse.wst.common.component
+din-db/.settings/org.eclipse.wst.common.project.facet.core.xml
+din-models/.classpath
+din-models/.settings/org.eclipse.core.resources.prefs
+din-models/.settings/org.eclipse.wst.common.component
+din-models/.settings/org.eclipse.wst.common.project.facet.core.xml
+din-service/.classpath
+din-service/.settings/org.eclipse.core.resources.prefs
+din-service/.settings/org.eclipse.wst.common.component
+din-service/.settings/org.eclipse.wst.common.project.facet.core.xml
+din-web/.classpath
+din-web/.settings/org.eclipse.wst.common.component
+din-web/.settings/org.eclipse.wst.common.project.facet.core.xml
