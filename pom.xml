@@ -8,10 +8,11 @@
 	<name>din</name>
 	<description>parent</description>
 	<properties>
-		<spring.version>4.2.4.RELEASE</spring.version>
-		<spring-security.version>4.1.0.RELEASE</spring-security.version>
+		<spring.version>5.0.3.RELEASE</spring.version>
+		<spring-security.version>5.0.3.RELEASE</spring-security.version>
 		<spring-data-jpa.version>2.0.1.RELEASE</spring-data-jpa.version>
 		<hibernate.version>5.0.1.Final</hibernate.version>
+		<spring-instrument-tomcat.version>4.3.16.RELEASE</spring-instrument-tomcat.version>
 	</properties>
 	<modules>
 		<module>din-common</module>
@@ -78,7 +79,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-instrument-tomcat</artifactId>
-			<version>4.2.4.RELEASE</version>
+			<version>${spring-instrument-tomcat.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.data</groupId>
