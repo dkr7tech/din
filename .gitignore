@@ -19,3 +19,8 @@ din-service/.settings/org.eclipse.wst.common.project.facet.core.xml
 din-web/.classpath
 din-web/.settings/org.eclipse.wst.common.component
 din-web/.settings/org.eclipse.wst.common.project.facet.core.xml
+din-common/bin/
+din-db/bin/
+din-models/bin/
+din-service/bin/
+din-web/bin/
