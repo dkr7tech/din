@@ -8,7 +8,7 @@
 <link href="${contextData.cssPath}/menu/menu.css" rel="stylesheet">
 
 
-<div style="background:#795867; font-size:22px; text-align:center; line-height:160px; color:#FFF; font-weight:bold;">Welcome
+<div style="background:#795867; font-size:22px; text-align:center; line-height:100px; color:#FFF; font-weight:bold;">Welcome
     </div>
 	<!-- start header -->
 	<header>	
@@ -20,7 +20,7 @@
 							<li class="dropdown active">
 							<a href="userlist.htm">Home <i class="icon-angle-down"></i></a>
 							<ul class="dropdown-menu bold">
-								<li><a href="http://www.freshdesignweb.com/3-level-responsive-drop-down-navigation-menu-jquery-css3.html">Homepage 2</a></li>
+								<li><a href="aui.htm">Angular</a></li>
 								<li><a href="http://www.freshdesignweb.com/3-level-responsive-drop-down-navigation-menu-jquery-css3.html">Homepage 3</a></li>
 								<li><a href="http://www.freshdesignweb.com/3-level-responsive-drop-down-navigation-menu-jquery-css3.html">Homepage 4</a></li>
 							</ul>
@@ -72,6 +72,7 @@
 								<ul style="display: none;" class="dropdown-menu sub-menu-level1 bold">
 								<li><a href="new.htm">New User</a></li>
 								<li><a href="userlist.htm">User List</a></li>
+								<li><a href="userpref.htm">User Preferences</a></li>
 								</ul>
 								
 							</ul>

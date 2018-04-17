@@ -10,12 +10,13 @@ import javax.transaction.Transactional;
 import org.javers.spring.annotation.JaversAuditable;
 import org.springframework.stereotype.Repository;
 
+import com.common.persistance.PersistentManager;
 import com.model.user.Permission;
 import com.model.user.Role;
 import com.model.user.RolePerm;
 
 @Repository
-public class RolePermDAOImpl implements RolePermDAO {
+public class RolePermDAOImpl extends PersistentManager implements RolePermDAO{
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -23,14 +24,17 @@ public class RolePermDAOImpl implements RolePermDAO {
 	public EntityManager getEntityManager() {
 		return entityManager;
 	}
-	 @JaversAuditable
+	 
+
+
+	@JaversAuditable
 	@Transactional
 	public int createRole(Role role) {
 		Role role1=getEntityManager().find(Role.class, role.getRoleId());
 		/*if(role1!=null){
 		getEntityManager().merge(role);
 		}*/
-		getEntityManager().merge(role);
+		merge(role);
 	
 		
 		return 0;

@@ -1,11 +1,19 @@
 package com.config;
 
+import java.util.Collections;
 import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.BootstrapServiceRegistry;
+import org.hibernate.boot.registry.BootstrapServiceRegistryBuilder;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.event.service.spi.EventListenerRegistry;
+import org.hibernate.event.spi.EventType;
+import org.hibernate.internal.SessionFactoryImpl;
+import org.hibernate.jpa.boot.spi.IntegratorProvider;
 import org.javers.core.Javers;
 import org.javers.hibernate.integration.HibernateUnproxyObjectAccessHook;
 import org.javers.repository.sql.ConnectionProvider;
@@ -27,6 +35,8 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -36,6 +46,9 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.common.persistance.EventListenerIntegrator;
+import com.common.persistance.SaveUpdateEventListenerImp;
+import com.common.persistance.springjpaaudit.AuditorAwareImpl;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 
@@ -45,6 +58,7 @@ import com.google.common.collect.ImmutableMap;
 @PropertySource({ "classpath:/com/config/prop/persistence-mysql.properties" })
 @ComponentScan({"com.db"})
 @EnableJpaRepositories(basePackages = "org.model")
+@EnableJpaAuditing(auditorAwareRef = "auditorAware")
 public class PersistenceJPAConfig {
 
     @Autowired
@@ -65,8 +79,11 @@ public class PersistenceJPAConfig {
 
         final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
+        
         em.setJpaProperties(additionalProperties());
-
+       
+        
+       
         return em;
     }
 
@@ -93,13 +110,26 @@ public class PersistenceJPAConfig {
         return new PersistenceExceptionTranslationPostProcessor();
     }
     
+    
     @Bean
     public FactoryBean<SessionFactory> sessionFactory() {
+    	/*BootstrapServiceRegistry bootstrapServiceRegistry = new BootstrapServiceRegistryBuilder()
+    			  //.applyClassLoader()
+    			  .applyIntegrator(new EventListenerIntegrator())
+    			  //.applyStrategySelector()
+    			  .build();
+    	StandardServiceRegistryBuilder standardServiceRegistryBuilder = 
+    			  new StandardServiceRegistryBuilder(bootstrapServiceRegistry);*/
       HibernateJpaSessionFactoryBean factory = new HibernateJpaSessionFactoryBean();
       factory.setEntityManagerFactory(entityManagerFactory().getObject());
       
+      EventListenerRegistry registry = ((SessionFactoryImpl)factory.getObject()).getServiceRegistry().getService(EventListenerRegistry.class);
+      registry.getEventListenerGroup(EventType.SAVE_UPDATE).appendListener(new SaveUpdateEventListenerImp());
+    
       return factory;
     }
+    
+    
    /* @Bean
     public HibernateJpaSessionFactoryBean  sessionFactory() {
      return new LocalSessionFactoryBuilder(dataSource())
@@ -113,6 +143,12 @@ public class PersistenceJPAConfig {
         hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
         hibernateProperties.setProperty("hibernate.connection.autocommit", "false");
         // hibernateProperties.setProperty("hibernate.globally_quoted_identifiers", "true");
+       /* hibernateProperties.put(
+                "hibernate.integrator_provider",
+                (IntegratorProvider) () -> Collections.singletonList(
+                    new EventListenerIntegrator()
+                )
+            );*/
         return hibernateProperties;
     }
 
@@ -171,4 +207,9 @@ public class PersistenceJPAConfig {
     public UserDAO getUserDao() {
     	return new UserDAOImpl();
     }
-*/}
+*/
+    @Bean
+    public AuditorAware<String> auditorAware() {
+        return new AuditorAwareImpl<String>();
+    }    
+}

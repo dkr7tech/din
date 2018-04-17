@@ -23,6 +23,10 @@ public class ContextData implements Serializable{
 	private String loginPageURL;
 	private String loginReqURL;/*first req afte entring user pass to create session*/
 	private String homePageURL;
+	private String jsPath;
+	private String bootstrapJsPath;
+	private String popperJsPath;
+	
 	
 	
 	public String getExtJSPath() {
@@ -125,8 +129,23 @@ public class ContextData implements Serializable{
 	public void setAngularJsPath(String angularJsPath) {
 		this.angularJsPath = angularJsPath;
 	}
-	
-
-	
-	
+	public String getJsPath() {
+		return jsPath;
+	}
+	public void setJsPath(String jsPath) {
+		this.jsPath = jsPath;
+	}
+	public String getBootstrapJsPath() {
+		return bootstrapJsPath;
+	}
+	public void setBootstrapJsPath(String bootstrapJsPath) {
+		this.bootstrapJsPath = bootstrapJsPath;
+	}
+	public String getPopperJsPath() {
+		return popperJsPath;
+	}
+	public void setPopperJsPath(String popperJsPath) {
+		this.popperJsPath = popperJsPath;
+	}
+		
 }

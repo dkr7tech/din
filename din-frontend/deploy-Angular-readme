@@ -1,0 +1,31 @@
+For deploying on din web do following chnages then only it will work 
+1. add proxy.config.json with content below
+{
+  "/api/*": {
+    "target": "http://localhost:8080/din-web",
+    "secure": "false",
+    "logLevel": "debug"
+  }
+}
+
+
+2. Replace in package.json
+  "start": "ng serve",
+  "build": "ng build",
+    
+    with
+ 
+ "start": "ng serve --proxy-config proxy.config.json",
+  "build": "ng build --deploy-url din-web/resources/ft/ --prod --aot --build-optimizer",
+  
+  
+ 3. Replcace in angular.json
+  "outputPath": "dist/din-frontend",
+  
+  with 
+    "outputPath": "../din-web/WebContent/resources/ft",  
+    
+    
+    some other examples
+    https://dzone.com/articles/building-a-web-app-using-spring-boot-angular-6-and
+   

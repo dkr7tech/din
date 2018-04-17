@@ -13,8 +13,10 @@ import org.slf4j.LoggerFactory;
 
 import com.common.utils.ObjectUtility;
 import com.config.web.WebConstants;
+import com.model.common.LoginSessionBean;
+import com.model.common.constant.CommonConstant;
 
-public class WebManagar {
+public class WebManagar extends WebConstants{
 	static final Logger log = LoggerFactory.getLogger(WebManagar.class);
 	
 	public static HttpSession  generateNewSessionId(HttpServletRequest request) {
@@ -33,7 +35,7 @@ public class WebManagar {
 			Enumeration<String> enames = httpSession.getAttributeNames();
 			while (enames.hasMoreElements()) {
 				name = enames.nextElement();
-				if (!name.equals("JSESSIONID")) {
+				if (!name.equals(JSESSIONID)) {
 					attributes.put(name, httpSession.getAttribute(name));
 				}
 			}
@@ -66,6 +68,29 @@ public class WebManagar {
      }
 	return session;	
 	}
+
+	public static LoginSessionBean getSessionBean(HttpServletRequest request) {
+		LoginSessionBean loginSessionBean = null;
+		if (request != null && request.getSession() != null
+				&& request.getSession().getAttribute(CommonConstant.USER_SESSION) != null)
+			loginSessionBean = (LoginSessionBean) request.getSession().getAttribute(CommonConstant.USER_SESSION);
+		return loginSessionBean;
+
+	}
+	
+	
+	public void setUserSession(HttpSession session) {
+		if(session!=null) {
+		session.setAttribute(WebConstants.DATEFORMAT,"");
+        session.setAttribute(WebConstants.TIME_FORMAT,"");
+        session.setAttribute(WebConstants.DATE_TIME_FORMAT,"");
+        session.setAttribute(WebConstants.NUMBER_FORMAT,"");
+        session.setAttribute(WebConstants.PERCENTAGE_FORMAT,"");
+        session.setAttribute(WebConstants.CURRENCY_NUMBER_FORMAT,"");
+        session.setAttribute(WebConstants.TIME_ZONE,"");
+        session.setAttribute(WebConstants.CLIENT_TIME_ZONE,"");
+		}
+	}
 	public static void setApplicationProperties(ServletContext servletContext) {
 		log.debug(" ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^INSIDE  METHOD:generateNewSessionId ");
 		log.info(" INSIDE  METHOD:generateNewSessionId %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
@@ -89,6 +114,9 @@ public class WebManagar {
 		contextData.setLoginPageURL(propertiesMap.get(WebConstants.LOGIN_URL).trim());
 		contextData.setLoginReqURL(propertiesMap.get(WebConstants.LOGIN_REQ_URL).trim());
 		contextData.setHomePageURL(propertiesMap.get(WebConstants.HOME_URL).trim());
+		contextData.setJsPath(contextPath + propertiesMap.get(WebConstants.JS_PATH).trim());
+		contextData.setBootstrapJsPath(contextPath + propertiesMap.get(WebConstants.BOOTSTRAP_JS).trim());
+		contextData.setPopperJsPath(contextPath + propertiesMap.get(WebConstants.POPPER_JS).trim());
 		servletContext.setAttribute(WebConstants.APP_CONTEXT_DATA, contextData);
 
 	}

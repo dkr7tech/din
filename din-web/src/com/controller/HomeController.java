@@ -21,18 +21,23 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.common.utils.ObjectUtility;
 import com.common.utils.StringUtility;
 import com.db.UserDAO;
 import com.model.common.LoginSessionBean;
+import com.model.common.PermissionEnum;
 import com.model.common.RoleEnum;
 import com.model.common.constant.CommonConstant;
 import com.model.user.Role;
 import com.model.user.User;
+import com.model.user.UserPreference;
 import com.service.auth.RolePermManager;
 import com.service.user.UserService;
+import com.time.DateTimePattern;
 import com.web.utils.WebManagar;
 
 /**
@@ -88,6 +93,27 @@ public class HomeController {
 	private UserService userService;
 
 	// @Audit("welcome")
+	@RequestMapping(value="/resttemplate",method=RequestMethod.GET)
+	public static void getEmployees()
+	{
+	    final String uri = "http://localhost:8080/din-web/resttest";
+	     
+	    RestTemplate restTemplate = new RestTemplate();
+	    String result = restTemplate.getForObject(uri, String.class);
+	     
+	    System.out.println("result "+result);
+	}
+
+	@RequestMapping(value="/resttest",method=RequestMethod.GET,
+    produces="application/json")
+	public @ResponseBody List<String> handleRequest2() throws Exception {
+		List<String> listUsers = new ArrayList<String>();
+		listUsers.add("ddd");
+		
+		listUsers.add("abc");
+		return listUsers;
+	}
+	
 	@RequestMapping("/userlist.htm")
 	public ModelAndView handleRequest() throws Exception {
 		List<User> listUsers = userDao.list();
@@ -138,10 +164,33 @@ public class HomeController {
 		model.addObject("user", user);
 		return model;
 	}
+	
+	@RequestMapping(value = "/userpref.htm", method = RequestMethod.GET)
+	public ModelAndView userPref(HttpServletRequest request) {
+		LoginSessionBean loginSessionBean = WebManagar.getSessionBean(request);
+		UserPreference userPreference=null;
+		if (loginSessionBean != null) {
+			userPreference=loginSessionBean.getUser().getUserPreference();
+			
+		}
+		if(userPreference==null) {
+			userPreference=new UserPreference();
+			userPreference.setUserId(loginSessionBean.getUser().getUserId());
+		}
+		ModelAndView model = new ModelAndView("userpref");
+		Map<String,String> patternMap=DateTimePattern.getDateTimePatternMap();
+		model.addObject("datePatternMap", patternMap);
+		
+		model.addObject("userprefModel", userPreference);
+		
+		
+		return model;
+	}
 
-	@RequestMapping(value = "/logon.htm", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView userLoginPage(HttpServletRequest request) {
 		ModelAndView model = new ModelAndView("logon");
+		UserPreference user=new UserPreference();
 		//AuditManagar audit=new AuditManagar(javers);
 		//audit.listPrperties();
 		//WebManagar.setApplicationProperties(request.getServletContext());
@@ -177,6 +226,24 @@ public class HomeController {
 		return new ModelAndView("redirect:/");
 	}
 
+	@RequestMapping(value = "/save2.htm", method = RequestMethod.POST)
+	public ModelAndView savePref(HttpServletRequest request, @ModelAttribute UserPreference userPreference) {
+		System.out.println("Inside savePref " + userPreference.getCountry());
+		LoginSessionBean loginSessionBean = WebManagar.getSessionBean(request);
+		if (loginSessionBean != null) {
+		userPreference.setUserId(loginSessionBean.getUser().getUserId());
+		userPreference.setDatePattern(DateTimePattern.getPatternById(Integer.valueOf(userPreference.getDatePattern())).getPattern());
+			userDao.saveUserPref(userPreference);
+		}
+		
+		return new ModelAndView("redirect:/");
+	}
+	@RequestMapping(value = "/aui.htm")
+	public ModelAndView angular() {
+		System.out.println("Inside angular " );
+		
+		return  new ModelAndView("aui");
+	}
 	@RequestMapping(value = "/home.htm", method = RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute User user, HttpServletRequest request) {
 		String target = "redirect:/";

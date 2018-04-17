@@ -1,6 +1,8 @@
 package com.config.web;
 
-public class WebConstants {
+import com.web.utils.FormattingConstant;
+
+public class WebConstants implements FormattingConstant{
 
 	public static final String EXT_JS_PATH = "extJsPath";
 	public static final String OPENLAYER_JS_PATH = "openLayerJsPath";
@@ -19,6 +21,11 @@ public class WebConstants {
 	public static final String LOGIN_URL="loginurl";
 	public static final String LOGIN_REQ_URL="firstloginreq";
 	public static final String HOME_URL="homeurl";
+	public static final String BOOTSTRAP_JS="bootstrapJsPath";
+	public static final String POPPER_JS="popperJsPath";
+	public static final String JS_PATH="jsPath";
+	public static final String USER_PREF_BEAN="userPrefBean";
+	public static final String JSESSIONID="JSESSIONID";
 	
 
 }
