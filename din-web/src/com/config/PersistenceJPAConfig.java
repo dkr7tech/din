@@ -13,8 +13,9 @@ import org.javers.repository.sql.DialectName;
 import org.javers.repository.sql.JaversSqlRepository;
 import org.javers.repository.sql.SqlRepositoryBuilder;
 import org.javers.spring.auditable.AuthorProvider;
+import org.javers.spring.auditable.CommitPropertiesProvider;
 import org.javers.spring.auditable.SpringSecurityAuthorProvider;
-import org.javers.spring.auditable.aspect.JaversAuditableRepositoryAspect;
+import org.javers.spring.auditable.aspect.springdata.JaversSpringDataJpaAuditableRepositoryAspect;
 import org.javers.spring.jpa.JpaHibernateConnectionProvider;
 import org.javers.spring.jpa.TransactionalJaversBuilder;
 import org.springframework.beans.factory.FactoryBean;
@@ -36,6 +37,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableMap;
 
 @Configuration
 @EnableAspectJAutoProxy
@@ -120,7 +122,7 @@ public class PersistenceJPAConfig {
      * Creates JaVers instance with {@link JaversSqlRepository}
      */
     @Bean
-    public Javers javers() {
+    public Javers javers(PlatformTransactionManager txManager) {
         JaversSqlRepository sqlRepository = SqlRepositoryBuilder
                 .sqlRepository()
                 .withConnectionProvider(jpaConnectionProvider())
@@ -128,7 +130,7 @@ public class PersistenceJPAConfig {
                 .build();
 
         return TransactionalJaversBuilder
-                .javers()
+                .javers().withTxManager(txManager)
                 .withObjectAccessHook(new HibernateUnproxyObjectAccessHook())
                 .registerJaversRepository(sqlRepository)
                 .build();
@@ -140,17 +142,26 @@ public class PersistenceJPAConfig {
     }
     
     /**
-     * Enables Repository auto-audit aspect. <br/>
+     * Enables auto-audit aspect for Spring Data repositories. <br/>
      *
      * Use {@link org.javers.spring.annotation.JaversSpringDataAuditable}
-     * to annotate Spring Data Repositories
-     * or {@link org.javers.spring.annotation.JaversAuditable} for ordinary Repositories.
+     * to annotate CrudRepository, PagingAndSortingRepository or JpaRepository
+     * you want to audit.
      */
     @Bean
-    public JaversAuditableRepositoryAspect javersAuditableRepositoryAspect() {
-        return new JaversAuditableRepositoryAspect(javers(), authorProvider());
+    public JaversSpringDataJpaAuditableRepositoryAspect javersSpringDataAspect(Javers javers) {
+        return new JaversSpringDataJpaAuditableRepositoryAspect(javers, authorProvider(),
+            commitPropertiesProvider());
     }
     
+    /**
+     * Optional for auto-audit aspect. <br/>
+     * @see CommitPropertiesProvider
+     */
+    @Bean
+    public CommitPropertiesProvider commitPropertiesProvider() {
+        return () -> ImmutableMap.of("key", "ok");
+    }
     @Bean
     public AuthorProvider authorProvider() {
         return new SpringSecurityAuthorProvider();

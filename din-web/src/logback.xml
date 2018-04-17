@@ -2,11 +2,12 @@
 <configuration>
     <contextName>JTheque</contextName>
  
+	<!--  <property name="USER_HOME" value="/home/mkyong/ant/logs" />-->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>c:/tmp/din-web.log</file>
+        <file>${HOME}/f/log/din-web.log</file>
  
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-            <FileNamePattern>c:/tmp/din-web.%i.log.zip</FileNamePattern>
+            <FileNamePattern>${HOME}/F/log/din-web.log.%i.log.zip</FileNamePattern>
             <MinIndex>1</MinIndex>
             <MaxIndex>5</MaxIndex>
         </rollingPolicy>
