@@ -8,7 +8,7 @@
 <link href="${contextData.cssPath}/menu/menu.css" rel="stylesheet">
 
 
-<div style="background:#795867; font-size:22px; text-align:center; line-height:160px; color:#FFF; font-weight:bold;">Welcome
+<div style="background:#795867; font-size:22px; text-align:center; line-height:100px; color:#FFF; font-weight:bold;">Welcome
     </div>
 	<!-- start header -->
 	<header>	
