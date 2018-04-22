@@ -139,7 +139,7 @@ public class HomeController {
 		return model;
 	}
 
-	@RequestMapping(value = "/logon.htm", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView userLoginPage(HttpServletRequest request) {
 		ModelAndView model = new ModelAndView("logon");
 		//AuditManagar audit=new AuditManagar(javers);

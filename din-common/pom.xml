@@ -18,12 +18,17 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
+	<dependency>
+    <groupId>io.minio</groupId>
+    <artifactId>minio</artifactId>
+    <version>3.0.12</version>
+</dependency>
 		<!-- https://mvnrepository.com/artifact/org.infinispan/infinispan-embedded 
 		from 9.0 and above is not working in tomcat-->
 		<dependency>
 			<groupId>org.infinispan</groupId>
 			<artifactId>infinispan-embedded</artifactId>
-			<version>8.2.10.Final</version>
+			<version>9.1.7.Final</version>
 		</dependency>
 	</dependencies>
 </project>
