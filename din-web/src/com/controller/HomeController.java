@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.common.utils.ObjectUtility;
@@ -88,6 +90,27 @@ public class HomeController {
 	private UserService userService;
 
 	// @Audit("welcome")
+	@RequestMapping(value="/resttemplate",method=RequestMethod.GET)
+	public static void getEmployees()
+	{
+	    final String uri = "http://localhost:8080/din-web/resttest";
+	     
+	    RestTemplate restTemplate = new RestTemplate();
+	    String result = restTemplate.getForObject(uri, String.class);
+	     
+	    System.out.println("result "+result);
+	}
+
+	@RequestMapping(value="/resttest",method=RequestMethod.GET,
+    produces="application/json")
+	public @ResponseBody List<String> handleRequest2() throws Exception {
+		List<String> listUsers = new ArrayList<String>();
+		listUsers.add("ddd");
+		
+		listUsers.add("abc");
+		return listUsers;
+	}
+	
 	@RequestMapping("/userlist.htm")
 	public ModelAndView handleRequest() throws Exception {
 		List<User> listUsers = userDao.list();

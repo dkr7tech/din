@@ -59,7 +59,7 @@ public class SpringWebComponentConfigration extends WebMvcConfigurerAdapter{
 	    }*/
 	@Override
 	  public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-		    registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+		    registry.addResourceHandler("/resources/**","/webjars/**").addResourceLocations("/resources/","/webjars/");
 		}
 	/*@Bean
     public View jsonTemplate() {
