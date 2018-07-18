@@ -66,6 +66,7 @@ public class WebManagar {
      }
 	return session;	
 	}
+
 	public static void setApplicationProperties(ServletContext servletContext) {
 		log.debug(" ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^INSIDE  METHOD:generateNewSessionId ");
 		log.info(" INSIDE  METHOD:generateNewSessionId %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
@@ -89,6 +90,9 @@ public class WebManagar {
 		contextData.setLoginPageURL(propertiesMap.get(WebConstants.LOGIN_URL).trim());
 		contextData.setLoginReqURL(propertiesMap.get(WebConstants.LOGIN_REQ_URL).trim());
 		contextData.setHomePageURL(propertiesMap.get(WebConstants.HOME_URL).trim());
+		contextData.setJsPath(contextPath + propertiesMap.get(WebConstants.JS_PATH).trim());
+		contextData.setBootstrapJsPath(contextPath + propertiesMap.get(WebConstants.BOOTSTRAP_JS).trim());
+		contextData.setPopperJsPath(contextPath + propertiesMap.get(WebConstants.POPPER_JS).trim());
 		servletContext.setAttribute(WebConstants.APP_CONTEXT_DATA, contextData);
 
 	}

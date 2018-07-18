@@ -19,6 +19,9 @@ public class WebConstants {
 	public static final String LOGIN_URL="loginurl";
 	public static final String LOGIN_REQ_URL="firstloginreq";
 	public static final String HOME_URL="homeurl";
+	public static final String BOOTSTRAP_JS="bootstrapJsPath";
+	public static final String POPPER_JS="popperJsPath";
+	public static final String JS_PATH="jsPath";
 	
 
 }

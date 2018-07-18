@@ -9,7 +9,6 @@
   </parent>
   <groupId>din-service</groupId>
   <artifactId>din-service</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <name>din-service</name>
   <url>http://maven.apache.org</url>
   <properties>

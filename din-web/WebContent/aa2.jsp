@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="${contextData.openLayerJsPath}/ol.css" />
     
     <script type="text/javascript" src="${contextData.jqueryJsPath}/jquery.min.js"></script>
+    <script src="${contextData.bootstrapJsPath}/js/bootstrap.min.js"></script>
+    <script src="${contextData.popperJsPath}/popper.min.js"></script>
     <style>
       #map {
         width: 600px;

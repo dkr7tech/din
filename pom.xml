@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>din</groupId>
@@ -14,16 +15,41 @@
 		<javers.version>3.9.0</javers.version>
 		<hibernate.version>5.0.3.Final</hibernate.version>
 		<spring-instrument-tomcat.version>4.3.16.RELEASE</spring-instrument-tomcat.version>
+		<java-version>1.8</java-version>
+		
 	</properties>
 	<modules>
 		<module>din-common</module>
 		<module>din-db</module>
 		<module>din-models</module>
 		<module>din-service</module>
+		<module>din-frontend</module>
 		<module>din-web</module>
 	</modules>
 	<build>
 		<plugins>
+		<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.6</version>
+				<configuration>
+					<nodeVersion>v9.2.1</nodeVersion>
+					<npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>cz.habarta.typescript-generator</groupId>
+				<artifactId>typescript-generator-maven-plugin</artifactId>
+				<version>2.0.400</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.7.0</version>
+				<configuration>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
@@ -168,18 +194,10 @@
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 		</dependency>
-		<!--  <dependency>
-			<groupId>com.mysema.querydsl</groupId>
-			<artifactId>querydsl-apt</artifactId>
-			<version>3.7.1</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.mysema.querydsl</groupId>
-			<artifactId>querydsl-jpa</artifactId>
-			<version>3.7.1</version>
-		</dependency>-->
+		<!-- <dependency> <groupId>com.mysema.querydsl</groupId> <artifactId>querydsl-apt</artifactId> 
+			<version>3.7.1</version> <scope>provided</scope> </dependency> <dependency> 
+			<groupId>com.mysema.querydsl</groupId> <artifactId>querydsl-jpa</artifactId> 
+			<version>3.7.1</version> </dependency> -->
 		<!-- http://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -211,7 +229,7 @@
 		<!-- <dependency> <groupId>org.apache.spark</groupId> <artifactId>spark-core_2.10</artifactId> 
 			<version>1.6.1</version> </dependency> -->
 		<!-- infinispan -->
-		
+
 		<!-- gwt depedency -->
 		<dependency>
 			<groupId>com.google.gwt</groupId>

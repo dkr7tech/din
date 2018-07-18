@@ -9,7 +9,6 @@
   </parent>
   <groupId>din-db</groupId>
   <artifactId>din-db</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <name>din-db</name>
   <url>http://maven.apache.org</url>
   <properties>

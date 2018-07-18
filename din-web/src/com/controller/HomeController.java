@@ -200,6 +200,12 @@ public class HomeController {
 		return new ModelAndView("redirect:/");
 	}
 
+	@RequestMapping(value = "/aui.htm")
+	public ModelAndView angular() {
+		System.out.println("Inside angular " );
+		
+		return  new ModelAndView("aui");
+	}
 	@RequestMapping(value = "/home.htm", method = RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute User user, HttpServletRequest request) {
 		String target = "redirect:/";
