@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,9 +16,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+
 
 
 /**
@@ -74,11 +78,13 @@ public class User implements Serializable {
 	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)  
 	    @JoinTable(name="tl_user_role",  
 	    joinColumns={@JoinColumn(name="user_id", referencedColumnName="user_id")},  
-	    inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="role_id")})
+	    inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="role_id")} ,foreignKey = @ForeignKey(name = "UserRoleForeignKey"))
 	//@OneToMany(mappedBy="user")
 	private List<Role> roleList;
 
-	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER )
+    @JoinColumn(name = "userpreferenceid", referencedColumnName = "UserPreferenceId" ,foreignKey = @ForeignKey(name = "UserPreferenceForeignKey"))
+    private UserPreference userPreference;
 	public User(int userId, String login) {
 		super();
 		this.userId = userId;
@@ -214,6 +220,14 @@ public class User implements Serializable {
 
 	public void setRoleList(List<Role> roleList) {
 		this.roleList = roleList;
+	}
+
+	public UserPreference getUserPreference() {
+		return userPreference;
+	}
+
+	public void setUserPreference(UserPreference userPreference) {
+		this.userPreference = userPreference;
 	}
 
 	

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.model.user.User;
+import com.model.user.UserPreference;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -34,6 +35,7 @@ public class UserDAOImpl implements UserDAO {
 	 @JaversAuditable
 	@Transactional
 	public User saveOrUpdate(User user) {
+		 
 		return entityManager.merge(user);
 	}
 
@@ -93,5 +95,12 @@ public class UserDAOImpl implements UserDAO {
 		
 		return user;
 		
+	}
+
+	@Override
+	@Transactional
+	public UserPreference saveUserPref(UserPreference preference) {
+		
+		return  entityManager.merge(preference);
 	}
 }

@@ -23,16 +23,16 @@
 				<plugin>
 					<groupId>com.github.eirslett</groupId>
 					<artifactId>frontend-maven-plugin</artifactId>
-					<version>1.6</version>
+					<version>1.10.0</version>
 					<configuration>
-						<nodeVersion>v9.2.1</nodeVersion>
+						<nodeVersion>v12.18.2</nodeVersion>
 						<npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
 					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>cz.habarta.typescript-generator</groupId>
 					<artifactId>typescript-generator-maven-plugin</artifactId>
-					<version>2.0.400</version>
+					<version>2.24.612</version>
 				</plugin>
 
 				<plugin>

@@ -39,10 +39,15 @@ CREATE TABLE `tt_user` (
   `modtime` datetime DEFAULT NULL,
   `no_attempt` int(11) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `status` int(1) unsigned zerofill NOT NULL DEFAULT '0',
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `status` int(11) NOT NULL,
+  `userpreferenceid` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`user_id`),
+  KEY `UserPreferenceForeignKey` (`userpreferenceid`),
+  CONSTRAINT `UserPreferenceForeignKey` FOREIGN KEY (`userpreferenceid`) REFERENCES `tt_userpreference` (`userpreferenceid`)
+) 
+ ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Dumping data for table `tt_user`
@@ -50,7 +55,7 @@ CREATE TABLE `tt_user` (
 
 LOCK TABLES `tt_user` WRITE;
 /*!40000 ALTER TABLE `tt_user` DISABLE KEYS */;
-INSERT INTO `tt_user` VALUES (1,0,NULL,NULL,'25/01/1980','d@d.com','dinkar','m','sharma','din','','2015-01-18 23:20:26',0,'1234',0);
+INSERT INTO `tt_user` VALUES (1,0,NULL,NULL,'25/01/1980','d@d.com','dinkar','m','sharma','din','','2015-01-18 23:20:26',0,'$2a$10$J9x1IVEdhzDZHumEeSVlJOlRnB6hGWs7ELwz.MPp./xHcoisTCAD2',0,NULL);
 /*!40000 ALTER TABLE `tt_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

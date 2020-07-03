@@ -72,6 +72,7 @@
 								<ul style="display: none;" class="dropdown-menu sub-menu-level1 bold">
 								<li><a href="new.htm">New User</a></li>
 								<li><a href="userlist.htm">User List</a></li>
+								<li><a href="userpref.htm">User Preferences</a></li>
 								</ul>
 								
 							</ul>

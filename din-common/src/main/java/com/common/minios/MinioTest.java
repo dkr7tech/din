@@ -40,8 +40,8 @@ public class MinioTest {
       try (InputStream in = url.openStream()) {
         Files.copy(in, tempFile, StandardCopyOption.REPLACE_EXISTING);
       }
-
-      minioClient.putObject("firstbucket", "kid.jpg", tempFile.toString());
+      //minioClient
+      minioClient.putObject("firstbucket", "kid.jpg", tempFile.toString(),null);
       Files.delete(tempFile);
     }
     catch (MinioException e) {
