@@ -20,7 +20,7 @@
 	<dependency>
     <groupId>io.minio</groupId>
     <artifactId>minio</artifactId>
-    <version>3.0.12</version>
+    <version>6.0.13</version>
 </dependency>
 		<!-- https://mvnrepository.com/artifact/org.infinispan/infinispan-embedded 
 		from 9.0 and above is not working in tomcat-->

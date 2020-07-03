@@ -32,13 +32,14 @@ public class AuthenticationService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		 System.out.println("loadUserByUsername2");
 
-	        com.model.user.User user= userDAO.getUser(username);
+	        /*com.model.user.User user= userDAO.getUser(username);
 	        
 	        List<GrantedAuthority> authorities = 
 	                buildUserAuthority(RoleEnum.getRolesIdWithNameMap());
 				UserDetails userDetails = (UserDetails)new org.springframework.security.core.userdetails.User(user.getLogin(), 
 						user.getPassword(), authorities);
-				return userDetails;
+				return userDetails;*/
+		 return null;
 	}
 	
 	/*
