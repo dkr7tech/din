@@ -9,12 +9,12 @@
 	<name>din</name>
 	<description>parent</description>
 	<properties>
-		<spring.version>5.0.3.RELEASE</spring.version>
-		<spring-security.version>5.0.3.RELEASE</spring-security.version>
-		<spring-data-jpa.version>2.0.4.RELEASE</spring-data-jpa.version>
+		<spring.version>5.2.7.RELEASE</spring.version>
+		<spring-security.version>5.3.3.RELEASE</spring-security.version>
+		<spring-data-jpa.version>2.3.1.RELEASE</spring-data-jpa.version>
 		<javers.version>3.9.0</javers.version>
-		<hibernate.version>5.0.3.Final</hibernate.version>
-		<spring-instrument-tomcat.version>4.3.16.RELEASE</spring-instrument-tomcat.version>
+		<hibernate.version>5.1.0.Final</hibernate.version>
+		<spring-instrument-tomcat.version>4.3.27.RELEASE</spring-instrument-tomcat.version>
 		<java-version>1.8</java-version>
 		
 	</properties>
