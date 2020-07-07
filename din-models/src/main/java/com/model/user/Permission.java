@@ -14,11 +14,15 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.common.audit.Audit;
+import com.common.audit.Auditor;
+
 /**
  * The persistent class for the tt_permission database table.
  * 
  */
 @Entity
+@Audit(Auditor.class)
 @Table(name = "tt_permission")
 @NamedQuery(name = "Permission.findAll", query = "SELECT p FROM Permission p")
 public class Permission implements Serializable {

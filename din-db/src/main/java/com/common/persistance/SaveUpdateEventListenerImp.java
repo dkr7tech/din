@@ -9,6 +9,8 @@ import org.hibernate.event.spi.SaveOrUpdateEventListener;
 public class SaveUpdateEventListenerImp implements SaveOrUpdateEventListener {
  
    private static final long serialVersionUID = 1L;
+   public static final SaveUpdateEventListenerImp INSTANCE = new SaveUpdateEventListenerImp();
+
 
    @Override
    public void onSaveOrUpdate(SaveOrUpdateEvent e) throws HibernateException {
@@ -18,4 +20,5 @@ public class SaveUpdateEventListenerImp implements SaveOrUpdateEventListener {
       Object obj = e.getEntity();
      System.out.println("SaveUpdateEventListenerImp"+obj.getClass());
    }
+   
    }

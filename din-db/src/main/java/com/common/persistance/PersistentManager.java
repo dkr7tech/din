@@ -12,10 +12,11 @@ import org.reflections.Reflections;
 import com.common.audit.Action;
 import com.common.audit.Audit;
 import com.common.audit.Auditor;
-import com.common.audit.AuditorImpl;
+import com.db.AuditorImpl;
 
 public class PersistentManager {
 	static Set<Class<?>> auditableClasses = null;
+	public static final PersistentManager INSTANCE = new PersistentManager();
 	static {
 		Reflections reflections = new Reflections("com.model");
 		auditableClasses = reflections.getTypesAnnotatedWith(Audit.class);
@@ -78,11 +79,17 @@ public class PersistentManager {
 
 	public void merge(Object object) {
 		getEntityManager().merge(object);
-		Auditor auditor = new AuditorImpl();
+		
+		doAudit(object);
+
+	}
+
+	public void doAudit(Object object) {
+		AuditorImpl auditor = AuditorImpl.INSTANCE;
+		auditor.setEntityManager(entityManager);
 		if (auditableClasses.contains(object.getClass())) {
 			auditor.doAudit(Action.UPDATE,object);
 		}
-
 	}
 
 	private void set() {

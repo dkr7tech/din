@@ -7,29 +7,31 @@ import org.hibernate.event.spi.EventType;
 import org.hibernate.integrator.spi.Integrator;
 import org.hibernate.service.spi.SessionFactoryServiceRegistry;
 
-
-
 public class EventListenerIntegrator implements Integrator {
+	public static final EventListenerIntegrator INSTANCE = new EventListenerIntegrator();
 
-   @Override
-   public void integrate(Metadata metadata, SessionFactoryImplementor 
-         sessionFactory, SessionFactoryServiceRegistry serviceRegistry) {
+	@Override
+	public void integrate(Metadata metadata, SessionFactoryImplementor sessionFactory,
+			SessionFactoryServiceRegistry serviceRegistry) {
 
-      EventListenerRegistry eventListenerRegistry = 
-            serviceRegistry.getService(EventListenerRegistry.class);
+		EventListenerRegistry eventListenerRegistry = serviceRegistry.getService(EventListenerRegistry.class);
+		  eventListenerRegistry.addDuplicationStrategy( CustomStrategy.INSTANCE );
+		eventListenerRegistry.getEventListenerGroup(EventType.SAVE_UPDATE).appendListener(SaveUpdateEventListenerImp.INSTANCE);
+		eventListenerRegistry.getEventListenerGroup(EventType.PERSIST).appendListener(PersistEventListenerImp.INSTANCE);
+		eventListenerRegistry.getEventListenerGroup(EventType.MERGE).appendListener(MergeEventListenerImpl.INSTANCE);
+		/*eventListenerRegistry.prependListeners( EventType.MERGE,MergeEventListenerImpl.class);
+		eventListenerRegistry.prependListeners( EventType.PERSIST,PersistEventListenerImp.class);
+		eventListenerRegistry.prependListeners( EventType.SAVE_UPDATE,SaveUpdateEventListenerImp.class);*/
+		
+		
+		
+		System.out.println("EventListenerIntegrator");
 
-      eventListenerRegistry.getEventListenerGroup(EventType.SAVE_UPDATE)
-                     .appendListener(new SaveUpdateEventListenerImp());
-      System.out.println("EventListenerIntegrator");
-      
-     // eventListenerRegistry.getEventListenerGroup(EventType.LOAD).appendListener(new LoadEventListenerImp());
-      
-      //eventListenerRegistry.getEventListenerGroup(EventType.REFRESH).appendListener(new RefreshEventListenerImp());
-   }
+	}
 
-   @Override
-   public void disintegrate(SessionFactoryImplementor sessionFactory,
-         SessionFactoryServiceRegistry serviceRegistry) {
+	@Override
+	public void disintegrate(SessionFactoryImplementor sessionFactory, SessionFactoryServiceRegistry serviceRegistry) {
 
-   }
+	}
+
 }

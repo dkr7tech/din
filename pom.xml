@@ -13,7 +13,9 @@
 		<spring-security.version>5.3.3.RELEASE</spring-security.version>
 		<spring-data-jpa.version>2.3.1.RELEASE</spring-data-jpa.version>
 		<javers.version>3.9.0</javers.version>
-		<hibernate.version>5.1.0.Final</hibernate.version>
+		<hibernate.version>5.4.10.Final</hibernate.version>
+		<hibernate.common.annotaion.version>5.1.0.Final</hibernate.common.annotaion.version>
+
 		<spring-instrument-tomcat.version>4.3.27.RELEASE</spring-instrument-tomcat.version>
 		<java-version>1.8</java-version>
 
@@ -150,7 +152,7 @@
 		<dependency>
 			<groupId>org.hibernate.common</groupId>
 			<artifactId>hibernate-commons-annotations</artifactId>
-			<version>${hibernate.version}</version>
+			<version>${hibernate.common.annotaion.version}</version>
 		</dependency>
 
 		<dependency>
@@ -289,6 +291,16 @@
 			<groupId>org.reflections</groupId>
 			<artifactId>reflections</artifactId>
 			<version>0.9.12</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jeasy</groupId>
+			<artifactId>easy-rules-core</artifactId>
+			<version>4.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.deliveredtechnologies</groupId>
+			<artifactId>rulebook-core</artifactId>
+			<version>0.10</version>
 		</dependency>
 	</dependencies>
 </project>
