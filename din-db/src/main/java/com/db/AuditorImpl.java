@@ -4,7 +4,6 @@ import javax.persistence.EntityManager;
 
 import com.common.audit.Action;
 import com.common.audit.Auditor;
-import com.model.user.AuditData;
 
 public class AuditorImpl implements Auditor{
 	public static final AuditorImpl INSTANCE = new AuditorImpl();

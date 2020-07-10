@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.common.utils.EncryptionUtil;
 import com.db.UserDAO;
+import com.din.integration.JMSServiceSender;
+import com.din.integration.JmsProvider;
 import com.model.user.User;
 
 /**
@@ -22,6 +24,12 @@ public class UserServiceImpl implements UserService {
 	private static String salt="$2a$10$J9x1IVEdhzDZHumEeSVlJO6UXg/h.1ruZAGBMMloJC1n9OnLDo1um";
 	 @Autowired
 	private UserDAO userDao;
+	 @Autowired
+	 private JmsProvider jmsProvider;
+	 
+	 @Autowired
+		private JMSServiceSender jmsServiceSender;
+
      
 	
 	public UserDAO getUserDao() {
@@ -56,6 +64,14 @@ public class UserServiceImpl implements UserService {
 	
 	public boolean validateUser(User user,User loggedInUser) {
 		boolean isValid=false;
+		//jmsProvider=new JmsProvider();
+		
+		try {
+			jmsProvider.receive();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		/*System.out.println("password :> "+user.getPassword());
 		System.out.println("Generated salt > "+EncryptionUtil.generateSalt(user.getPassword()));
 		System.out.println("salt validate > "+EncryptionUtil.isValidPassword(user.getPassword(),"$2a$10$UrgZ3wKuC71jjKRc.r0PyOlItAvwhYN1nrBE02PZ7wiyKV.wHRfQ."));*/

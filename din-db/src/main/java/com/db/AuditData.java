@@ -1,8 +1,4 @@
-package com.model.user;
-
-import java.time.temporal.TemporalAccessor;
-import java.util.Date;
-import java.util.Optional;
+package com.db;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,14 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import org.springframework.data.auditing.DateTimeProvider;
 import org.springframework.security.core.userdetails.User;
 
 import com.model.common.DateTimeSupport;
 @Entity
 @Table(name="tt_audit")
 @NamedQuery(name="AuditData.findAll", query="SELECT a FROM AuditData a")
-public class AuditData implements DateTimeProvider, DateTimeSupport<User> {
+public class AuditData extends  DateTimeSupport<User> {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	long auditid;
@@ -31,36 +26,9 @@ public class AuditData implements DateTimeProvider, DateTimeSupport<User> {
 	@Column(length = 3000)
 	String entityXML;
 
-	@Override
-	@Column(name="createdBy")
-	public User createdBy() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
-	@Override
-	public Date createdDate() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public User lastModifiedBy() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Date lastModifiedDate() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Optional<TemporalAccessor> getNow() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	public long getAuditid() {
 		return auditid;

@@ -24,7 +24,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.domain.AuditorAware;
@@ -45,192 +44,184 @@ import com.google.common.collect.ImmutableMap;
 @Configuration
 @EnableAspectJAutoProxy
 @EnableTransactionManagement
-@PropertySource({ "classpath:/com/config/prop/persistence-mysql.properties" })
-@ComponentScan({"com.db"})
+//@PropertySource({ "classpath:/com/config/prop/persistence-mysql.properties" })
+@ComponentScan({ "com.db", "com.service.user" })
 @EnableJpaRepositories(basePackages = "org.model")
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
 
 public class PersistenceJPAConfig {
 
-    @Autowired
-    private Environment env;
-    @Autowired
-    private ConfigurableListableBeanFactory beanFactory;
+	@Autowired
+	private Environment env;
+	@Autowired
+	private ConfigurableListableBeanFactory beanFactory;
+	// @Value("${broker-url}")
+	private String brokerUrl;
 
-    public PersistenceJPAConfig() {
-        super();
-    }
+	public PersistenceJPAConfig() {
+		super();
+	}
 
-    // beans
-  
+	// beans
 
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[] { "com.model.user"});
+	@Bean
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+		final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+		em.setDataSource(dataSource());
+		em.setPackagesToScan(new String[] { "com.model.user" });
 
-        final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        em.setJpaVendorAdapter(vendorAdapter);
-        
-        em.setJpaProperties(additionalProperties());
-        em.getJpaPropertyMap().put(AvailableSettings.BEAN_CONTAINER, new SpringBeanContainer(beanFactory));
-        
-       
-        
-       
-        return em;
-    }
+		final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+		em.setJpaVendorAdapter(vendorAdapter);
 
-    @Bean
-    public DataSource dataSource() {
-    	
-        final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(Preconditions.checkNotNull(env.getProperty("jdbc.driverClassName")));
-        dataSource.setUrl(Preconditions.checkNotNull(env.getProperty("jdbc.url")));
-        dataSource.setUsername(Preconditions.checkNotNull(env.getProperty("jdbc.user")));
-        dataSource.setPassword(Preconditions.checkNotNull(env.getProperty("jdbc.pass")));
+		em.setJpaProperties(additionalProperties());
+		em.getJpaPropertyMap().put(AvailableSettings.BEAN_CONTAINER, new SpringBeanContainer(beanFactory));
 
-        return dataSource;
-    }
+		return em;
+	}
 
-    @Bean
-    public PlatformTransactionManager transactionManager(final EntityManagerFactory emf) {
-        final JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(emf);
-        return transactionManager;
-    }
+	@Bean
+	public DataSource dataSource() {
 
-    @Bean
-    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
-        return new PersistenceExceptionTranslationPostProcessor();
-    }
-    
-    
-   /* @Bean not required after hirbernate 5.5
-    public FactoryBean<SessionFactory>  sessionFactory() {
-    	//HibernateJpaSessionFactoryBean factory = new HibernateJpaSessionFactoryBean();
-        //factory.setEntityManagerFactory(entityManagerFactory().getObject());
-    	 HibernateJpaSessionFactoryBean factory = new HibernateJpaSessionFactoryBean();
-         factory.setEntityManagerFactory(entityManagerFactory().getObject());
-         
-         
-    	/*SessionFactory  sessionFactory=  emf.unwrap(SessionFactory.class);
-    	sessionFactory.withOptions().interceptor(new CustomInterceptor());*/
-    	
-    	
-    	/*BootstrapServiceRegistry bootstrapServiceRegistry = new BootstrapServiceRegistryBuilder()
-    			  .applyClassLoader()
-    			 .applyIntegrator(EventListenerIntegrator.INSTANCE)
-    			  .applyStrategySelector()
-    			  .build();
-    	Properties properties = new Properties();
-    	properties.putAll(emf.getProperties());
-    	StandardServiceRegistryBuilder standardServiceRegistryBuilder = 
-    			  new StandardServiceRegistryBuilder(bootstrapServiceRegistry);
-    	
-    	standardServiceRegistryBuilder.applySettings(properties);
-     
-    	MetadataSources metadataSources = new MetadataSources(standardServiceRegistryBuilder.build());
-         	SessionFactoryBuilder sessionFactoryBuilder = metadataSources.buildMetadata().getSessionFactoryBuilder();
-    	 Supply a SessionFactory-level Interceptor
-    	sessionFactoryBuilder.applyInterceptor( new CustomSessionFactoryInterceptor() );
+		final DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		dataSource.setDriverClassName(Preconditions.checkNotNull(env.getProperty("jdbc.driverClassName")));
+		dataSource.setUrl(Preconditions.checkNotNull(env.getProperty("jdbc.url")));
+		dataSource.setUsername(Preconditions.checkNotNull(env.getProperty("jdbc.user")));
+		dataSource.setPassword(Preconditions.checkNotNull(env.getProperty("jdbc.pass")));
 
-    	Add a custom observer
-    	sessionFactoryBuilder.addSessionFactoryObservers( new CustomSessionFactoryObserver() );
-        
-    	// Apply a CDI BeanManager ( for JPA event listeners )
-    	//sessionFactoryBuilder.applyBeanManager( emf );
-    	//sessionFactoryBuilder.build();
-    	
-      return factory;
-    } */
-    
- 
-   /* @Bean
-    public HibernateJpaSessionFactoryBean  sessionFactory() {
-     return new LocalSessionFactoryBuilder(dataSource())
-     .addAnnotatedClasses(Person.class, Account.class)
-     .buildSessionFactory();
-    }
-*/
-    final Properties additionalProperties() {
-        final Properties hibernateProperties = new Properties();
-        
-        hibernateProperties.setProperty(AvailableSettings.HBM2DDL_AUTO, env.getProperty("hibernate.hbm2ddl.auto"));
-        hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
-        hibernateProperties.setProperty("hibernate.connection.autocommit", "false");
-        hibernateProperties.put("hibernate.session_factory.interceptor", "com.common.persistance.CustomInterceptor");
-        // hibernateProperties.setProperty("hibernate.globally_quoted_identifiers", "true");
-       /* hibernateProperties.put(
-                "hibernate.integrator_provider",
-                (IntegratorProvider) () -> Collections.singletonList(
-                    new EventListenerIntegrator()
-                )
-            );*/
-        return hibernateProperties;
-    }
+		return dataSource;
+	}
 
-  //.. JaVers setup ..
+	@Bean
+	public PlatformTransactionManager transactionManager(final EntityManagerFactory emf) {
+		final JpaTransactionManager transactionManager = new JpaTransactionManager();
+		transactionManager.setEntityManagerFactory(emf);
+		return transactionManager;
+	}
 
-    /**
-     * Creates JaVers instance with {@link JaversSqlRepository}
-     */
-    @Bean
-    public Javers javers(PlatformTransactionManager txManager) {
-        JaversSqlRepository sqlRepository = SqlRepositoryBuilder
-                .sqlRepository()
-                .withConnectionProvider(jpaConnectionProvider())
-                .withDialect(DialectName.MYSQL)
-                .build();
+	@Bean
+	public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+		return new PersistenceExceptionTranslationPostProcessor();
+	}
 
-        return TransactionalJaversBuilder
-                .javers().withTxManager(txManager)
-                .withObjectAccessHook(new HibernateUnproxyObjectAccessHook())
-                .registerJaversRepository(sqlRepository)
-                .build();
-    }
-    
-    @Bean
-    public ConnectionProvider jpaConnectionProvider() {
-        return new JpaHibernateConnectionProvider();
-    }
-    
-    /**
-     * Enables auto-audit aspect for Spring Data repositories. <br/>
-     *
-     * Use {@link org.javers.spring.annotation.JaversSpringDataAuditable}
-     * to annotate CrudRepository, PagingAndSortingRepository or JpaRepository
-     * you want to audit.
-     */
-    @Bean
-    public JaversSpringDataJpaAuditableRepositoryAspect javersSpringDataAspect(Javers javers) {
-        return new JaversSpringDataJpaAuditableRepositoryAspect(javers, authorProvider(),
-            commitPropertiesProvider());
-    }
-    
-    /**
-     * Optional for auto-audit aspect. <br/>
-     * @see CommitPropertiesProvider
-     */
-    @Bean
-    public CommitPropertiesProvider commitPropertiesProvider() {
-        return () -> ImmutableMap.of("key", "ok");
-    }
-    @Bean
-    public AuthorProvider authorProvider() {
-        return new SpringSecurityAuthorProvider();
-    }
-   /* @Autowired
-    @Bean(name = "userDao")
-    public UserDAO getUserDao() {
-    	return new UserDAOImpl();
-    }
-*/
-    @Bean
-    public AuditorAware<String> auditorAware() {
-        return new AuditorAwareImpl<String>();
-    }    
-    
-    
+	/*
+	 * @Bean not required after hirbernate 5.5 public FactoryBean<SessionFactory>
+	 * sessionFactory() { //HibernateJpaSessionFactoryBean factory = new
+	 * HibernateJpaSessionFactoryBean();
+	 * //factory.setEntityManagerFactory(entityManagerFactory().getObject());
+	 * HibernateJpaSessionFactoryBean factory = new
+	 * HibernateJpaSessionFactoryBean();
+	 * factory.setEntityManagerFactory(entityManagerFactory().getObject());
+	 * 
+	 * 
+	 * /*SessionFactory sessionFactory= emf.unwrap(SessionFactory.class);
+	 * sessionFactory.withOptions().interceptor(new CustomInterceptor());
+	 */
+
+	/*
+	 * BootstrapServiceRegistry bootstrapServiceRegistry = new
+	 * BootstrapServiceRegistryBuilder() .applyClassLoader()
+	 * .applyIntegrator(EventListenerIntegrator.INSTANCE) .applyStrategySelector()
+	 * .build(); Properties properties = new Properties();
+	 * properties.putAll(emf.getProperties()); StandardServiceRegistryBuilder
+	 * standardServiceRegistryBuilder = new
+	 * StandardServiceRegistryBuilder(bootstrapServiceRegistry);
+	 * 
+	 * standardServiceRegistryBuilder.applySettings(properties);
+	 * 
+	 * MetadataSources metadataSources = new
+	 * MetadataSources(standardServiceRegistryBuilder.build());
+	 * SessionFactoryBuilder sessionFactoryBuilder =
+	 * metadataSources.buildMetadata().getSessionFactoryBuilder(); Supply a
+	 * SessionFactory-level Interceptor sessionFactoryBuilder.applyInterceptor( new
+	 * CustomSessionFactoryInterceptor() );
+	 * 
+	 * Add a custom observer sessionFactoryBuilder.addSessionFactoryObservers( new
+	 * CustomSessionFactoryObserver() );
+	 * 
+	 * // Apply a CDI BeanManager ( for JPA event listeners )
+	 * //sessionFactoryBuilder.applyBeanManager( emf );
+	 * //sessionFactoryBuilder.build();
+	 * 
+	 * return factory; }
+	 */
+
+	/*
+	 * @Bean public HibernateJpaSessionFactoryBean sessionFactory() { return new
+	 * LocalSessionFactoryBuilder(dataSource()) .addAnnotatedClasses(Person.class,
+	 * Account.class) .buildSessionFactory(); }
+	 */
+	final Properties additionalProperties() {
+		final Properties hibernateProperties = new Properties();
+
+		hibernateProperties.setProperty(AvailableSettings.HBM2DDL_AUTO, env.getProperty("hibernate.hbm2ddl.auto"));
+		hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
+		hibernateProperties.setProperty("hibernate.connection.autocommit", "false");
+		hibernateProperties.put("hibernate.session_factory.interceptor", "com.common.persistance.CustomInterceptor");
+		// hibernateProperties.setProperty("hibernate.globally_quoted_identifiers",
+		// "true");
+		/*
+		 * hibernateProperties.put( "hibernate.integrator_provider",
+		 * (IntegratorProvider) () -> Collections.singletonList( new
+		 * EventListenerIntegrator() ) );
+		 */
+		return hibernateProperties;
+	}
+
+	// .. JaVers setup ..
+
+	/**
+	 * Creates JaVers instance with {@link JaversSqlRepository}
+	 */
+	@Bean
+	public Javers javers(PlatformTransactionManager txManager) {
+		JaversSqlRepository sqlRepository = SqlRepositoryBuilder.sqlRepository()
+				.withConnectionProvider(jpaConnectionProvider()).withDialect(DialectName.MYSQL).build();
+
+		return TransactionalJaversBuilder.javers().withTxManager(txManager)
+				.withObjectAccessHook(new HibernateUnproxyObjectAccessHook()).registerJaversRepository(sqlRepository)
+				.build();
+	}
+
+	@Bean
+	public ConnectionProvider jpaConnectionProvider() {
+		return new JpaHibernateConnectionProvider();
+	}
+
+	/**
+	 * Enables auto-audit aspect for Spring Data repositories. <br/>
+	 *
+	 * Use {@link org.javers.spring.annotation.JaversSpringDataAuditable} to
+	 * annotate CrudRepository, PagingAndSortingRepository or JpaRepository you want
+	 * to audit.
+	 */
+	@Bean
+	public JaversSpringDataJpaAuditableRepositoryAspect javersSpringDataAspect(Javers javers) {
+		return new JaversSpringDataJpaAuditableRepositoryAspect(javers, authorProvider(), commitPropertiesProvider());
+	}
+
+	/**
+	 * Optional for auto-audit aspect. <br/>
+	 * 
+	 * @see CommitPropertiesProvider
+	 */
+	@Bean
+	public CommitPropertiesProvider commitPropertiesProvider() {
+		return () -> ImmutableMap.of("key", "ok");
+	}
+
+	@Bean
+	public AuthorProvider authorProvider() {
+		return new SpringSecurityAuthorProvider();
+	}
+
+	/*
+	 * @Autowired
+	 * 
+	 * @Bean(name = "userDao") public UserDAO getUserDao() { return new
+	 * UserDAOImpl(); }
+	 */
+	@Bean
+	public AuditorAware<String> auditorAware() {
+		return new AuditorAwareImpl<String>();
+	}
 }

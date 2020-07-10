@@ -8,6 +8,7 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import com.config.IntegrationConfigurer;
 import com.config.PersistenceJPAConfig;
 import com.config.SpringAppComponentConfig;
 import com.web.filter.SessionAuthenticationFilter;
@@ -37,7 +38,7 @@ public class SpringWebAppInitializer implements WebApplicationInitializer {
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext appContext = new AnnotationConfigWebApplicationContext();
-        appContext.register(PersistenceJPAConfig.class,SpringAppComponentConfig.class,SpringWebComponentConfigration.class);
+        appContext.register(PersistenceJPAConfig.class,IntegrationConfigurer.class,SpringAppComponentConfig.class,SpringWebComponentConfigration.class);
        // appContext.scan(basePackages);
         
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet(

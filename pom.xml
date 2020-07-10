@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -12,16 +13,15 @@
 		<spring.version>5.2.7.RELEASE</spring.version>
 		<spring-security.version>5.3.3.RELEASE</spring-security.version>
 		<spring-data-jpa.version>2.3.1.RELEASE</spring-data-jpa.version>
+		<spring-instrument-tomcat.version>4.3.27.RELEASE</spring-instrument-tomcat.version>
 		<javers.version>3.9.0</javers.version>
 		<hibernate.version>5.4.10.Final</hibernate.version>
 		<hibernate.common.annotaion.version>5.1.0.Final</hibernate.common.annotaion.version>
-
-		<spring-instrument-tomcat.version>4.3.27.RELEASE</spring-instrument-tomcat.version>
 		<java-version>1.8</java-version>
-
 	</properties>
 	<modules>
 		<module>din-common</module>
+		<module>din-int</module>
 		<module>din-db</module>
 		<module>din-models</module>
 		<module>din-service</module>
@@ -223,11 +223,8 @@
 			<artifactId>logback-core</artifactId>
 			<version>1.2.3</version>
 		</dependency>
-
-
 		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-log4j12</artifactId> 
 			<version>1.7.21</version> </dependency> -->
-
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
