@@ -15,7 +15,7 @@
 		<spring-data-jpa.version>2.3.1.RELEASE</spring-data-jpa.version>
 		<spring-instrument-tomcat.version>4.3.27.RELEASE</spring-instrument-tomcat.version>
 		<javers.version>3.9.0</javers.version>
-		<hibernate.version>5.4.10.Final</hibernate.version>
+		<hibernate.version>5.4.24.Final</hibernate.version>
 		<hibernate.common.annotaion.version>5.1.0.Final</hibernate.common.annotaion.version>
 		<java-version>1.8</java-version>
 	</properties>
