@@ -9,7 +9,7 @@
 	<name>din-web</name>
 	<properties>
 		<tiles.version>3.0.8</tiles.version>
-		<jakson.version>2.11.1</jakson.version>
+		<jakson.version>2.12.7.1</jakson.version>
 		<target-out-dir>target</target-out-dir>
 		<resource-dir>WebContent/resources/</resource-dir>
 	</properties>
