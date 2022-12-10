@@ -10,7 +10,7 @@
 	<name>din</name>
 	<description>parent</description>
 	<properties>
-		<spring.version>5.2.7.RELEASE</spring.version>
+		<spring.version>6.0.0</spring.version>
 		<spring-security.version>5.3.3.RELEASE</spring-security.version>
 		<spring-data-jpa.version>2.3.1.RELEASE</spring-data-jpa.version>
 		<spring-instrument-tomcat.version>4.3.27.RELEASE</spring-instrument-tomcat.version>
