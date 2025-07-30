@@ -37,6 +37,8 @@ public class SpringWebAppInitializer implements WebApplicationInitializer {
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
+		
+		 System.err.println("-------------Application Starting-----------------------");
         AnnotationConfigWebApplicationContext appContext = new AnnotationConfigWebApplicationContext();
         appContext.register(PersistenceJPAConfig.class,IntegrationConfigurer.class,SpringAppComponentConfig.class,SpringWebComponentConfigration.class);
        // appContext.scan(basePackages);
