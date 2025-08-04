@@ -1,8 +1,9 @@
 package com.model.user;
 
-import javax.persistence.MappedSuperclass;
 
 import com.common.audit.Type;
+
+import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public interface ParentEntity {

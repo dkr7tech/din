@@ -15,13 +15,13 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.util.StringUtils;
 
 import com.model.user.UserPreference;
-import com.time.DateTimePattern;;
+import com.time.DateTimePattern;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;;
 
 
 // TODO: Auto-generated Javadoc

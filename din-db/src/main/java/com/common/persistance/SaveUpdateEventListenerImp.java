@@ -1,10 +1,8 @@
 package com.common.persistance;
 
-
 import org.hibernate.HibernateException;
 import org.hibernate.event.spi.SaveOrUpdateEvent;
 import org.hibernate.event.spi.SaveOrUpdateEventListener;
-
 
 public class SaveUpdateEventListenerImp implements SaveOrUpdateEventListener {
  

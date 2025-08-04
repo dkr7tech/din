@@ -2,11 +2,6 @@ package com.db;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.transaction.Transactional;
-
 import org.javers.spring.annotation.JaversAuditable;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +9,11 @@ import com.common.persistance.PersistentManager;
 import com.model.user.Permission;
 import com.model.user.Role;
 import com.model.user.RolePerm;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+import jakarta.transaction.Transactional;
 
 @Repository
 public class RolePermDAOImpl extends PersistentManager implements RolePermDAO{

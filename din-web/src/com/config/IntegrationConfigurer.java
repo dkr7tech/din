@@ -89,7 +89,7 @@ public class IntegrationConfigurer {
 		hibernateProperties.setProperty(AvailableSettings.HBM2DDL_AUTO, env.getProperty("hibernate.hbm2ddl.auto"));
 		hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
 		hibernateProperties.setProperty("hibernate.connection.autocommit", "false");
-		hibernateProperties.put("hibernate.session_factory.interceptor", "com.common.persistance.CustomInterceptor");
+		//hibernateProperties.put("hibernate.session_factory.interceptor", "com.common.persistance.CustomInterceptor");
 		// hibernateProperties.setProperty("hibernate.globally_quoted_identifiers",
 		// "true");
 		/*

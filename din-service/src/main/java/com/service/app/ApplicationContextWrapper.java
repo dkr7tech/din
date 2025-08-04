@@ -1,7 +1,7 @@
 package com.service.app;
 
 
-import javax.persistence.EntityManager;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Service;
 
-import com.db.AuditorImpl;
+import jakarta.persistence.EntityManager;
 
 
 

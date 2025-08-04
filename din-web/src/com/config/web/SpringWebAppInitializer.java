@@ -1,8 +1,6 @@
 package com.config.web;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
+
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -11,8 +9,11 @@ import org.springframework.web.servlet.DispatcherServlet;
 import com.config.IntegrationConfigurer;
 import com.config.PersistenceJPAConfig;
 import com.config.SpringAppComponentConfig;
-import com.web.filter.SessionAuthenticationFilter;
 import com.web.servlet.AppConfigServlet;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRegistration;
 
 public class SpringWebAppInitializer implements WebApplicationInitializer {
 	
@@ -35,10 +36,10 @@ public class SpringWebAppInitializer implements WebApplicationInitializer {
 	         return appContext;
 	    }*/
 
-	@Override
+	/*@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		
-		 System.err.println("-------------Application Starting-----------------------");
+		 System.err.println("------------------------------------");
         AnnotationConfigWebApplicationContext appContext = new AnnotationConfigWebApplicationContext();
         appContext.register(PersistenceJPAConfig.class,IntegrationConfigurer.class,SpringAppComponentConfig.class,SpringWebComponentConfigration.class);
        // appContext.scan(basePackages);
@@ -55,7 +56,37 @@ public class SpringWebAppInitializer implements WebApplicationInitializer {
         servletContext.addFilter("SessionAuthenticationFilter", SessionAuthenticationFilter.class);
        
       /*  servletContext.getFilterRegistration("SessionAuthenticationFilter")
-        .addMappingForUrlPatterns(DispatcherType.REQUEST, true, "/secured","","/");*/
+        .addMappingForUrlPatterns(DispatcherType.REQUEST, true, "/secured","","/");*
         
-	}
+	}*/
+	
+	@Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+
+        System.err.println("---- Initializing Spring Web Application ----");
+
+        // Root Spring context
+        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+        context.register(
+                PersistenceJPAConfig.class,
+                IntegrationConfigurer.class,
+                SpringAppComponentConfig.class,
+                SpringWebComponentConfigration.class
+        );
+        context.setServletContext(servletContext);
+
+        // Dispatcher servlet registration
+        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("SpringDispatcher", new DispatcherServlet(context));
+        dispatcher.setLoadOnStartup(2);
+        dispatcher.addMapping("/"); // Use path-based mapping for Spring MVC
+
+        // Additional custom servlet (optional)
+        ServletRegistration.Dynamic appConfigServlet = servletContext.addServlet("AppConfigServlet", new AppConfigServlet());
+        appConfigServlet.setLoadOnStartup(1); // Optional if needed
+        appConfigServlet.addMapping("/conf/AppConfigServlet");
+
+        // Session Authentication Filter registration
+        //FilterRegistration.Dynamic sessionFilter = servletContext.addFilter("SessionAuthenticationFilter", SessionAuthenticationFilter.class);
+        //sessionFilter.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "*.htm"); // Only filter .htm URLs
+    }
 }

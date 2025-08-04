@@ -1,18 +1,18 @@
 package com.common.persistance.springjpaaudit;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.EntityListeners;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import java.util.Date;
-
-import static javax.persistence.TemporalType.TIMESTAMP;
-
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+//import static javax.persistence.TemporalType.TIMESTAMP;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 abstract class Auditable<U> {
@@ -21,14 +21,14 @@ abstract class Auditable<U> {
     protected U createdBy;
 
     @CreatedDate
-    @Temporal(TIMESTAMP)
+    @Temporal(TemporalType.TIMESTAMP)
     protected Date createdDate;
 
     @LastModifiedBy
     protected U lastModifiedBy;
 
     @LastModifiedDate
-    @Temporal(TIMESTAMP)
+    @Temporal(TemporalType.TIMESTAMP)
     protected Date lastModifiedDate;
 
     public U getCreatedBy() {

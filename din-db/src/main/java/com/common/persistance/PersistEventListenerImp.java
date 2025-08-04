@@ -1,12 +1,9 @@
 package com.common.persistance;
 
-
-import java.util.Map;
-
 import org.hibernate.HibernateException;
+import org.hibernate.event.spi.PersistContext;
 import org.hibernate.event.spi.PersistEvent;
 import org.hibernate.event.spi.PersistEventListener;
-
 
 public class PersistEventListenerImp implements PersistEventListener {
  
@@ -18,7 +15,7 @@ public void onPersist(PersistEvent event) throws HibernateException {
 	
 }
 @Override
-public void onPersist(PersistEvent event, Map createdAlready) throws HibernateException {
+public void onPersist(PersistEvent event, PersistContext createdAlready) throws HibernateException {
 	System.out.println("PersistEventListenerImp2");
 	
 }

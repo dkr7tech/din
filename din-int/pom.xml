@@ -14,9 +14,9 @@
 	<artifactId>din-int</artifactId>
 	<url>http://maven.apache.org</url>
 	<properties>
-		<activemq.version>5.15.13</activemq.version>
-		<camel.version>3.3.0</camel.version>
-		<spring.version>5.2.7.RELEASE</spring.version>
+		<activemq.version>6.1.7</activemq.version>
+		<camel.version>4.13.0</camel.version>
+		<spring.version>6.2.9</spring.version>
 	</properties>
 	<dependencies>
 		<dependency>

@@ -1,8 +1,7 @@
 package com.common.persistance;
 
-import java.util.Map;
-
 import org.hibernate.HibernateException;
+import org.hibernate.event.spi.MergeContext;
 import org.hibernate.event.spi.MergeEvent;
 import org.hibernate.event.spi.MergeEventListener;
 
@@ -19,7 +18,7 @@ public class MergeEventListenerImpl implements MergeEventListener {
 	}
 
 	@Override
-	public void onMerge(MergeEvent event, Map copiedAlready) throws HibernateException {
+	public void onMerge(MergeEvent event, MergeContext copiedAlready) throws HibernateException {
 		//super.onMerge(event,copiedAlready);
 		System.out.println("MergeEventListener2WWWWWWWWWWWWWw");
 	}

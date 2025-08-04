@@ -2,7 +2,9 @@ package com.web.utils;
 
 import java.util.HashMap;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
+
+
 
 public class WebUtil {
 private static  String contextPath=null;

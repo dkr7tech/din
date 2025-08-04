@@ -2,15 +2,15 @@ package com.db;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.javers.spring.annotation.JaversAuditable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.model.user.User;
 import com.model.user.UserPreference;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 @Repository
 public class UserDAOImpl implements UserDAO {

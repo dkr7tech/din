@@ -13,6 +13,7 @@ test.compare();
 test.listPrperties();
 %> 
 <table border="0" width="641" height="339">
+<%% out.println("dddddddddddddddddddd"); %>
 <form:form action="home" method="post" modelAttribute="user">
 	<tr>
 		<td height="40" width="320">&nbsp;</td>

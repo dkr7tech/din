@@ -7,6 +7,11 @@ import org.hibernate.event.spi.EventType;
 import org.hibernate.integrator.spi.Integrator;
 import org.hibernate.service.spi.SessionFactoryServiceRegistry;
 
+import com.common.persistance.CustomStrategy;
+import com.common.persistance.SaveUpdateEventListenerImp;
+import com.common.persistance.PersistEventListenerImp;
+import com.common.persistance.MergeEventListenerImpl;
+
 public class EventListenerIntegrator implements Integrator {
 	public static final EventListenerIntegrator INSTANCE = new EventListenerIntegrator();
 

@@ -1,9 +1,11 @@
 package com.db;
 
-import javax.persistence.EntityManager;
+
 
 import com.common.audit.Action;
 import com.common.audit.Auditor;
+
+import jakarta.persistence.EntityManager;
 
 public class AuditorImpl implements Auditor{
 	public static final AuditorImpl INSTANCE = new AuditorImpl();

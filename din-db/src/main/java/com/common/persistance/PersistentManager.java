@@ -4,15 +4,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.reflections.Reflections;
 
 import com.common.audit.Action;
 import com.common.audit.Audit;
-import com.common.audit.Auditor;
 import com.db.AuditorImpl;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 public class PersistentManager {
 	static Set<Class<?>> auditableClasses = null;

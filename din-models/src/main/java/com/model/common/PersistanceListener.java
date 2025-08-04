@@ -2,20 +2,19 @@ package com.model.common;
 
 import static com.common.audit.Action.CREATE;
 import static com.common.audit.Action.DELETE;
-import static com.common.audit.Action.UPDATE;
 import static com.common.audit.Action.LOAD;
-import static javax.transaction.Transactional.TxType.MANDATORY;
+import static com.common.audit.Action.UPDATE;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PostLoad;
-import javax.persistence.PostPersist;
-import javax.persistence.PostUpdate;
-import javax.persistence.PrePersist;
-import javax.persistence.PreRemove;
-import javax.persistence.PreUpdate;
-import javax.transaction.Transactional;
-
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.PostLoad;
+import jakarta.persistence.PostPersist;
+import jakarta.persistence.PostUpdate;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreRemove;
+import jakarta.persistence.PreUpdate;
+import jakarta.transaction.Transactional;
+import jakarta.transaction.Transactional.TxType;
 import com.common.audit.Action;
 
 /*
@@ -81,10 +80,13 @@ public class PersistanceListener {
 		perform(target, LOAD);
 	}
 
-	@Transactional(MANDATORY)
-	private void perform(Object target, Action action) {
-		System.out.println("inside PersistanceListener " + entityManager);
-		// entityManager.persist(new FileHistory(target, action));
-	}
+	   @Transactional(TxType.MANDATORY)
+    private void perform(Object target, Action action) {
+        System.out.println("Performing audit action " + action + " on " + target);
+        // Note: Cannot inject EntityManager here reliably.
+        // Instead, delegate this operation to a CDI/Spring-managed bean or service.
+        // Example:
+        // Audit
+}
 
 }

@@ -7,9 +7,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.javers.core.Javers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomCollectionEditor;
@@ -29,7 +26,6 @@ import com.common.utils.ObjectUtility;
 import com.common.utils.StringUtility;
 import com.db.UserDAO;
 import com.model.common.LoginSessionBean;
-import com.model.common.PermissionEnum;
 import com.model.common.RoleEnum;
 import com.model.common.constant.CommonConstant;
 import com.model.user.Role;
@@ -39,6 +35,9 @@ import com.service.auth.RolePermManager;
 import com.service.user.UserService;
 import com.time.DateTimePattern;
 import com.web.utils.WebManagar;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * Handles requests for the application home page.

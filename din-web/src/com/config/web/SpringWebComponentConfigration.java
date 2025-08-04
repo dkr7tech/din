@@ -5,14 +5,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
-import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 import com.config.SecurityConfig;
 
@@ -24,7 +21,7 @@ import com.config.SecurityConfig;
 
 @ComponentScan({ "com.controller"})
 @Import({ SecurityConfig.class })
-public class SpringWebComponentConfigration extends WebMvcConfigurerAdapter{
+public class SpringWebComponentConfigration implements WebMvcConfigurer{
 
 	 @Bean(name = "viewResolver")
 	    public InternalResourceViewResolver getViewResolver() {
@@ -34,8 +31,7 @@ public class SpringWebComponentConfigration extends WebMvcConfigurerAdapter{
 	        viewResolver.setOrder(1);
 	        return viewResolver;
 	    }
-	  
-	  @Bean
+	/*  @Bean
 	  public TilesConfigurer tilesConfigurer() {
 	  TilesConfigurer tiles = new TilesConfigurer();
 	  tiles.setDefinitions(new String[] {
@@ -50,8 +46,7 @@ public class SpringWebComponentConfigration extends WebMvcConfigurerAdapter{
 		  TilesViewResolver tilesViewResolver=	  new TilesViewResolver();
 		  tilesViewResolver.setOrder(0);
 	  return tilesViewResolver;
-	  }
-	     
+	  }*/
 	  /* @Autowired
 	    @Bean(name = "auditService")
 	    public AuditService getAuditService() {

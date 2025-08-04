@@ -3,14 +3,15 @@ package com.web.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.web.utils.WebManagar;
+
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Servlet implementation class for Servlet: AppConfigServlet
@@ -18,10 +19,15 @@ import com.web.utils.WebManagar;
  */
 
 //http://www.codejava.net/java-ee/servlet/webservlet-annotation-examples
-@WebServlet(urlPatterns = "/AppConfigServlet",
+/*
+ * commented because 
+ * 	1. Servlet Registered Twice:
+	The servlet is registered both via @WebServlet annotation and programmatically in your SpringWebAppInitializer (or similar Java config). This causes the servlet container to create two instances.
+ * @WebServlet(urlPatterns = "/AppConfigServlet",
 		loadOnStartup = 1,
-        asyncSupported = false)
-public class AppConfigServlet extends javax.servlet.http.HttpServlet {
+        asyncSupported = false)*/
+
+public class AppConfigServlet extends HttpServlet {
 	static final long serialVersionUID = 1L;
 
 	public void init(ServletConfig config) throws ServletException {

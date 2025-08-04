@@ -2,7 +2,6 @@ package com.config;
 
 import java.util.Properties;
 
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.hibernate.cfg.AvailableSettings;
@@ -15,9 +14,7 @@ import org.javers.repository.sql.SqlRepositoryBuilder;
 import org.javers.spring.auditable.AuthorProvider;
 import org.javers.spring.auditable.CommitPropertiesProvider;
 import org.javers.spring.auditable.SpringSecurityAuthorProvider;
-import org.javers.spring.auditable.aspect.springdata.JaversSpringDataJpaAuditableRepositoryAspect;
 import org.javers.spring.jpa.JpaHibernateConnectionProvider;
-import org.javers.spring.jpa.TransactionalJaversBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.annotation.Bean;
@@ -39,7 +36,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.common.persistance.springjpaaudit.AuditorAwareImpl;
 import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableMap;
+
+import jakarta.persistence.EntityManagerFactory;
 
 @Configuration
 @EnableAspectJAutoProxy
@@ -156,7 +154,7 @@ public class PersistenceJPAConfig {
 		hibernateProperties.setProperty(AvailableSettings.HBM2DDL_AUTO, env.getProperty("hibernate.hbm2ddl.auto"));
 		hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
 		hibernateProperties.setProperty("hibernate.connection.autocommit", "false");
-		hibernateProperties.put("hibernate.session_factory.interceptor", "com.common.persistance.CustomInterceptor");
+	//	hibernateProperties.put("hibernate.session_factory.interceptor", "com.common.persistance.CustomInterceptor");
 		// hibernateProperties.setProperty("hibernate.globally_quoted_identifiers",
 		// "true");
 		/*
@@ -173,41 +171,29 @@ public class PersistenceJPAConfig {
 	 * Creates JaVers instance with {@link JaversSqlRepository}
 	 */
 	@Bean
-	public Javers javers(PlatformTransactionManager txManager) {
+	public Javers javers(PlatformTransactionManager txManager, EntityManagerFactory entityManagerFactory) {
 		JaversSqlRepository sqlRepository = SqlRepositoryBuilder.sqlRepository()
-				.withConnectionProvider(jpaConnectionProvider()).withDialect(DialectName.MYSQL).build();
+				.withConnectionProvider(jpaConnectionProvider(entityManagerFactory))
+				.withDialect(DialectName.MYSQL).build();
 
-		return TransactionalJaversBuilder.javers().withTxManager(txManager)
-				.withObjectAccessHook(new HibernateUnproxyObjectAccessHook()).registerJaversRepository(sqlRepository)
-				.build();
+		return org.javers.core.JaversBuilder.javers().withObjectAccessHook(new HibernateUnproxyObjectAccessHook())
+				.registerJaversRepository(sqlRepository).build();
 	}
 
-	@Bean
-	public ConnectionProvider jpaConnectionProvider() {
-		return new JpaHibernateConnectionProvider();
-	}
-
-	/**
-	 * Enables auto-audit aspect for Spring Data repositories. <br/>
-	 *
-	 * Use {@link org.javers.spring.annotation.JaversSpringDataAuditable} to
-	 * annotate CrudRepository, PagingAndSortingRepository or JpaRepository you want
-	 * to audit.
-	 */
-	@Bean
-	public JaversSpringDataJpaAuditableRepositoryAspect javersSpringDataAspect(Javers javers) {
-		return new JaversSpringDataJpaAuditableRepositoryAspect(javers, authorProvider(), commitPropertiesProvider());
-	}
+	  @Bean
+    public ConnectionProvider jpaConnectionProvider(EntityManagerFactory entityManagerFactory) {
+        return new JpaHibernateConnectionProvider(entityManagerFactory.createEntityManager());
+    }
 
 	/**
 	 * Optional for auto-audit aspect. <br/>
 	 * 
 	 * @see CommitPropertiesProvider
-	 */
+	
 	@Bean
 	public CommitPropertiesProvider commitPropertiesProvider() {
 		return () -> ImmutableMap.of("key", "ok");
-	}
+	} */
 
 	@Bean
 	public AuthorProvider authorProvider() {

@@ -3,11 +3,7 @@ package com.web.utils;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import com.web.utils.ContextData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +11,10 @@ import com.common.utils.ObjectUtility;
 import com.config.web.WebConstants;
 import com.model.common.LoginSessionBean;
 import com.model.common.constant.CommonConstant;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 public class WebManagar extends WebConstants{
 	static final Logger log = LoggerFactory.getLogger(WebManagar.class);
