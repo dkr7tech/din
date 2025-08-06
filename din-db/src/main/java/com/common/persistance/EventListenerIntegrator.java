@@ -15,13 +15,12 @@ import com.common.persistance.MergeEventListenerImpl;
 public class EventListenerIntegrator implements Integrator {
 	public static final EventListenerIntegrator INSTANCE = new EventListenerIntegrator();
 
-	@Override
 	public void integrate(Metadata metadata, SessionFactoryImplementor sessionFactory,
 			SessionFactoryServiceRegistry serviceRegistry) {
 
 		EventListenerRegistry eventListenerRegistry = serviceRegistry.getService(EventListenerRegistry.class);
 		  eventListenerRegistry.addDuplicationStrategy( CustomStrategy.INSTANCE );
-		eventListenerRegistry.getEventListenerGroup(EventType.SAVE_UPDATE).appendListener(SaveUpdateEventListenerImp.INSTANCE);
+		//eventListenerRegistry.getEventListenerGroup(EventType.SAVE_UPDATE).appendListener(SaveUpdateEventListenerImp.INSTANCE); todo
 		eventListenerRegistry.getEventListenerGroup(EventType.PERSIST).appendListener(PersistEventListenerImp.INSTANCE);
 		eventListenerRegistry.getEventListenerGroup(EventType.MERGE).appendListener(MergeEventListenerImpl.INSTANCE);
 		/*eventListenerRegistry.prependListeners( EventType.MERGE,MergeEventListenerImpl.class);

@@ -18,8 +18,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+
 
 /**
  * The persistent class for the tt_user database table.
@@ -38,10 +37,10 @@ public class User implements Serializable {
 
 	private int blocked;
 
-	@Temporal(TemporalType.TIMESTAMP)
+
 	private Date blockedtime;
 
-	@Temporal(TemporalType.TIMESTAMP)
+
 	private Date createtime;
 
 	private String dob;
@@ -61,7 +60,6 @@ public class User implements Serializable {
 	@Column(name="middle_name")
 	private String middleName;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date modtime;
 
 	@Column(name="no_attempt")

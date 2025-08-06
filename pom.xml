@@ -10,13 +10,13 @@
 	<name>din</name>
 	<description>parent</description>
 	<properties>
-		<spring.version>6.2.9</spring.version>
+		<spring.version>7.0.0-M4</spring.version>
 		<spring-security.version>6.5.2</spring-security.version>
-		<spring-data-jpa.version>3.5.2</spring-data-jpa.version>
+		<spring-data-jpa.version>4.0.0-M2</spring-data-jpa.version>
 		<spring-instrument-tomcat.version>4.3.30.RELEASE</spring-instrument-tomcat.version>
-		<javers.version>7.7.0</javers.version>
-		<hibernate.version>6.6.4.Final</hibernate.version>
-		<hibernate.common.annotaion.version>6.0.6.Final</hibernate.common.annotaion.version>
+		<javers.version>7.8.0</javers.version>
+		<hibernate.version>7.0.5.Final</hibernate.version>
+		<hibernate.common.annotaion.version>7.0.3.Final</hibernate.common.annotaion.version>
 		<java-version>21</java-version>
 	</properties>
 	<modules>
@@ -33,16 +33,16 @@
 			<!--<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
-				<version>1.15.1</version>
+				<version>1.10.0</version>
 				<configuration>
-					<nodeVersion>v24.2.1</nodeVersion>
+					<nodeVersion>v14.5.0</nodeVersion>
 					<npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>cz.habarta.typescript-generator</groupId>
 				<artifactId>typescript-generator-maven-plugin</artifactId>
-				<version>3.2.1263</version>
+				<version>2.23.603</version>
 			</plugin>-->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -69,8 +69,6 @@
 		</plugins>
 	</build>
 	<dependencies>
-		<!--
-		https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
@@ -109,8 +107,7 @@
 			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
-			<!--
-			https://mvnrepository.com/artifact/org.springframework/spring-aspects -->
+			<!-- https://mvnrepository.com/artifact/org.springframework/spring-aspects -->
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aspects</artifactId>
 			<version>${spring.version}</version>
@@ -125,8 +122,7 @@
 			<artifactId>spring-data-jpa</artifactId>
 			<version>${spring-data-jpa.version}</version>
 		</dependency>
-		<!--
-		http://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
+		<!-- http://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
@@ -137,20 +133,18 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>${spring-security.version}</version>
 		</dependency>
-		<!--
-		http://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+		<!-- http://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
 			<version>${spring-security.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>${hibernate.version}</version>
-		</dependency>
-
+<dependency>
+    <groupId>org.hibernate.orm</groupId>
+    <artifactId>hibernate-core</artifactId>
+ <version>${hibernate.version}</version>
+</dependency>
 		<dependency>
 			<groupId>org.hibernate.common</groupId>
 			<artifactId>hibernate-commons-annotations</artifactId>
@@ -158,20 +152,20 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.hibernate</groupId>
+			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-c3p0</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-jpamodelgen</artifactId>
-			<version>${hibernate.version}</version>
-		</dependency>
-
+		
+<dependency>
+    <groupId>org.hibernate.orm</groupId>
+    <artifactId>hibernate-processor</artifactId>
+	<version>${hibernate.version}</version>
+</dependency>
 		<dependency>
 			<groupId>jakarta.persistence</groupId>
 			<artifactId>jakarta.persistence-api</artifactId>
-			<version>3.1.0</version>
+			<version>3.2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>jakarta.transaction</groupId>
@@ -190,22 +184,20 @@
 			<version>1.9.24</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
-		<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
-			<version>9.3.0</version>
-		</dependency>
+<dependency>
+    <groupId>com.mysql</groupId>
+    <artifactId>mysql-connector-j</artifactId>
+    <version>9.3.0</version>
+</dependency>
 
-		<!--
-		https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.13.4</version>
-			<scope>test</scope>
-		</dependency>
-		<!-- <dependency> <groupId>com.mysema.querydsl</groupId>
-		<artifactId>querydsl-apt</artifactId> 
+<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter-api</artifactId>
+    <version>5.13.4</version>
+    <scope>test</scope>
+</dependency>
+		<!-- <dependency> <groupId>com.mysema.querydsl</groupId> <artifactId>querydsl-apt</artifactId> 
 			<version>3.7.1</version> <scope>provided</scope> </dependency> <dependency> 
 			<groupId>com.mysema.querydsl</groupId> <artifactId>querydsl-jpa</artifactId> 
 			<version>3.7.1</version> </dependency> -->
@@ -226,30 +218,29 @@
 			<artifactId>logback-core</artifactId>
 			<version>1.5.18</version>
 		</dependency>
-		<!-- <dependency> <groupId>org.slf4j</groupId>
-		<artifactId>slf4j-log4j12</artifactId> 
+		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-log4j12</artifactId> 
 			<version>1.7.21</version> </dependency> -->
 		<!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>2.13.0</version>
-		</dependency>
+<dependency>
+    <groupId>joda-time</groupId>
+    <artifactId>joda-time</artifactId>
+    <version>2.13.0</version>
+</dependency>
 		<!-- apache spark -->
-		<!-- <dependency> <groupId>org.apache.spark</groupId>
-		<artifactId>spark-core_2.10</artifactId> 
+		<!-- <dependency> <groupId>org.apache.spark</groupId> <artifactId>spark-core_2.10</artifactId> 
 			<version>1.6.1</version> </dependency> -->
 		<!-- infinispan -->
 
 		<!-- gwt depedency -->
+<!-- https://mvnrepository.com/artifact/org.gwtproject/gwt-servlet -->
+<dependency>
+    <groupId>org.gwtproject</groupId>
+    <artifactId>gwt-servlet</artifactId>
+    <version>2.12.2</version>
+    <scope>runtime</scope>
+</dependency>
 		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-servlet</artifactId>
-			<version>2.10.0</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.google.gwt</groupId>
+			<groupId>org.gwtproject</groupId>
 			<artifactId>gwt-user</artifactId>
 			<version>2.10.0</version>
 			<scope>provided</scope>

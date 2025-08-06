@@ -22,7 +22,12 @@
 			<artifactId>minio</artifactId>
 			<version>8.5.17</version>
 		</dependency>
-
+<!-- https://mvnrepository.com/artifact/io.minio/minio-admin -->
+<dependency>
+    <groupId>io.minio</groupId>
+    <artifactId>minio-admin</artifactId>
+    <version>8.5.17</version>
+</dependency>
 		<dependency>
 			<groupId>org.apache.zookeeper</groupId>
 			<artifactId>zookeeper</artifactId>

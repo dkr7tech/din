@@ -2,8 +2,6 @@ package com.model.common;
 import java.util.Date;
 
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 
 
 @MappedSuperclass
@@ -11,9 +9,9 @@ public abstract class  DateTimeSupport<T> {
 
 	T createdBy;
 	Date createdDate;
-	@Temporal(TemporalType.TIMESTAMP)
+
 	Date lastModifiedBy;
-	@Temporal(TemporalType.TIMESTAMP)
+
 	Date lastModifiedDate;
 	public T getCreatedBy() {
 		return createdBy;
